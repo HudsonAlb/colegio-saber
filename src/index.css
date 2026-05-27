@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cinzel", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  
+  --color-brand-orange: #ff6b00;
+  --color-brand-orange-light: #ff8b33;
+  --color-brand-orange-dark: #cc5200;
+  
+  --color-brand-yellow: #ffc700;
+  --color-brand-yellow-light: #ffe066;
+  --color-brand-yellow-dark: #cc9f00;
+  
+  --color-brand-light: #ffffff;
+  --color-brand-light-card: #fcfbf9;
+  --color-brand-light-border: #eee9e0;
+  --color-brand-charcoal: #111112;
+  --color-brand-charcoal-light: #444447;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    background-color: var(--color-brand-light);
+    color: var(--color-brand-charcoal);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  /* Lenis-smooth scrolling class support */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  
+  .lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  
+  .lenis-smooth [data-lenis-prevent] {
+    overflow: clip;
+  }
+  
+  .lenis-prevent {
+    overscroll-behavior: contain;
+  }
+}
+
+/* Custom Utilities for premium aesthetics */
+@utility no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+@utility text-reveal-wrapper {
+  overflow: hidden;
+  display: block;
+}
+
+@utility text-reveal-line {
+  display: block;
+  transform: translateY(105%);
+}
+
+/* Animação Customizada de Entrada para Elementos */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Otimização de Impressão */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  header, footer, nav, button, .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Sobrescrita de Temas para Alto Contraste */
+html.high-contrast {
+  --color-brand-light: #000000;
+  --color-brand-light-card: #111112;
+  --color-brand-light-border: #ffffff;
+  --color-brand-charcoal: #ffffff;
+  --color-brand-charcoal-light: #e5e5e5;
+  
+  --color-brand-orange: #ffff00;
+  --color-brand-orange-light: #ffff66;
+  --color-brand-orange-dark: #cccc00;
+  
+  --color-brand-yellow: #ffff00;
+  --color-brand-yellow-light: #ffff66;
+  --color-brand-yellow-dark: #cccc00;
+}
+
+/* Forçar bordas e visibilidade extra no alto contraste */
+html.high-contrast * {
+  border-color: #ffffff !important;
+}
+
+html.high-contrast button, 
+html.high-contrast a {
+  outline: 2px solid transparent;
+}
+
+html.high-contrast button:focus, 
+html.high-contrast a:focus,
+html.high-contrast [tabindex="0"]:focus,
+html.high-contrast [role="button"]:focus {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 2px !important;
+}
