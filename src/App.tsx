@@ -6,6 +6,8 @@ import { Menu, X, ArrowRight, GraduationCap, MapPin, Phone, Mail } from 'lucide-
 import SmoothScroll from './components/SmoothScroll';
 import Hero from './components/Hero';
 import PillarsSection from './components/PillarsSection';
+import HighlightsSection from './components/HighlightsSection';
+import StatsSection from './components/StatsSection';
 import PageTransition from './components/PageTransition';
 import AdmissaoPage from './pages/AdmissaoPage';
 import DiferenciaisPage from './pages/DiferenciaisPage';
@@ -195,6 +197,8 @@ function HomePage() {
   return (
     <div className="page-home">
       <Hero />
+      <HighlightsSection />
+      <StatsSection />
       
       {/* Quick Access Block for Parents */}
       <section className="py-20 bg-brand-light border-t border-brand-light-border relative z-10">

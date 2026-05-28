@@ -55,24 +55,23 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
 - **FAQ**: Acordeão dinâmico na rota `/matriculas`.
 - **Calendário**: Grade mensal, timeline de compromissos, filtros rápidos de eventos, download de iCalendar (`.ics`) e simulador animado de conexão Google Calendar.
 
+### 10. Apresentação de Destaques Pedagógicos ([HighlightsSection.tsx](file:///c:/Users/Hudson/BlackDog/colegio-saber/src/components/HighlightsSection.tsx))
+- **Grid Interativo de Destaques**: Seção de destaques (Tecnologia & Robótica, Bilinguismo Prático, Acompanhamento Único) posicionada logo após o Hero na página principal.
+- **Animações GSAP**: Efeito hover enriquecido (zoom de imagem, rotação de ícones, alteração de opacidade de máscara de cor e revelação de lista de benefícios com slide/fade) e acessibilidade de foco via teclado completa.
+
+### 11. Mural de Conquistas & Aprovações ([StatsSection.tsx](file:///c:/Users/Hudson/BlackDog/colegio-saber/src/components/StatsSection.tsx))
+- **Contadores Progressivos**: Seção contendo dados chave (85+ Anos de Tradição, 100% Aprovação Nacional, 12k+ Líderes Formados) com animações de contagem progressiva e suavização via GSAP ScrollTrigger, ativadas ao rolar a página.
+
 ---
 
 ## 🗺️ Planejamento de Futuros Passos (Foco na Página de Início)
 
-Para a nossa próxima sessão de trabalho, redirecionaremos os esforços para transformar a **Página de Início (Home)** em uma vitrine visual imersiva e recheada de conteúdo premium.
-
 ### 🌟 Fase Atual: Enriquecimento & Animações da Página de Início (Curto Prazo)
 
-1. **Apresentação de Destaques Pedagógicos**:
-   - Desenvolver um grid interativo com animações GSAP Hover para apresentar nossos diferenciais logo abaixo da dobra principal (ex: Tecnologia, Bilingualismo, Acompanhamento Individualizado).
-
-2. **Mural de Conquistas & Aprovações**:
-   - Integrar uma seção com contadores numéricos progressivos animados via GSAP ScrollTrigger para destacar dados relevantes do colégio (ex: "85+ Anos de Tradição", "100% de Aprovações nacionais", "12k+ Líderes Formados") diretamente na Home.
-
-3. **Seção de Depoimentos Premium (Carrossel Interativo)**:
+1. **Seção de Depoimentos Premium (Carrossel Interativo)**:
    - Implementar um carrossel horizontal contínuo com depoimentos reais de pais e responsáveis, com efeitos de fade-in e controle de rolagem por toque e setas.
 
-4. **GSAP ScrollTrigger Reveal**:
+2. **GSAP ScrollTrigger Reveal**:
    - Injetar animações de revelação suave (fade-in, slide e zoom controlado) à medida que o usuário rola pelas seções da página inicial, reforçando o caráter dinâmico e premium.
 
 ---
