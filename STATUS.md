@@ -62,6 +62,12 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
 ### 11. Mural de Conquistas & Aprovações ([StatsSection.tsx](file:///c:/Users/Hudson/BlackDog/colegio-saber/src/components/StatsSection.tsx))
 - **Contadores Progressivos**: Seção contendo dados chave (85+ Anos de Tradição, 100% Aprovação Nacional, 12k+ Líderes Formados) com animações de contagem progressiva e suavização via GSAP ScrollTrigger, ativadas ao rolar a página.
 
+### 12. Blog Pedagógico "Saber em Ação" ([BlogPage.tsx](file:///c:/Users/Hudson/BlackDog/colegio-saber/src/pages/BlogPage.tsx))
+- **Filtros e Busca**: Abas dinâmicas para alternar entre Artigos Pedagógicos e Projetos dos Alunos, com barra de busca por texto e tags.
+- **Modal de Leitura Acessível**: Modal interativo com suporte a teclado (`Escape`) que apresenta o artigo na íntegra ou a ficha técnica e objetivos de aprendizagem do projeto.
+- **Galeria de Projetos**: Amostragem visual premium das fotos dos projetos de alunos com imagens de alta fidelidade integradas.
+- **Roteamento Global**: Link integrado ao Header principal, Menu Mobile e Footer institucional.
+
 ---
 
 ## 🗺️ Planejamento de Futuros Passos (Foco na Página de Início)
@@ -78,7 +84,28 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
 
 ### 🎨 Fase 2: Polimento Visual, Blog & Dashboards (Médio a Longo Prazo)
 
-1. **Blog Pedagógico "Saber em Ação"**: Compartilhamento de artigos pedagógicos e fotos de projetos dos alunos.
-2. **Dashboard Acadêmico Estilizado (Portal do Responsável)**: Painel simulado com controle de notas, boletim em formato de gráficos SVG interativos, faltas e cardápios.
-3. **Internacionalização (Multi-idiomas)**: Tradução do site para Inglês e Espanhol.
-4. **Integração com CRM**: Envio automático de leads captados no formulário de Admissão.
+1. **Dashboard Acadêmico Estilizado (Portal do Responsável)**: Painel simulado com controle de notas, boletim em formato de gráficos SVG interativos, faltas e cardápios.
+2. **Internacionalização (Multi-idiomas)**: Tradução do site para Inglês e Espanhol.
+3. **Integração com CRM**: Envio automático de leads captados no formulário de Admissão.
+
+---
+
+### 🧠 Fase 3: Experiência Imersiva, IA & Interatividade (Longo Prazo)
+
+1. **Assistente de IA Pedagógica (Chatbot Conversacional)**:
+   - Chatbot inteligente integrado para responder dúvidas frequentes sobre admissão, grade curricular e infraestrutura em tempo real.
+2. **Tour Virtual 360° em Realidade Virtual (WebVR)**:
+   - Suporte a giroscópio para navegação em dispositivos móveis e integração de áudio-guia descritivo por ambiente.
+3. **Provador Virtual de Uniformes**:
+   - Simulador 3D interativo ou via canvas permitindo a visualização tridimensional dos uniformes escolares da instituição.
+
+---
+
+### 🔒 Fase 4: Otimização, PWA & Assinatura Digital (Futuro Estratégico)
+
+1. **Contrato de Matrícula com Assinatura Eletrônica**:
+   - Integração com provedores de assinatura digital (como DocuSign ou Clicksign) para a conclusão 100% digital do fluxo de admissão.
+2. **Suporte a PWA (Progressive Web App)**:
+   - Configuração de Manifesto e Service Workers para permitir a instalação do site como aplicativo nativo e envio de notificações push.
+3. **Otimização Extrema de Mídia (AVIF/WebP & CDN)**:
+   - Pipeline de compressão automatizada de imagens e entrega rápida via rede de distribuição de conteúdo (CDN).

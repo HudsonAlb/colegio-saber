@@ -15,6 +15,7 @@ import DiferenciaisPage from './pages/DiferenciaisPage';
 import MatriculasPage from './pages/MatriculasPage';
 import CalendarioPage from './pages/CalendarioPage';
 import SegmentosPage from './pages/SegmentosPage';
+import BlogPage from './pages/BlogPage';
 import AccessibilityBar from './components/AccessibilityBar';
 import WhatsappButton from './components/WhatsappButton';
 
@@ -88,7 +89,8 @@ function Header() {
               { label: 'Ensino', path: '/segmentos' },
               { label: 'Diferenciais', path: '/diferenciais' },
               { label: 'Matrículas', path: '/matriculas' },
-              { label: 'Calendário', path: '/calendario' }
+              { label: 'Calendário', path: '/calendario' },
+              { label: 'Blog', path: '/blog' }
             ].map((item, idx) => {
               const isActive = location.pathname === item.path;
               return (
@@ -166,7 +168,8 @@ function Header() {
             { label: 'Ensino', path: '/segmentos' },
             { label: 'Diferenciais', path: '/diferenciais' },
             { label: 'Matrículas', path: '/matriculas' },
-            { label: 'Calendário', path: '/calendario' }
+            { label: 'Calendário', path: '/calendario' },
+            { label: 'Blog Saber em Ação', path: '/blog' }
           ].map((item, idx) => (
             <Link 
               key={idx} 
@@ -433,6 +436,7 @@ function Footer() {
             <Link to="/matriculas" className="hover:text-brand-orange transition-colors duration-300">Processo de Admissão</Link>
             <Link to="/admissao" className="hover:text-brand-orange transition-colors duration-300">Matrícula Interativa</Link>
             <Link to="/calendario" className="hover:text-brand-orange transition-colors duration-300">Calendário Escolar</Link>
+            <Link to="/blog" className="hover:text-brand-orange transition-colors duration-300">Blog Saber em Ação</Link>
           </div>
         </div>
 
@@ -529,6 +533,7 @@ function App() {
                 <Route path="/matriculas" element={<MatriculasPage />} />
                 <Route path="/admissao" element={<AdmissaoPage />} />
                 <Route path="/calendario" element={<CalendarioPage />} />
+                <Route path="/blog" element={<BlogPage />} />
               </Routes>
             </PageTransition>
           </main>
