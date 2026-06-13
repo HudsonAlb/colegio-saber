@@ -18,135 +18,100 @@ import SegmentosPage from './pages/SegmentosPage';
 import BlogPage from './pages/BlogPage';
 import AccessibilityBar from './components/AccessibilityBar';
 import WhatsappButton from './components/WhatsappButton';
+import heroMockup from './assets/hero_mockup.png';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// ----------------- CROPPED LOGO ICON -----------------
+function LogoIcon() {
+  return (
+    <div className="w-8 h-8 rounded-full overflow-hidden relative border border-brand-charcoal/5 shrink-0 flex items-center justify-center bg-white group-hover:scale-110 transition-transform duration-300">
+      <img
+        src={heroMockup}
+        alt="Logo Colégio Saber"
+        className="w-full h-full object-cover scale-[21] origin-[12.62%_11.82%] pointer-events-none"
+      />
+    </div>
+  );
+}
 
 // ----------------- HEADER & NAV COMPONENT -----------------
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Fecha o menu mobile quando a rota muda
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  const isHeaderActive = isScrolled || isMenuOpen;
-
   return (
     <>
       <header 
         role="banner"
-        className={`relative w-full z-40 transition-all duration-700 ${
-          isHeaderActive 
-            ? 'py-2 md:py-4 bg-brand-light/95 backdrop-blur-lg border-b border-brand-light-border shadow-md' 
-            : 'py-3 md:py-5 bg-brand-orange-dark border-b border-brand-orange-dark/20'
-        }`}
+        className="w-full transition-all duration-500 bg-white/95 backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between gap-4">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 md:gap-3 group shrink-0" aria-label="Colégio Saber - Início">
-            <GraduationCap className={`w-7 h-7 md:w-8 md:h-8 stroke-[1.5] group-hover:scale-105 transition-all duration-700 ${
-              isHeaderActive ? 'text-brand-orange-dark' : 'text-brand-yellow'
-            }`} />
-            <div className="flex flex-col">
-              <span className={`font-serif text-sm md:text-lg tracking-[0.2em] font-semibold transition-colors duration-700 whitespace-nowrap ${
-                isHeaderActive 
-                  ? 'text-brand-charcoal group-hover:text-brand-orange-dark' 
-                  : 'text-brand-light group-hover:text-brand-yellow'
-              }`}>
-                COLÉGIO SABER
-              </span>
-              <span className={`text-[8px] md:text-[9px] font-sans tracking-[0.35em] font-medium transition-colors duration-700 whitespace-nowrap ${
-                isHeaderActive 
-                  ? 'text-brand-orange-dark' 
-                  : 'text-brand-yellow-light'
-              }`}>
-                EXCELÊNCIA & VALORES
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-8 shrink" role="navigation" aria-label="Menu de Navegação Principal">
-            {[
-              { label: 'Início', path: '/' },
-              { label: 'História', path: '/historia' },
-              { label: 'Pilares', path: '/pilares' },
-              { label: 'Ensino', path: '/segmentos' },
-              { label: 'Diferenciais', path: '/diferenciais' },
-              { label: 'Matrículas', path: '/matriculas' },
-              { label: 'Calendário', path: '/calendario' },
-              { label: 'Blog', path: '/blog' }
-            ].map((item, idx) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <Link 
-                  key={idx} 
-                  to={item.path}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`font-sans text-[10px] xl:text-xs uppercase tracking-[0.1em] xl:tracking-[0.2em] transition-colors duration-500 relative py-1 group whitespace-nowrap ${
-                    isActive 
-                      ? (isHeaderActive ? 'text-brand-orange-dark font-semibold' : 'text-brand-yellow font-semibold')
-                      : (isHeaderActive ? 'text-brand-charcoal hover:text-brand-orange-dark' : 'text-brand-light/95 hover:text-brand-yellow')
-                  }`}
-                >
-                  {item.label}
-                  <span className={`absolute bottom-0 left-0 h-[1px] transition-all duration-500 ease-out ${
-                    isHeaderActive ? 'bg-brand-orange-dark' : 'bg-brand-yellow'
-                  } ${
-                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`}></span>
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* CTA Desktop */}
-          <div className="hidden lg:block shrink-0">
-            <Link 
-              to="/admissao" 
-              className={`relative inline-flex items-center justify-center px-4 xl:px-6 py-2 xl:py-2.5 rounded-full overflow-hidden border transition-all duration-700 text-[10px] xl:text-xs font-sans uppercase tracking-[0.15em] xl:tracking-[0.2em] whitespace-nowrap group ${
-                isHeaderActive 
-                  ? 'border-brand-orange-dark/40 text-brand-orange-dark hover:text-brand-light' 
-                  : 'border-brand-light/40 text-brand-light hover:text-brand-orange-dark'
-              }`}
-            >
-              <span className={`absolute inset-0 w-full h-full scale-x-0 origin-left transition-transform duration-700 ease-out group-hover:scale-x-100 ${
-                isHeaderActive ? 'bg-brand-orange-dark' : 'bg-brand-light'
-              }`}></span>
-              <span className="relative z-10 font-semibold">Agendar Visita</span>
-            </Link>
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 md:gap-3 group shrink-0" aria-label="Colégio Saber - Início">
+          <LogoIcon />
+          <div className="flex flex-col">
+            <span className="font-serif text-sm md:text-base font-bold tracking-normal text-brand-charcoal group-hover:text-brand-orange transition-colors duration-300">
+              Colégio Saber
+            </span>
+            <span className="text-[8px] md:text-[9px] font-sans tracking-[0.2em] font-semibold text-brand-charcoal/50">
+              CUIDAR & APRENDER
+            </span>
           </div>
+        </Link>
 
-          {/* Hamburger Button */}
-          <button 
-            className={`block lg:hidden transition-colors duration-500 focus:outline-none shrink-0 ${
-              isHeaderActive 
-                ? 'text-brand-charcoal hover:text-brand-orange-dark' 
-                : 'text-brand-light hover:text-brand-yellow'
-            }`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu-container"
+        {/* Desktop Navigation */}
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 shrink" role="navigation" aria-label="Menu de Navegação Principal">
+          {[
+            { label: 'Início', path: '/' },
+            { label: 'Nosso Método', path: '/pilares' },
+            { label: 'Educação Infantil', path: '/segmentos' },
+            { label: 'Infraestrutura', path: '/diferenciais' },
+            { label: 'Contato', path: '/admissao' }
+          ].map((item, idx) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link 
+                key={idx} 
+                to={item.path}
+                aria-current={isActive ? 'page' : undefined}
+                className={`font-sans text-[11px] xl:text-xs font-semibold py-2 px-3.5 rounded-full transition-all duration-300 whitespace-nowrap ${
+                  isActive 
+                    ? 'bg-brand-orange/15 text-brand-orange-dark font-bold'
+                    : 'text-brand-charcoal hover:text-brand-orange hover:bg-brand-orange/5'
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* CTA Desktop */}
+        <div className="hidden lg:block shrink-0">
+          <Link 
+            to="/admissao" 
+            className="relative inline-flex items-center justify-center px-5 py-2.5 rounded-full overflow-hidden bg-brand-orange text-white hover:bg-brand-orange-dark transition-all duration-300 text-xs font-semibold tracking-wide whitespace-nowrap shadow-sm"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            Matrículas Abertas
+          </Link>
         </div>
+
+        {/* Hamburger Button */}
+        <button 
+          className="block lg:hidden text-brand-charcoal hover:text-brand-orange transition-colors duration-300 focus:outline-none shrink-0"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu-container"
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </header>
 
       {/* MOBILE MENU */}
@@ -154,39 +119,36 @@ function Header() {
         id="mobile-menu-container"
         role="navigation"
         aria-label="Menu de Navegação Mobile"
-        className={`fixed inset-0 z-35 bg-brand-light flex flex-col justify-center px-8 transition-all duration-1000 ease-in-out ${
+        className={`fixed inset-0 z-35 bg-[#fdfbf7] flex flex-col justify-center px-8 transition-all duration-700 ease-in-out ${
           isMenuOpen 
             ? 'opacity-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 -translate-y-10 pointer-events-none'
-        }`}
+          }`}
       >
-        <nav className="flex flex-col gap-8 text-left mt-12">
+        <nav className="flex flex-col gap-5 text-center mt-12">
           {[
             { label: 'Início', path: '/' },
-            { label: 'História', path: '/historia' },
-            { label: 'Pilares', path: '/pilares' },
-            { label: 'Ensino', path: '/segmentos' },
-            { label: 'Diferenciais', path: '/diferenciais' },
-            { label: 'Matrículas', path: '/matriculas' },
-            { label: 'Calendário', path: '/calendario' },
-            { label: 'Blog Saber em Ação', path: '/blog' }
+            { label: 'Nosso Método', path: '/pilares' },
+            { label: 'Educação Infantil', path: '/segmentos' },
+            { label: 'Infraestrutura', path: '/diferenciais' },
+            { label: 'Contato', path: '/admissao' }
           ].map((item, idx) => (
             <Link 
               key={idx} 
               to={item.path}
-              className="font-serif text-3xl tracking-wide text-brand-charcoal/80 hover:text-brand-orange transition-colors duration-500"
+              className="font-serif text-2xl tracking-wide text-brand-charcoal hover:text-brand-orange transition-colors duration-300 font-semibold"
             >
               {item.label}
             </Link>
           ))}
         </nav>
         
-        <div className="mt-16 pt-8 border-t border-brand-light-border flex flex-col gap-4">
+        <div className="mt-12 pt-6 border-t border-brand-light-border flex flex-col gap-4">
           <Link 
             to="/admissao"
-            className="w-full py-4 text-center rounded-full bg-brand-orange text-brand-light text-xs uppercase tracking-[0.2em] font-semibold"
+            className="w-full py-3 text-center rounded-full bg-brand-orange text-white text-sm font-semibold shadow-md"
           >
-            Agendar Visita
+            Matrículas Abertas
           </Link>
         </div>
       </div>
@@ -509,41 +471,74 @@ function App() {
   return (
     <BrowserRouter>
       <SmoothScroll>
-        <div className="relative min-h-screen bg-brand-light overflow-hidden font-sans text-brand-charcoal selection:bg-brand-orange selection:text-brand-light flex flex-col justify-between">
+        {/* OUTER WRAPPER WITH PLAYFUL PASTEL BACKGROUND AND DECORATIVE WAVES */}
+        <div className="relative min-h-screen bg-[#f7fdfb] overflow-x-hidden font-sans text-brand-charcoal selection:bg-brand-orange selection:text-white p-0 sm:p-4 md:p-6 lg:p-8">
           
-          {/* HEADER & ACCESSIBILITY CONTAINER (Fixo no topo e empilhado sem sobreposição) */}
-          <div className="fixed top-0 left-0 w-full z-40 flex flex-col pointer-events-none">
-            <div className="pointer-events-auto w-full">
-              <AccessibilityBar />
-            </div>
-            <div className="pointer-events-auto w-full">
-              <Header />
-            </div>
+          {/* WAVY PASTEL CORNER GRAPHICS */}
+          <div className="absolute top-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#ffa15c]/30 rounded-br-[160px] pointer-events-none -z-10"></div>
+          <div className="absolute top-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#66cc33]/20 rounded-bl-[160px] pointer-events-none -z-10"></div>
+          <div className="absolute bottom-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#ffe574]/35 rounded-tr-[160px] pointer-events-none -z-10"></div>
+          <div className="absolute bottom-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#66cc33]/15 rounded-tl-[160px] pointer-events-none -z-10"></div>
+          
+          {/* FLOATING DECORATIONS IN THE BACKGROUND (OUTSIDE CANVAS) */}
+          <div className="absolute top-10 left-10 w-24 h-24 text-white opacity-40 pointer-events-none hidden lg:block">
+            {/* Cloud SVG */}
+            <svg viewBox="0 0 100 100" fill="currentColor"><path d="M20,60 C20,50 30,40 40,40 C45,30 60,30 70,40 C80,40 90,50 90,60 C90,70 80,80 70,80 L20,80 C10,80 10,70 20,60 Z"/></svg>
+          </div>
+          <div className="absolute top-40 right-12 w-16 h-16 text-[#ffcb1e] opacity-40 pointer-events-none hidden lg:block animate-pulse">
+            {/* Star SVG */}
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/></svg>
+          </div>
+          <div className="absolute bottom-20 left-8 w-20 h-20 text-[#ffa15c] opacity-30 pointer-events-none hidden lg:block">
+            {/* Flower SVG */}
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4M6,12A2,2 0 0,1 8,10A2,2 0 0,1 10,12A2,2 0 0,1 8,14A2,2 0 0,1 6,12M12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20M18,12A2,2 0 0,1 16,14A2,2 0 0,1 14,12A2,2 0 0,1 16,10A2,2 0 0,1 18,12Z"/></svg>
+          </div>
+          <div className="absolute bottom-40 right-10 w-28 h-28 opacity-25 pointer-events-none hidden lg:block">
+            {/* Rainbow SVG */}
+            <svg viewBox="0 0 100 50" fill="none" strokeWidth="8" strokeLinecap="round">
+              <path d="M10,45 A40,40 0 0,1 90,45" stroke="#ff65a3" />
+              <path d="M22,45 A28,28 0 0,1 78,45" stroke="#ffcb1e" />
+              <path d="M34,45 A16,16 0 0,1 66,45" stroke="#4ea8de" />
+            </svg>
           </div>
 
-          {/* ÁREA DE CONTEÚDO DAS PÁGINAS COM TRANSIÇÕES FADE */}
-          <main id="main-content" className="flex-grow z-10 focus:outline-none" role="main">
-            <PageTransition>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/historia" element={<HistoriaPage />} />
-                <Route path="/pilares" element={<PilaresPage />} />
-                <Route path="/segmentos" element={<SegmentosPage />} />
-                <Route path="/diferenciais" element={<DiferenciaisPage />} />
-                <Route path="/matriculas" element={<MatriculasPage />} />
-                <Route path="/admissao" element={<AdmissaoPage />} />
-                <Route path="/calendario" element={<CalendarioPage />} />
-                <Route path="/blog" element={<BlogPage />} />
-              </Routes>
-            </PageTransition>
-          </main>
+          {/* INNER WHITE-CREME CANVAS FOR THE MAIN CONTENT */}
+          <div className="mx-auto max-w-7xl bg-[#fffcf7] border-4 border-brand-charcoal/10 rounded-[32px] md:rounded-[48px] shadow-[0_24px_50px_rgba(67,56,50,0.12)] relative z-10 overflow-hidden flex flex-col justify-between min-h-[calc(100vh-4rem)]">
+            
+            {/* ACCESSIBILITY BAR (Fixed width block inside canvas) */}
+            <div className="w-full relative z-50">
+              <AccessibilityBar />
+            </div>
 
-          {/* FOOTER (Rodapé Compartilhado) */}
-          <Footer />
+            {/* STICKY CAPSULE HEADER WRAPPER */}
+            <div className="absolute top-12 left-0 w-full z-40 px-4 md:px-6 pointer-events-none">
+              <Header />
+            </div>
 
-          {/* BOTÃO FLUTUANTE DO WHATSAPP */}
-          <WhatsappButton />
+            {/* ÁREA DE CONTEÚDO DAS PÁGINAS COM TRANSIÇÕES FADE */}
+            <main id="main-content" className="flex-grow z-10 focus:outline-none pt-32 md:pt-40" role="main">
+              <PageTransition>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/historia" element={<HistoriaPage />} />
+                  <Route path="/pilares" element={<PilaresPage />} />
+                  <Route path="/segmentos" element={<SegmentosPage />} />
+                  <Route path="/diferenciais" element={<DiferenciaisPage />} />
+                  <Route path="/matriculas" element={<MatriculasPage />} />
+                  <Route path="/admissao" element={<AdmissaoPage />} />
+                  <Route path="/calendario" element={<CalendarioPage />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                </Routes>
+              </PageTransition>
+            </main>
 
+            {/* FOOTER (Rodapé Compartilhado) */}
+            <Footer />
+
+            {/* BOTÃO FLUTUANTE DO WHATSAPP */}
+            <WhatsappButton />
+
+          </div>
         </div>
       </SmoothScroll>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 # Status do Projeto & Planejamento de Expansão — Colégio Saber
 
-Este documento apresenta o estado atualizado do desenvolvimento do site do **Colégio Saber** e define a estratégia para as novas frentes de expansão, focando agora na otimização e enriquecimento da Página de Início.
+Este documento apresenta o estado atualizado do desenvolvimento do site do **Colégio Saber** e define a estratégia para as novas frentes de expansão.
 
 ---
 
@@ -68,29 +68,28 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
 - **Galeria de Projetos**: Amostragem visual premium das fotos dos projetos de alunos com imagens de alta fidelidade integradas.
 - **Roteamento Global**: Link integrado ao Header principal, Menu Mobile e Footer institucional.
 
----
-
-## 🗺️ Planejamento de Futuros Passos (Foco na Página de Início)
-
-### 🌟 Fase Atual: Enriquecimento & Animações da Página de Início (Curto Prazo)
-
-1. **Seção de Depoimentos Premium (Carrossel Interativo)**:
-   - Implementar um carrossel horizontal contínuo com depoimentos reais de pais e responsáveis, com efeitos de fade-in e controle de rolagem por toque e setas.
-
-2. **GSAP ScrollTrigger Reveal**:
-   - Injetar animações de revelação suave (fade-in, slide e zoom controlado) à medida que o usuário rola pelas seções da página inicial, reforçando o caráter dinâmico e premium.
+### 13. Seção de Depoimentos Premium & Animações Globais ([TestimonialsSection.tsx](file:///c:/Users/Hudson/BlackDog/colegio-saber/src/components/TestimonialsSection.tsx))
+- **Carrossel de Depoimentos**: Implementado carrossel horizontal contínuo com depoimentos reais de pais e responsáveis, com efeitos de fade-in e controle de rolagem por toque e setas.
+- **GSAP ScrollTrigger Revelations**: Injetadas animações de revelação suave (fade-in, slide e zoom controlado) à medida que o usuário rola pelas seções da página inicial, reforçando o caráter dinâmico e premium do site.
 
 ---
 
-### 🎨 Fase 2: Polimento Visual, Blog & Dashboards (Médio a Longo Prazo)
+## 🗺️ Planejamento de Futuros Passos
 
-1. **Dashboard Acadêmico Estilizado (Portal do Responsável)**: Painel simulado com controle de notas, boletim em formato de gráficos SVG interativos, faltas e cardápios.
-2. **Internacionalização (Multi-idiomas)**: Tradução do site para Inglês e Espanhol.
-3. **Integração com CRM**: Envio automático de leads captados no formulário de Admissão.
+### 🌟 Fase Atual: Portal Acadêmico, Tradução & Integrações (Curto a Médio Prazo)
+
+1. **Dashboard Acadêmico Estilizado (Portal do Responsável)**:
+   - Criar uma área logada simulada com controle de notas, boletim em formato de gráficos SVG interativos, frequência/faltas e cardápio escolar.
+
+2. **Internacionalização (Multi-idiomas)**:
+   - Configuração de internacionalização (tradução completa da interface para Inglês e Espanhol).
+
+3. **Integração com CRM**:
+   - Disparo/envio automático de leads captados no formulário de Admissão Digital para simular fluxo de funil comercial da instituição.
 
 ---
 
-### 🧠 Fase 3: Experiência Imersiva, IA & Interatividade (Longo Prazo)
+### 🧠 Fase 2: Experiência Imersiva, IA & Interatividade (Médio a Longo Prazo)
 
 1. **Assistente de IA Pedagógica (Chatbot Conversacional)**:
    - Chatbot inteligente integrado para responder dúvidas frequentes sobre admissão, grade curricular e infraestrutura em tempo real.
@@ -101,7 +100,7 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
 
 ---
 
-### 🔒 Fase 4: Otimização, PWA & Assinatura Digital (Futuro Estratégico)
+### 🔒 Fase 3: Otimização, PWA & Assinatura Digital (Futuro Estratégico)
 
 1. **Contrato de Matrícula com Assinatura Eletrônica**:
    - Integração com provedores de assinatura digital (como DocuSign ou Clicksign) para a conclusão 100% digital do fluxo de admissão.
@@ -109,3 +108,4 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
    - Configuração de Manifesto e Service Workers para permitir a instalação do site como aplicativo nativo e envio de notificações push.
 3. **Otimização Extrema de Mídia (AVIF/WebP & CDN)**:
    - Pipeline de compressão automatizada de imagens e entrega rápida via rede de distribuição de conteúdo (CDN).
+

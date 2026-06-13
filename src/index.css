@@ -1,23 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Cinzel", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Fredoka", sans-serif;
+  --font-sans: "Quicksand", sans-serif;
   
-  --color-brand-orange: #ff6b00;
-  --color-brand-orange-light: #ff8b33;
-  --color-brand-orange-dark: #cc5200;
+  --color-brand-orange: #ff7e1b;
+  --color-brand-orange-light: #ffa15c;
+  --color-brand-orange-dark: #e05300;
   
-  --color-brand-yellow: #ffc700;
-  --color-brand-yellow-light: #ffe066;
-  --color-brand-yellow-dark: #cc9f00;
+  --color-brand-yellow: #ffcb1e;
+  --color-brand-yellow-light: #ffe574;
+  --color-brand-yellow-dark: #d89f00;
+
+  --color-brand-blue: #4ea8de;
+  --color-brand-blue-light: #e0f2fe;
+  --color-brand-blue-dark: #0284c7;
+
+  --color-brand-green: #66cc33;
+  --color-brand-green-light: #ecfdf5;
+  --color-brand-green-dark: #15803d;
+
+  --color-brand-pink: #ff65a3;
+  --color-brand-pink-light: #fff1f2;
+  --color-brand-pink-dark: #be123c;
   
   --color-brand-light: #ffffff;
-  --color-brand-light-card: #fcfbf9;
-  --color-brand-light-border: #eee9e0;
-  --color-brand-charcoal: #111112;
-  --color-brand-charcoal-light: #444447;
+  --color-brand-light-card: #fffcf7;
+  --color-brand-light-border: #f5ebd5;
+  --color-brand-charcoal: #2d2a26;
+  --color-brand-charcoal-light: #524f4b;
 }
 
 @layer base {
