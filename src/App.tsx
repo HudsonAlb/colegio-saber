@@ -222,13 +222,13 @@ function Footer() {
             Contato
           </h5>
           <div className="flex flex-col gap-3 font-sans text-xs font-semibold text-brand-charcoal/75">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-left">
               <MapPin size={14} className="text-[#ff7e1b] shrink-0" />
-              <span>Av. das Nações Unidas, 1200 - São Paulo, SP</span>
+              <span>Rua Projetada, s/n, Escada - PE, 55.500-000</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone size={14} className="text-[#ff7e1b] shrink-0" />
-              <span>(11) 3456-7890</span>
+              <span>(81) 3556-1122</span>
             </div>
             <div className="flex items-center gap-2">
               <Mail size={14} className="text-[#ff7e1b] shrink-0" />
@@ -270,7 +270,10 @@ function Footer() {
 
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-8 border-t border-brand-light-border flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-[10px] uppercase tracking-widest text-brand-charcoal/60">
-        <span>© 2026 Colégio Saber. Todos os direitos reservados.</span>
+        <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left normal-case tracking-normal">
+          <span className="font-sans text-[10px] uppercase tracking-widest text-brand-charcoal/60">© 2026 Colégio Saber. Todos os direitos reservados.</span>
+          <span className="text-[9px] text-brand-charcoal/50">AMARA VANDIRA SANTOS DE OLIVEIRA COLEGIO — CNPJ: 00.719.483/0001-89 — Escada / PE</span>
+        </div>
         <div className="flex gap-6">
           <a href="#" className="hover:text-[#ff7e1b] transition-colors duration-300">Termos de Uso</a>
           <a href="#" className="hover:text-[#ff7e1b] transition-colors duration-300">Política de Privacidade</a>

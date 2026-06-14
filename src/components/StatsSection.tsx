@@ -21,7 +21,7 @@ export default function StatsSection() {
   const stats: StatItem[] = [
     {
       id: 'tradicao',
-      value: 85,
+      value: 30,
       suffix: '+',
       label: 'Anos de Tradição',
       description: 'Aliando solidez pedagógica à evolução constante de nossa metodologia.',
