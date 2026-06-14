@@ -247,7 +247,7 @@ export default function TestimonialsSection() {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="testimonial-card min-w-[280px] sm:min-w-[380px] md:min-w-[450px] max-w-[500px] flex-shrink-0 snap-center bg-brand-light border border-brand-light-border rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-md transition-all duration-500 flex flex-col justify-between relative group"
+              className="testimonial-card min-w-[280px] sm:min-w-[380px] md:min-w-[450px] max-w-[500px] flex-shrink-0 snap-center bg-brand-light border border-brand-light-border rounded-[2rem] p-8 md:p-10 shadow-sm hover:shadow-md transition-all duration-500 flex flex-col justify-between relative group"
             >
               {/* Ícone de Aspas Flutuante */}
               <div className="absolute top-8 right-8 text-brand-orange/10 group-hover:text-brand-orange/20 transition-colors duration-500">
@@ -259,21 +259,21 @@ export default function TestimonialsSection() {
                 <span className="inline-block px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange text-[10px] font-sans uppercase tracking-wider font-semibold mb-6">
                   {t.relation}
                 </span>
-                <p className="font-sans text-sm md:text-base text-brand-charcoal-light/90 font-light leading-relaxed italic">
+                <p className="font-sans text-sm md:text-base text-brand-charcoal-light/90 font-semibold leading-relaxed italic">
                   "{t.content}"
                 </p>
               </div>
 
               {/* Informações do Autor */}
               <div className="flex items-center gap-4 pt-6 border-t border-brand-light-border">
-                <div className="w-12 h-12 rounded-full bg-brand-orange-dark/10 flex items-center justify-center text-brand-orange-dark font-serif font-semibold text-sm tracking-wider">
+                <div className="w-12 h-12 rounded-full bg-brand-orange-dark/10 flex items-center justify-center text-brand-orange-dark font-serif font-bold text-sm tracking-wider">
                   {t.avatar}
                 </div>
                 <div>
-                  <h4 className="font-serif text-sm md:text-base font-semibold text-brand-charcoal">
+                  <h4 className="font-serif text-sm md:text-base font-bold text-brand-charcoal">
                     {t.name}
                   </h4>
-                  <p className="font-sans text-[11px] text-brand-charcoal-light/60 font-medium uppercase tracking-wider">
+                  <p className="font-sans text-[11px] text-brand-charcoal-light/60 font-semibold uppercase tracking-wider">
                     {t.role}
                   </p>
                 </div>

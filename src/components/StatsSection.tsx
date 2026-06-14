@@ -131,7 +131,7 @@ export default function StatsSection() {
             return (
               <div 
                 key={item.id}
-                className="stat-card flex flex-col items-center text-center p-8 md:p-10 rounded-3xl border border-brand-light-border bg-brand-light-card/85 backdrop-blur-sm shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-500"
+                className="stat-card flex flex-col items-center text-center p-8 md:p-10 rounded-[2rem] border border-brand-light-border bg-brand-light-card/85 backdrop-blur-sm shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-500"
               >
                 {/* Icon Container */}
                 <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange mb-6">
@@ -139,7 +139,7 @@ export default function StatsSection() {
                 </div>
 
                 {/* Animated Number */}
-                <div className="flex items-baseline font-serif text-6xl md:text-7xl font-bold text-brand-charcoal leading-none tracking-tight mb-4">
+                <div className="flex flex-nowrap items-baseline whitespace-nowrap font-serif text-6xl md:text-7xl font-bold text-brand-charcoal leading-none tracking-tight mb-4">
                   <span 
                     ref={(el) => {
                       elementsRef.current[idx] = el;
@@ -154,7 +154,7 @@ export default function StatsSection() {
                 <div className="w-8 h-[1px] bg-brand-light-border my-2"></div>
 
                 {/* Labels */}
-                <h3 className="font-serif text-lg text-brand-charcoal uppercase tracking-wider font-semibold mb-2 mt-2">
+                <h3 className="font-serif text-lg text-brand-charcoal uppercase tracking-wider font-bold mb-2 mt-2">
                   {item.label}
                 </h3>
                 <p className="font-sans text-xs text-brand-charcoal-light/80 font-light leading-relaxed max-w-xs">

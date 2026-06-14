@@ -449,38 +449,45 @@ export default function AdmissaoPage() {
             
             {/* Linha preenchida */}
             <div 
-              className="absolute top-1/2 left-0 h-[2px] bg-brand-orange -translate-y-1/2 z-0 transition-all duration-700 ease-out"
-              style={{ width: `${((step - 1) / 3) * 100}%` }}
+              className="absolute top-1/2 left-0 h-[2px] -translate-y-1/2 z-0 transition-all duration-700 ease-out"
+              style={{ 
+                width: `${((step - 1) / 3) * 100}%`,
+                backgroundColor: step === 2 ? '#ff7e1b' : step === 3 ? '#4ea8de' : step === 4 ? '#ffd166' : '#ff7e1b'
+              }}
             ></div>
 
             {[
-              { num: 1, label: 'Cadastro' },
-              { num: 2, label: 'Agendamento' },
-              { num: 3, label: 'Documentos' },
-              { num: 4, label: 'Ficha' }
-            ].map(s => (
-              <div key={s.num} className="relative z-10 flex flex-col items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => s.num < step && !isSuccess && setStep(s.num)}
-                  disabled={s.num >= step || isSuccess}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center font-sans text-xs font-semibold border transition-all duration-700 ${
-                    step === s.num
-                      ? 'bg-brand-orange text-white border-brand-orange shadow-lg shadow-brand-orange/20 scale-110'
-                      : step > s.num
-                      ? 'bg-brand-charcoal text-white border-brand-charcoal'
-                      : 'bg-white text-brand-charcoal/50 border-brand-light-border'
-                  }`}
-                >
-                  {step > s.num ? <Check size={14} /> : s.num}
-                </button>
-                <span className={`font-sans text-[10px] uppercase tracking-wider font-medium ${
-                  step === s.num ? 'text-brand-orange' : 'text-brand-charcoal/50'
-                }`}>
-                  {s.label}
-                </span>
-              </div>
-            ))}
+              { num: 1, label: 'Cadastro', activeClass: 'bg-[#ff7e1b] text-white border-[#ff7e1b] shadow-lg shadow-[#ff7e1b]/20 scale-110', completedClass: 'bg-[#fcd2af] text-[#433832] border-[#fcd2af]', textActive: 'text-[#ff7e1b]' },
+              { num: 2, label: 'Agendamento', activeClass: 'bg-[#4ea8de] text-white border-[#4ea8de] shadow-lg shadow-[#4ea8de]/20 scale-110', completedClass: 'bg-[#b9dcf4] text-[#433832] border-[#b9dcf4]', textActive: 'text-[#4ea8de]' },
+              { num: 3, label: 'Documentos', activeClass: 'bg-[#ffd166] text-[#433832] border-[#ffd166] shadow-lg shadow-[#ffd166]/20 scale-110', completedClass: 'bg-[#fde293] text-[#433832] border-[#fde293]', textActive: 'text-[#ffd166]' },
+              { num: 4, label: 'Ficha', activeClass: 'bg-[#ff7e1b] text-white border-[#ff7e1b] shadow-lg shadow-[#ff7e1b]/20 scale-110', completedClass: 'bg-[#fcd2af] text-[#433832] border-[#fcd2af]', textActive: 'text-[#ff7e1b]' }
+            ].map(s => {
+              const isCurrent = step === s.num;
+              const isPast = step > s.num;
+              return (
+                <div key={s.num} className="relative z-10 flex flex-col items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => s.num < step && !isSuccess && setStep(s.num)}
+                    disabled={s.num >= step || isSuccess}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center font-sans text-xs font-semibold border transition-all duration-700 ${
+                      isCurrent
+                        ? s.activeClass
+                        : isPast
+                        ? s.completedClass
+                        : 'bg-white text-brand-charcoal/50 border-brand-light-border'
+                    }`}
+                  >
+                    {isPast ? <Check size={14} /> : s.num}
+                  </button>
+                  <span className={`font-sans text-[10px] uppercase tracking-wider font-medium ${
+                    isCurrent ? s.textActive : 'text-brand-charcoal/50'
+                  }`}>
+                    {s.label}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -517,8 +524,8 @@ export default function AdmissaoPage() {
                           aria-required="true"
                           aria-invalid={errors.respNome ? "true" : "false"}
                           aria-describedby={errors.respNome ? "respNome-error" : undefined}
-                          className={`w-full pl-11 pr-4 py-3.5 rounded-xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                            errors.respNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
+                          className={`w-full pl-11 pr-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
+                            errors.respNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
                           }`}
                         />
                       </div>
@@ -538,8 +545,8 @@ export default function AdmissaoPage() {
                         aria-required="true"
                         aria-invalid={errors.respCpf ? "true" : "false"}
                         aria-describedby={errors.respCpf ? "respCpf-error" : undefined}
-                        className={`w-full px-4 py-3.5 rounded-xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.respCpf ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
+                        className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
+                          errors.respCpf ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
                         }`}
                       />
                       {errors.respCpf && <span id="respCpf-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.respCpf}</span>}
@@ -560,8 +567,8 @@ export default function AdmissaoPage() {
                           aria-required="true"
                           aria-invalid={errors.respEmail ? "true" : "false"}
                           aria-describedby={errors.respEmail ? "respEmail-error" : undefined}
-                          className={`w-full pl-11 pr-4 py-3.5 rounded-xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                            errors.respEmail ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
+                          className={`w-full pl-11 pr-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
+                            errors.respEmail ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
                           }`}
                         />
                       </div>
@@ -583,8 +590,8 @@ export default function AdmissaoPage() {
                           aria-required="true"
                           aria-invalid={errors.respTel ? "true" : "false"}
                           aria-describedby={errors.respTel ? "respTel-error" : undefined}
-                          className={`w-full pl-11 pr-4 py-3.5 rounded-xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                            errors.respTel ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
+                          className={`w-full pl-11 pr-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
+                            errors.respTel ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
                           }`}
                         />
                       </div>
@@ -613,8 +620,8 @@ export default function AdmissaoPage() {
                         aria-required="true"
                         aria-invalid={errors.alunoNome ? "true" : "false"}
                         aria-describedby={errors.alunoNome ? "alunoNome-error" : undefined}
-                        className={`w-full px-4 py-3.5 rounded-xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.alunoNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
+                        className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
+                          errors.alunoNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
                         }`}
                       />
                       {errors.alunoNome && <span id="alunoNome-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.alunoNome}</span>}
@@ -632,8 +639,8 @@ export default function AdmissaoPage() {
                         aria-required="true"
                         aria-invalid={errors.alunoNasc ? "true" : "false"}
                         aria-describedby={errors.alunoNasc ? "alunoNasc-error" : undefined}
-                        className={`w-full px-4 py-3.5 rounded-xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.alunoNasc ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
+                        className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
+                          errors.alunoNasc ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
                         }`}
                       />
                       {errors.alunoNasc && <span id="alunoNasc-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.alunoNasc}</span>}
@@ -650,8 +657,8 @@ export default function AdmissaoPage() {
                         aria-required="true"
                         aria-invalid={errors.alunoSerie ? "true" : "false"}
                         aria-describedby={errors.alunoSerie ? "alunoSerie-error" : undefined}
-                        className={`w-full px-4 py-3.5 rounded-xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.alunoSerie ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
+                        className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
+                          errors.alunoSerie ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
                         }`}
                       >
                         <option value="">Selecione...</option>
@@ -696,10 +703,10 @@ export default function AdmissaoPage() {
                                 onClick={() => setFormData(p => ({ ...p, dataTeste: dateString }))}
                                 aria-pressed={isSelected}
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
-                                className={`py-2 rounded-lg border text-center font-sans text-[10px] transition-all duration-300 ${
+                                className={`py-2 rounded-full border text-center font-sans text-[10px] transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal'
+                                    ? 'bg-[#ff7e1b] text-white border-[#ff7e1b] font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-[#ff7e1b]/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}
@@ -730,10 +737,10 @@ export default function AdmissaoPage() {
                                 onClick={() => setFormData(p => ({ ...p, horarioTeste: time }))}
                                 aria-pressed={isSelected}
                                 aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
-                                className={`py-2 rounded-lg border text-center font-sans text-xs transition-all duration-300 ${
+                                className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal'
+                                    ? 'bg-[#ff7e1b] text-white border-[#ff7e1b] font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-[#ff7e1b]/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {time}
@@ -771,10 +778,10 @@ export default function AdmissaoPage() {
                                 onClick={() => setFormData(p => ({ ...p, dataVisita: dateString }))}
                                 aria-pressed={isSelected}
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
-                                className={`py-2 rounded-lg border text-center font-sans text-[10px] transition-all duration-300 ${
+                                className={`py-2 rounded-full border text-center font-sans text-[10px] transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal'
+                                    ? 'bg-[#4ea8de] text-white border-[#4ea8de] font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-[#4ea8de]/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}
@@ -805,10 +812,10 @@ export default function AdmissaoPage() {
                                 onClick={() => setFormData(p => ({ ...p, horarioVisita: time }))}
                                 aria-pressed={isSelected}
                                 aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
-                                className={`py-2 rounded-lg border text-center font-sans text-xs transition-all duration-300 ${
+                                className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal'
+                                    ? 'bg-[#4ea8de] text-white border-[#4ea8de] font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-[#4ea8de]/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {time}
@@ -846,15 +853,15 @@ export default function AdmissaoPage() {
                             onClick={() => handleInteresseChange(opt.id)}
                             aria-pressed={isChecked}
                             aria-label={`${opt.label}${isChecked ? ', selecionado' : ''}`}
-                            className={`p-3 rounded-xl border text-left font-sans text-xs flex items-center justify-between transition-all duration-300 ${
+                            className={`p-3.5 px-5 rounded-full border text-left font-sans text-xs flex items-center justify-between transition-all duration-300 cursor-pointer ${
                               isChecked 
-                                ? 'bg-brand-orange/5 border-brand-orange text-brand-orange font-medium' 
-                                : 'border-brand-light-border hover:border-brand-orange/30 text-brand-charcoal-light'
+                                ? 'bg-[#ff7e1b]/10 border-[#ff7e1b] text-brand-charcoal font-semibold' 
+                                : 'border-brand-light-border hover:border-[#ff7e1b]/30 text-brand-charcoal-light bg-white'
                             }`}
                           >
                             <span>{opt.label}</span>
                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors duration-300 ${
-                              isChecked ? 'bg-brand-orange border-brand-orange text-white' : 'border-brand-light-border bg-white'
+                              isChecked ? 'bg-[#ff7e1b] border-[#ff7e1b] text-white' : 'border-brand-light-border bg-white'
                             }`}>
                               {isChecked && <Check size={10} />}
                             </div>
@@ -890,10 +897,10 @@ export default function AdmissaoPage() {
                         document.getElementById('file-upload')?.click();
                       }
                     }}
-                    className={`w-full py-10 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-500 outline-none focus:border-brand-orange focus:bg-brand-orange/5 ${
+                    className={`w-full py-12 border-2 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-500 outline-none focus:border-[#ff7e1b] ${
                       isDragging 
-                        ? 'border-brand-orange bg-brand-orange/5 scale-[1.01]' 
-                        : 'border-brand-light-border hover:border-brand-orange/50 bg-white'
+                        ? 'border-[#ff7e1b] bg-[#fffcf7] scale-[1.01]' 
+                        : 'border-brand-light-border hover:border-[#ff7e1b]/50 bg-[#fffcf7]'
                     }`}
                   >
                     <input
@@ -906,7 +913,7 @@ export default function AdmissaoPage() {
                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                     />
                     <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange animate-pulse">
+                      <div className="w-14 h-14 rounded-full bg-[#ff7e1b]/10 flex items-center justify-center text-[#ff7e1b] animate-pulse">
                         <UploadCloud size={24} />
                       </div>
                       <div className="flex flex-col gap-1 px-4">
@@ -926,10 +933,10 @@ export default function AdmissaoPage() {
                           <div 
                             key={file.id}
                             role="listitem"
-                            className="p-4 rounded-xl border border-brand-light-border bg-white flex items-center justify-between gap-4 transition-all duration-500"
+                            className="p-4 rounded-2xl border border-brand-light-border bg-white flex items-center justify-between gap-4 transition-all duration-500"
                           >
                             <div className="flex items-center gap-3 w-full min-w-0">
-                              <div className="p-2 rounded-lg bg-brand-light-card border border-brand-light-border text-brand-orange shrink-0">
+                              <div className="p-2 rounded-lg bg-brand-light-card border border-brand-light-border text-[#ff7e1b] shrink-0">
                                 <FileText size={18} />
                               </div>
                               <div className="flex flex-col gap-1 w-full min-w-0">
@@ -1065,9 +1072,9 @@ export default function AdmissaoPage() {
                   </div>
 
                   {/* Gerador de Ficha Oficial (Visualmente Premium) */}
-                  <div className="mt-4 p-6 rounded-2xl bg-brand-light border-2 border-brand-orange/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="mt-4 p-6 rounded-[2rem] bg-[#fffcf7] border-2 border-[#ff7e1b]/20 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-4 text-left">
-                      <div className="w-12 h-12 rounded-xl bg-brand-orange text-white flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-2xl bg-[#ff7e1b] text-white flex items-center justify-center shrink-0">
                         <FileText size={24} />
                       </div>
                       <div>
@@ -1079,7 +1086,7 @@ export default function AdmissaoPage() {
                       type="button"
                       onClick={generatePDF}
                       aria-label="Baixar Ficha de Inscrição em PDF"
-                      className="px-6 py-3 rounded-full border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-colors duration-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2"
+                      className="px-6 py-3 rounded-full border-2 border-[#ff7e1b] text-[#ff7e1b] hover:bg-[#ff7e1b] hover:text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 cursor-pointer"
                     >
                       <Download size={14} />
                       Baixar PDF
@@ -1095,7 +1102,7 @@ export default function AdmissaoPage() {
                     type="button"
                     onClick={handleBack}
                     aria-label="Voltar para o passo anterior"
-                    className="flex items-center gap-2 px-6 py-3 rounded-full border border-brand-charcoal/20 hover:border-brand-orange/60 hover:text-brand-orange text-brand-charcoal font-sans text-xs uppercase tracking-wider font-semibold transition-colors duration-500"
+                    className="flex items-center gap-2 px-6 py-3.5 rounded-full border-2 border-brand-charcoal/20 hover:border-[#ff7e1b] hover:text-[#ff7e1b] text-brand-charcoal font-sans text-xs uppercase tracking-wider font-semibold transition-all duration-500 cursor-pointer"
                   >
                     <ArrowLeft size={14} />
                     Voltar
@@ -1109,7 +1116,7 @@ export default function AdmissaoPage() {
                     type="button"
                     onClick={handleNext}
                     aria-label="Continuar para o próximo passo"
-                    className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-md shadow-brand-orange/10"
+                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-[#ff7e1b] hover:bg-[#e78b53] text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-md shadow-[#ff7e1b]/20 cursor-pointer"
                   >
                     Continuar
                     <ArrowRight size={14} />
@@ -1119,7 +1126,7 @@ export default function AdmissaoPage() {
                     type="submit"
                     disabled={isSubmitting}
                     aria-label="Finalizar inscrição e enviar dados"
-                    className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-brand-charcoal hover:bg-brand-orange text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-lg"
+                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-[#4ea8de] hover:bg-[#3a96c4] text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-lg cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>
@@ -1182,7 +1189,7 @@ export default function AdmissaoPage() {
                 <button
                   type="button"
                   onClick={generatePDF}
-                  className="px-8 py-3.5 rounded-full border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2"
+                  className="px-8 py-3.5 rounded-full border-2 border-[#ff7e1b] text-[#ff7e1b] hover:bg-[#ff7e1b] hover:text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Download size={14} />
                   Baixar Ficha (PDF)
@@ -1195,7 +1202,7 @@ export default function AdmissaoPage() {
                     // Força recálculo do Lenis/GSAP scroll
                     window.scrollTo({ top: 0 });
                   }}
-                  className="px-8 py-3.5 rounded-full bg-brand-charcoal hover:bg-brand-orange text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
+                  className="px-8 py-3.5 rounded-full bg-[#ff7e1b] hover:bg-[#e78b53] text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                 >
                   Voltar ao Início
                   <ArrowRight size={14} />

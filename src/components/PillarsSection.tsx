@@ -119,6 +119,7 @@ export default function PillarsSection() {
             <img 
               src={tradicaoImg} 
               alt="Criança lendo livro na biblioteca do Colégio Saber" 
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out"
             />
             {/* Soft decorative glow */}
@@ -137,6 +138,7 @@ export default function PillarsSection() {
             <img 
               src={inovacaoImg} 
               alt="Estudante montando projeto de robótica no laboratório" 
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-yellow/10 via-transparent to-transparent pointer-events-none"></div>
@@ -200,6 +202,7 @@ export default function PillarsSection() {
             <img 
               src={humanismoImg} 
               alt="Crianças colaborando em atividades escolares" 
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-orange/10 via-transparent to-transparent pointer-events-none"></div>

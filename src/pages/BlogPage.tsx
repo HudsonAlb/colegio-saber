@@ -173,7 +173,7 @@ export default function BlogPage() {
   });
 
   return (
-    <div ref={containerRef} className="pt-32 pb-24 min-h-screen bg-brand-light">
+    <div ref={containerRef} className="pt-32 pb-24 min-h-screen bg-brand-light-card">
       {/* HERO SECTION */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center md:text-left">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-orange/20 bg-brand-orange/5 text-brand-orange-dark text-xs uppercase tracking-widest font-semibold mb-6">
@@ -204,8 +204,8 @@ export default function BlogPage() {
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-500 ${
                 selectedCategory === cat.id
-                  ? 'bg-brand-orange text-brand-light shadow-md shadow-brand-orange/20 scale-105'
-                  : 'bg-brand-light-card border border-brand-light-border text-brand-charcoal-light hover:border-brand-orange hover:text-brand-orange-dark'
+                  ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/20 scale-105'
+                  : 'bg-white border border-brand-light-border text-brand-charcoal-light hover:border-brand-orange hover:text-brand-orange-dark'
               }`}
             >
               {cat.label}
@@ -242,7 +242,7 @@ export default function BlogPage() {
             {filteredPosts.map((post) => (
               <article
                 key={post.id}
-                className="blog-card flex flex-col h-full rounded-3xl border border-brand-light-border bg-brand-light-card overflow-hidden hover:shadow-xl transition-all duration-500 group"
+                className="blog-card flex flex-col h-full rounded-[2rem] border border-brand-light-border bg-white overflow-hidden hover:shadow-xl transition-all duration-500 group"
               >
                 {/* Imagem / Badge */}
                 <div className="relative h-56 overflow-hidden bg-brand-light-border">
@@ -281,7 +281,7 @@ export default function BlogPage() {
                     <h2 className="font-serif text-xl text-brand-charcoal mb-3 group-hover:text-brand-orange-dark transition-colors duration-300 line-clamp-2">
                       {post.title}
                     </h2>
-                    <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed mb-6 line-clamp-3">
+                    <p className="font-sans text-xs text-brand-charcoal-light/75 font-semibold leading-relaxed mb-6 line-clamp-3">
                       {post.excerpt}
                     </p>
                   </div>
@@ -349,7 +349,7 @@ export default function BlogPage() {
           <div
             ref={modalRef}
             tabIndex={-1}
-            className="relative bg-brand-light w-full max-w-4xl max-h-[85vh] rounded-3xl shadow-2xl border border-brand-light-border overflow-y-auto outline-none animate-fade-in"
+            className="relative bg-[#fffcf7] w-full max-w-4xl max-h-[85vh] rounded-[2rem] shadow-2xl border border-brand-light-border overflow-y-auto outline-none animate-fade-in"
           >
             {/* Header/Banner do Modal */}
             <div className="relative h-64 md:h-96 w-full bg-brand-light-border">
@@ -384,7 +384,7 @@ export default function BlogPage() {
                     </span>
                   )}
                 </div>
-                <h1 id="modal-title" className="font-serif text-xl md:text-3xl lg:text-4xl text-white leading-tight font-medium">
+                <h1 id="modal-title" className="font-serif text-xl md:text-3xl lg:text-4xl text-white leading-tight font-bold">
                   {activePost.title}
                 </h1>
               </div>
@@ -396,7 +396,7 @@ export default function BlogPage() {
                 {/* Corpo do Texto */}
                 <div className="lg:w-2/3 flex flex-col gap-6">
                   {activePost.content.split('\n\n').map((paragraph, index) => (
-                    <p key={index} className="font-sans text-sm text-brand-charcoal-light/95 leading-relaxed font-light">
+                    <p key={index} className="font-sans text-sm text-brand-charcoal-light/95 leading-relaxed font-semibold">
                       {paragraph}
                     </p>
                   ))}
@@ -468,6 +468,7 @@ export default function BlogPage() {
                         <img
                           src={img}
                           alt={`${activePost.title} - Foto ${idx + 1}`}
+                          loading="lazy"
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
                       </div>

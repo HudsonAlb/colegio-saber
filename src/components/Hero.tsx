@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import heroMockup from '../assets/hero_mockup.png';
+import heroImg from '../assets/hero.png';
 
 export default function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -38,7 +38,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div ref={elementsRef} className="relative w-full min-h-screen overflow-hidden bg-brand-light select-none py-6 flex items-center justify-center">
+    <div ref={elementsRef} className="relative w-full min-h-[70vh] lg:min-h-[75vh] overflow-hidden bg-brand-light select-none py-8 lg:py-12 flex items-center justify-center">
       
       {/* BACKGROUND CORNER FLOWERS & MARGIN DECORATIONS */}
       
@@ -103,7 +103,7 @@ export default function Hero() {
             className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight text-brand-charcoal mb-6 flex flex-wrap items-center select-none"
           >
             {/* Colégio */}
-            <span className="flex mr-6">
+            <span className="inline-flex flex-nowrap mr-4 sm:mr-6">
               {["C", "o", "l", "é", "g", "i", "o"].map((char, i) => {
                 const colors = ["text-[#e87c7c]", "text-[#f0925a]", "text-[#7fb3d8]", "text-[#8acbbb]", "text-[#e87c7c]", "text-[#7fb3d8]", "text-[#fdbf5c]"];
                 return (
@@ -122,7 +122,7 @@ export default function Hero() {
               </span>
             </span>
             {/* Saber */}
-            <span className="flex">
+            <span className="inline-flex flex-nowrap">
               {["S", "a", "b", "e", "r"].map((char, i) => {
                 const colors = ["text-[#e78b53]", "text-[#fdbf5c]", "text-[#8acbbb]", "text-[#7fb3d8]", "text-[#a5d6a7]"];
                 return (
@@ -157,11 +157,11 @@ export default function Hero() {
           
           <div className="relative">
             {/* Circle Image Container matching mockup */}
-            <div className="hero-image-container relative z-10 w-72 h-72 sm:w-[400px] sm:h-[400px] lg:w-[480px] lg:h-[480px] rounded-full overflow-hidden border-8 border-white shadow-[0_16px_35px_rgba(67,56,50,0.1)] bg-white">
+            <div className="hero-image-container relative z-10 w-60 h-60 min-[375px]:w-72 min-[375px]:h-72 sm:w-[400px] sm:h-[400px] lg:w-[480px] lg:h-[480px] rounded-full overflow-hidden border-8 border-white shadow-[0_16px_35px_rgba(67,56,50,0.1)] bg-white">
               <img
-                src={heroMockup}
-                alt="Crianças brincando juntas"
-                className="w-full h-full object-cover scale-[2.1] origin-[70.5%_35.5%] pointer-events-none"
+                src={heroImg}
+                alt="Estudante na sala de aula do Colégio Saber"
+                className="w-full h-full object-cover"
               />
             </div>
 
