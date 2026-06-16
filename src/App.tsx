@@ -44,11 +44,27 @@ function Header() {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
+  // Controla o scroll do body e o Lenis para evitar travamento no mobile
+  useEffect(() => {
+    const lenis = (window as any).lenisInstance;
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
+    } else {
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
+    }
+    return () => {
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
+    };
+  }, [isMenuOpen]);
+
   return (
     <>
       <header 
         role="banner"
-        className="w-full transition-all duration-500 bg-white/95 backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
+        className="w-full relative z-40 transition-all duration-500 bg-white/95 backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
       >
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 md:gap-3 group shrink-0" aria-label="Colégio Saber - Início">
@@ -118,7 +134,7 @@ function Header() {
         id="mobile-menu-container"
         role="navigation"
         aria-label="Menu de Navegação Mobile"
-        className={`fixed inset-0 z-35 bg-[#fdfbf7] flex flex-col justify-center px-8 transition-all duration-700 ease-in-out ${
+        className={`fixed inset-0 z-30 bg-[#fdfbf7] flex flex-col justify-start px-8 pt-32 pb-8 overflow-y-auto transition-all duration-700 ease-in-out ${
           isMenuOpen 
             ? 'opacity-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 -translate-y-10 pointer-events-none'
@@ -135,6 +151,7 @@ function Header() {
             <Link 
               key={idx} 
               to={item.path}
+              onClick={() => setIsMenuOpen(false)}
               className="font-serif text-2xl tracking-wide text-brand-charcoal hover:text-brand-orange transition-colors duration-300 font-semibold"
             >
               {item.label}
@@ -145,6 +162,7 @@ function Header() {
         <div className="mt-12 pt-6 border-t border-brand-light-border flex flex-col gap-4">
           <Link 
             to="/admissao"
+            onClick={() => setIsMenuOpen(false)}
             className="w-full py-3 text-center rounded-full bg-brand-orange text-white text-sm font-semibold shadow-md"
           >
             Matrículas Abertas
@@ -404,7 +422,7 @@ function App() {
           <div className="mx-auto max-w-7xl bg-[#fffcf7] border-4 border-brand-charcoal/10 rounded-[32px] md:rounded-[48px] shadow-[0_24px_50px_rgba(67,56,50,0.12)] relative z-10 overflow-hidden flex flex-col justify-between min-h-[calc(100vh-4rem)]">
             
             {/* STICKY CAPSULE HEADER WRAPPER */}
-            <div className="fixed top-6 sm:top-8 md:top-10 left-1/2 -translate-x-1/2 w-full max-w-7xl z-40 px-4 md:px-6 pointer-events-none">
+            <div className="fixed top-6 sm:top-8 md:top-10 left-0 right-0 mx-auto w-full max-w-7xl z-40 px-4 md:px-6 pointer-events-none">
               <Header />
             </div>
 
