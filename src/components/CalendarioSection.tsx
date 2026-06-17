@@ -68,7 +68,7 @@ export default function CalendarioSection() {
 
   return (
     <section ref={containerRef} className="py-24 bg-[#fff8f3] border-t-4 border-dashed border-brand-orange/20 relative z-10 overflow-hidden">
-      
+
       {/* Decorative doodles */}
       <div className="absolute top-10 left-10 text-brand-orange opacity-40 animate-wiggle pointer-events-none hidden lg:block">
         <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -80,7 +80,7 @@ export default function CalendarioSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-12 items-center">
-        
+
         {/* Left: Text & CTA */}
         <div className="flex flex-col gap-6 w-full md:w-5/12 text-left">
           <div className="flex items-center gap-2">
@@ -94,10 +94,10 @@ export default function CalendarioSection() {
           <p className="font-sans text-sm text-brand-charcoal-light/80 font-medium leading-relaxed">
             Consulte as datas dos feriados nacionais, recessos e principais eventos pedagógicos do ano para planejar sua rotina familiar com tranquilidade.
           </p>
-          
-          <Link 
+
+          <Link
             to="/calendario"
-            onClick={() => window.scrollTo(0,0)}
+            onClick={() => window.scrollTo(0, 0)}
             className="self-start mt-4 bg-brand-charcoal hover:bg-brand-orange text-white font-sans text-xs uppercase tracking-wider font-bold px-6 py-3 rounded-full flex items-center gap-2 transition-colors duration-500 shadow-[4px_4px_0_0_#ff7e1b]"
           >
             <CalendarBlank size={16} weight="duotone" />
@@ -111,7 +111,7 @@ export default function CalendarioSection() {
           {upcomingHolidays.map((holiday, idx) => {
             const Icon = holiday.icon;
             return (
-              <div 
+              <div
                 key={holiday.id}
                 className="cal-card flex items-center gap-6 p-4 md:p-5 rounded-2xl bg-white border-2 border-brand-charcoal shadow-[4px_4px_0_0_#2d2a26] hover:-translate-y-1 transition-transform duration-300"
               >

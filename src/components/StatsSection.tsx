@@ -94,7 +94,7 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative w-full py-24 md:py-32 bg-brand-light overflow-hidden"
       aria-labelledby="mural-title"
@@ -120,7 +120,7 @@ export default function StatsSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 flex flex-col gap-16">
-        
+
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto flex flex-col gap-4">
           <div className="flex items-center gap-3 justify-center">
@@ -130,7 +130,7 @@ export default function StatsSection() {
             </span>
             <div className="w-8 h-[1px] bg-brand-orange"></div>
           </div>
-          <h2 
+          <h2
             id="mural-title"
             className="font-serif text-4xl md:text-5xl font-medium text-brand-charcoal leading-tight"
           >
@@ -153,7 +153,7 @@ export default function StatsSection() {
             const theme = colors[idx % colors.length];
             const PhosphorIcon = item.icon;
             return (
-              <div 
+              <div
                 key={item.id}
                 className={`stat-card flex flex-col items-center text-center p-8 md:p-10 rounded-[3rem] rounded-bl-xl border-4 ${theme.border} ${theme.bg} shadow-[6px_6px_0_0_#2d2a26] hover:shadow-[10px_10px_0_0_#2d2a26] hover:-translate-y-2 transition-all duration-500 ${rotationClass}`}
               >
@@ -166,7 +166,7 @@ export default function StatsSection() {
 
                 {/* Animated Number */}
                 <div className="flex flex-nowrap items-baseline whitespace-nowrap font-serif text-6xl md:text-7xl font-bold text-brand-charcoal leading-none tracking-tight mb-4">
-                  <span 
+                  <span
                     ref={(el) => {
                       elementsRef.current[idx] = el;
                     }}

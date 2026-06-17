@@ -24,7 +24,7 @@ files.forEach(file => {
 
   // Also verify normal tags: <Menu size={24}> might have become <Menu size={24} weight="duotone"> which is fine.
   // Let's check for any missing /> closures.
-  
+
   if (content !== original) {
     fs.writeFileSync(file, content, 'utf8');
     changed++;

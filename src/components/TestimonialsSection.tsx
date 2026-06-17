@@ -116,7 +116,7 @@ export default function TestimonialsSection() {
     if (!carouselRef.current) return;
 
     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-    
+
     // Atualizar botões de controle
     setCanScrollLeft(scrollLeft > 10);
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
@@ -131,7 +131,7 @@ export default function TestimonialsSection() {
       const carouselRect = carouselRef.current!.getBoundingClientRect();
       // Diferença entre o centro do item e o centro do carrossel
       const diff = Math.abs((rect.left + rect.width / 2) - (carouselRect.left + carouselRect.width / 2));
-      
+
       if (diff < minDiff) {
         minDiff = diff;
         newIndex = index;
@@ -163,7 +163,7 @@ export default function TestimonialsSection() {
     const cardWidth = carouselRef.current.querySelector('.testimonial-card')?.clientWidth || 400;
     // Rolar por um ou mais cards dependendo do viewport
     const offset = direction === 'left' ? -cardWidth - 24 : cardWidth + 24; // 24px é o gap (gap-6)
-    
+
     carouselRef.current.scrollTo({
       left: scrollLeft + offset,
       behavior: 'smooth'
@@ -184,7 +184,7 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="py-24 bg-brand-light-card border-t border-b border-brand-light-border relative overflow-hidden z-10"
       aria-labelledby="testimonials-heading"
@@ -194,7 +194,7 @@ export default function TestimonialsSection() {
       <div className="absolute bottom-0 left-0 w-[40%] h-[40%] rounded-full bg-brand-orange/5 blur-[120px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        
+
         {/* Header da Seção */}
         <div className="section-header flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
@@ -204,21 +204,20 @@ export default function TestimonialsSection() {
             <h2 id="testimonials-heading" className="font-serif text-3xl md:text-4xl lg:text-5xl text-brand-charcoal leading-tight relative inline-block">
               A voz de quem vivencia nossa excelência diariamente
               <svg className="absolute -bottom-2 left-0 w-48 h-4 text-brand-yellow/50" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0,5 Q25,8 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
+                <path d="M0,5 Q25,8 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
               </svg>
             </h2>
           </div>
-          
+
           {/* Controles de Navegação */}
           <div className="flex gap-3 relative z-20">
             <button
               onClick={() => scrollTo('left')}
               disabled={!canScrollLeft}
-              className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${
-                canScrollLeft 
-                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer' 
+              className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${canScrollLeft
+                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer'
                   : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
-              }`}
+                }`}
               aria-label="Depoimento anterior"
             >
               <CaretLeft size={20} weight="bold" />
@@ -226,11 +225,10 @@ export default function TestimonialsSection() {
             <button
               onClick={() => scrollTo('right')}
               disabled={!canScrollRight}
-              className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${
-                canScrollRight 
-                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer' 
+              className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${canScrollRight
+                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer'
                   : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
-              }`}
+                }`}
               aria-label="Próximo depoimento"
             >
               <CaretRight size={20} weight="bold" />
@@ -239,7 +237,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Viewport do Carrossel */}
-        <div 
+        <div
           ref={carouselRef}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8 pt-10 -mt-10 px-4 -mx-4 scroll-smooth focus:outline-none"
           tabIndex={0}
@@ -306,11 +304,10 @@ export default function TestimonialsSection() {
             <button
               key={idx}
               onClick={() => scrollToIdx(idx)}
-              className={`h-2 rounded-full transition-all duration-500 ${
-                idx === activeIndex 
-                  ? 'w-8 bg-brand-orange' 
+              className={`h-2 rounded-full transition-all duration-500 ${idx === activeIndex
+                  ? 'w-8 bg-brand-orange'
                   : 'w-2 bg-brand-light-border hover:bg-brand-charcoal/20'
-              }`}
+                }`}
               aria-label={`Ir para depoimento ${idx + 1}`}
               aria-current={idx === activeIndex ? 'true' : 'false'}
             ></button>

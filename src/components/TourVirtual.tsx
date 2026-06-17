@@ -69,12 +69,12 @@ const LOCATIONS: LocationData[] = [
 export default function TourVirtual() {
   const [activeLoc, setActiveLoc] = useState<LocationData>(LOCATIONS[0]);
   const [activeHotspot, setActiveHotspot] = useState<Hotspot | null>(null);
-  
+
   // Refs de controle de arraste e animações
   const viewportRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoPanTween = useRef<gsap.core.Tween | null>(null);
-  
+
   // Estados de drag
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -87,7 +87,7 @@ export default function TourVirtual() {
       const vWidth = viewportRef.current.clientWidth;
       const imgWidth = containerRef.current.scrollWidth;
       maxPan.current = Math.min(0, vWidth - imgWidth);
-      
+
       // Reseta a posição no meio ao trocar de local
       const startXPos = maxPan.current / 2;
       currentX.current = startXPos;
@@ -154,10 +154,10 @@ export default function TourVirtual() {
 
   const handleDragMove = (clientX: number) => {
     if (!isDragging.current || !containerRef.current) return;
-    
+
     // Novo translate X baseado no movimento
     let newX = clientX - startX.current;
-    
+
     // Bounce suave nas bordas
     if (newX > 0) newX = newX * 0.3;
     if (newX < maxPan.current) newX = maxPan.current + (newX - maxPan.current) * 0.3;
@@ -217,7 +217,7 @@ export default function TourVirtual() {
   // Troca de localização com transição GSAP
   const handleLocChange = (loc: LocationData) => {
     if (loc.id === activeLoc.id) return;
-    
+
     setActiveHotspot(null);
     stopAutoPan();
 
@@ -262,13 +262,13 @@ export default function TourVirtual() {
   };
 
   return (
-    <div 
-      role="region" 
-      aria-label="Tour Virtual Interativo do Campus" 
+    <div
+      role="region"
+      aria-label="Tour Virtual Interativo do Campus"
       className="w-full flex flex-col gap-8 relative z-10 py-16 border-t border-brand-light-border bg-brand-light-card"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col gap-6">
-        
+
         {/* Desenhos Decorativos Flutuantes */}
         <div className="absolute top-10 right-10 w-16 h-16 text-brand-yellow opacity-60 animate-float-slow pointer-events-none hidden lg:block">
           {/* Star doodle */}
@@ -279,7 +279,7 @@ export default function TourVirtual() {
         <div className="absolute bottom-20 left-4 w-20 h-20 text-brand-blue-light animate-wiggle pointer-events-none hidden lg:block">
           {/* Cloud doodle */}
           <svg viewBox="0 0 60 40" fill="currentColor">
-            <path d="M15,25 C15,15 25,10 35,15 C40,5 55,5 55,20 C60,20 60,35 50,35 L15,35 C5,35 5,25 15,25 Z" stroke="#4ea8de" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M15,25 C15,15 25,10 35,15 C40,5 55,5 55,20 C60,20 60,35 50,35 L15,35 C5,35 5,25 15,25 Z" stroke="#4ea8de" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
 
@@ -293,7 +293,7 @@ export default function TourVirtual() {
             <h2 className="font-serif text-3xl md:text-4xl text-brand-charcoal relative inline-block">
               Conheça Nossa Infraestrutura
               <svg className="absolute -bottom-2 left-0 w-32 h-3 text-brand-green/40" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0,5 Q25,0 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+                <path d="M0,5 Q25,0 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
             </h2>
             <p className="font-sans text-xs text-brand-charcoal-light/75 font-medium leading-relaxed mt-2">
@@ -301,10 +301,10 @@ export default function TourVirtual() {
             </p>
           </div>
 
-           {/* Abas Selecionadoras estilo caderno */}
-          <div 
-            role="tablist" 
-            aria-label="Locais do campus" 
+          {/* Abas Selecionadoras estilo caderno */}
+          <div
+            role="tablist"
+            aria-label="Locais do campus"
             className="flex flex-wrap gap-2 md:gap-3 shrink-0 self-start md:self-auto"
           >
             {LOCATIONS.map(loc => {
@@ -318,11 +318,10 @@ export default function TourVirtual() {
                   aria-controls={`panel-${loc.id}`}
                   type="button"
                   onClick={() => handleLocChange(loc)}
-                  className={`px-4 py-2.5 font-sans text-xs font-semibold tracking-wider transition-all duration-300 border-2 border-brand-charcoal rounded-2xl ${
-                    isActive 
-                      ? 'bg-brand-orange text-white shadow-[2px_4px_0_0_#2d2a26] -translate-y-1' 
+                  className={`px-4 py-2.5 font-sans text-xs font-semibold tracking-wider transition-all duration-300 border-2 border-brand-charcoal rounded-2xl ${isActive
+                      ? 'bg-brand-orange text-white shadow-[2px_4px_0_0_#2d2a26] -translate-y-1'
                       : 'bg-[#fdfbf7] text-brand-charcoal shadow-[2px_2px_0_0_#2d2a26] hover:bg-brand-orange/10 hover:-translate-y-0.5'
-                  }`}
+                    }`}
                 >
                   {loc.name}
                 </button>
@@ -338,7 +337,7 @@ export default function TourVirtual() {
         </div>
 
         {/* Viewport do Tour Panorâmico */}
-        <div 
+        <div
           ref={viewportRef}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
@@ -356,14 +355,14 @@ export default function TourVirtual() {
           className="relative w-full h-[380px] sm:h-[460px] md:h-[540px] overflow-hidden rounded-[3rem] border-4 border-brand-charcoal shadow-[6px_6px_0_0_#2d2a26] md:shadow-[10px_10px_0_0_#2d2a26] bg-[#fdfbf7] cursor-grab active:cursor-grabbing select-none focus:outline-none"
         >
           {/* Container Deslizante */}
-          <div 
+          <div
             ref={containerRef}
             className="absolute top-0 left-0 h-full w-[2400px] sm:w-[2800px] md:w-[3200px] flex items-center justify-center pointer-events-auto"
             style={{ willChange: 'transform' }}
           >
             {/* Imagem de Fundo (Panorâmica) */}
-            <img 
-              src={activeLoc.image} 
+            <img
+              src={activeLoc.image}
               alt={`Visualização de 360 graus da ${activeLoc.name}`}
               draggable="false"
               className="w-full h-full object-cover select-none pointer-events-none"
@@ -373,7 +372,7 @@ export default function TourVirtual() {
             {activeLoc.hotspots.map((hotspot, idx) => {
               const isOpen = activeHotspot?.title === hotspot.title;
               return (
-                <div 
+                <div
                   key={idx}
                   className="absolute pointer-events-auto"
                   style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
@@ -390,10 +389,9 @@ export default function TourVirtual() {
                     <span className="absolute w-full h-full rounded-full bg-brand-orange opacity-40 animate-ping"></span>
                     <span className="absolute w-6 h-6 rounded-full bg-brand-orange opacity-60 animate-pulse"></span>
                     {/* Círculo Principal */}
-                    <div className={`w-4.5 h-4.5 rounded-full border border-white flex items-center justify-center shadow-lg transition-colors duration-500 ${
-                      isOpen ? 'bg-brand-charcoal text-white' : 'bg-brand-orange text-white'
-                    }`}>
-                      <PlayCircle size={8}  weight="duotone" />
+                    <div className={`w-4.5 h-4.5 rounded-full border border-white flex items-center justify-center shadow-lg transition-colors duration-500 ${isOpen ? 'bg-brand-charcoal text-white' : 'bg-brand-orange text-white'
+                      }`}>
+                      <PlayCircle size={8} weight="duotone" />
                     </div>
                   </button>
 

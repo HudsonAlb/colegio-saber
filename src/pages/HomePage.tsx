@@ -44,7 +44,7 @@ export default function HomePage() {
       <HighlightsSection />
       <CalendarioSection />
       <TestimonialsSection />
-      
+
       {/* Quick Access Block for Parents */}
       <section ref={quickAccessRef} className="py-24 bg-brand-light relative z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -94,7 +94,7 @@ export default function HomePage() {
                 icon: <PenNib size={40} weight="duotone" className="text-[#d89f00]" />
               }
             ].map((card, idx) => (
-              <div 
+              <div
                 key={idx}
                 className={`quick-access-card p-8 rounded-[2.5rem] border-4 ${card.bg} ${card.border} hover:shadow-[0_20px_40px_rgba(67,56,50,0.06)] transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between h-full min-h-[18rem]`}
               >

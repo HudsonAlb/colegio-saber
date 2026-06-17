@@ -21,13 +21,13 @@ function processFile(file) {
       } else if (file.includes('SegmentosPage.tsx') && line.includes('group-hover')) {
         line = line.replace(/<\s*\{/, '<CaretRight size={');
       } else if (file.includes('CalendarioPage.tsx') && line.includes('< {16} />')) {
-        if ((lines[i-1] && lines[i-1].includes('Anterior')) || (lines[i-2] && lines[i-2].includes('Anterior')) || line.includes('Anterior')) {
+        if ((lines[i - 1] && lines[i - 1].includes('Anterior')) || (lines[i - 2] && lines[i - 2].includes('Anterior')) || line.includes('Anterior')) {
           line = line.replace(/<\s*\{/, '<CaretLeft size={');
         } else {
           line = line.replace(/<\s*\{/, '<CaretRight size={');
         }
       } else if (file.includes('CalendarioPage.tsx') && line.includes('text-brand-charcoal/30')) {
-        line = line.replace(/<\s*\{/, '<List size={'); 
+        line = line.replace(/<\s*\{/, '<List size={');
       } else if (file.includes('BlogPage.tsx') && line.includes('animate-pulse')) {
         line = line.replace(/<\s*\{/, '<PlayCircle size={');
       } else if (file.includes('BlogPage.tsx') && line.includes('absolute left-4')) {
@@ -39,11 +39,11 @@ function processFile(file) {
       } else if (file.includes('TourVirtual.tsx') && line.includes('< {8} />')) {
         line = line.replace(/<\s*\{/, '<PlayCircle size={');
       } else {
-         line = line.replace(/<\s*\{/, '<CaretRight size={');
+        line = line.replace(/<\s*\{/, '<CaretRight size={');
       }
 
       if (!line.includes('weight=')) {
-         line = line.replace('/>', ' weight="duotone" />');
+        line = line.replace('/>', ' weight="duotone" />');
       }
       lines[i] = line;
     }

@@ -39,9 +39,9 @@ export default function Hero() {
 
   return (
     <div ref={elementsRef} className="relative w-full min-h-[70vh] lg:min-h-[75vh] overflow-hidden bg-brand-light select-none py-8 lg:py-12 flex items-center justify-center">
-      
+
       {/* BACKGROUND CORNER FLOWERS & MARGIN DECORATIONS */}
-      
+
       {/* Left Leaf/Stem Drawing */}
       <div className="absolute top-1/3 left-6 w-10 h-20 text-[#8acbbb] opacity-60 pointer-events-none hidden lg:block">
         <svg viewBox="0 0 40 80" fill="currentColor">
@@ -94,12 +94,12 @@ export default function Hero() {
 
       {/* MAIN HERO GRID */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20 pt-10">
-        
+
         {/* Left Column: Title, Tagline, Paragraph & CTA (6 cols) */}
         <div className="lg:col-span-7 flex flex-col items-start text-left max-w-2xl">
           {/* Logo-style Title with individual letter coloring exactly matching mockup */}
-          <h1 
-            ref={titleRef} 
+          <h1
+            ref={titleRef}
             className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight text-brand-charcoal mb-6 flex flex-wrap items-center select-none"
           >
             {/* Colégio */}
@@ -133,28 +133,28 @@ export default function Hero() {
               })}
             </span>
           </h1>
-          
+
           <div className="hero-text-content flex flex-col items-start">
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#352520] mb-4 leading-tight">
               Cuidando, Brincando e Aprendendo Juntos
             </h2>
-            
+
             <p className="font-sans text-sm sm:text-base md:text-lg text-[#6e6058] font-semibold leading-relaxed mb-8 max-w-xl">
               Um espaço seguro e amoroso para o desenvolvimento integral do seu filho. Venha nos conhecer!
             </p>
-            
-            <Link 
-              to="/admissao" 
+
+            <Link
+              to="/admissao"
               className="font-serif inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-brand-orange text-white hover:bg-brand-orange-light hover:-translate-y-1 transition-all duration-300 text-sm md:text-base font-bold shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-[3px] border-brand-charcoal tracking-wide"
             >
               Agende sua Visita
             </Link>
           </div>
         </div>
-        
+
         {/* Right Column: Organic Crop Image with Overlapping Elements (5 cols) */}
         <div className="lg:col-span-5 flex justify-center lg:justify-end relative pr-6">
-          
+
           <div className="relative">
             {/* Circle Image Container matching mockup */}
             <div className="hero-image-container relative z-10 w-60 h-60 min-[375px]:w-72 min-[375px]:h-72 sm:w-[400px] sm:h-[400px] lg:w-[480px] lg:h-[480px] rounded-full overflow-hidden border-8 border-white shadow-[0_16px_35px_rgba(67,56,50,0.1)] bg-white">
@@ -207,9 +207,9 @@ export default function Hero() {
           </div>
 
         </div>
-        
+
       </div>
-      
+
     </div>
   );
 }

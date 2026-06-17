@@ -100,14 +100,13 @@ function FaqItem({ item, isOpen, onClick, idx }: { item: FaqItemData, isOpen: bo
         className="w-full py-5 px-6 text-left flex justify-between items-center gap-4 hover:text-brand-orange transition-colors duration-500 font-serif text-sm md:text-base font-bold text-brand-charcoal focus:outline-none"
       >
         <span>{item.question}</span>
-        <div className={`p-1.5 rounded-full border border-brand-light-border bg-brand-light-card text-brand-charcoal/50 transition-transform duration-700 shrink-0 ${
-          isOpen ? 'rotate-180 text-brand-orange border-brand-orange/30' : ''
-        }`}>
+        <div className={`p-1.5 rounded-full border border-brand-light-border bg-brand-light-card text-brand-charcoal/50 transition-transform duration-700 shrink-0 ${isOpen ? 'rotate-180 text-brand-orange border-brand-orange/30' : ''
+          }`}>
           <CaretDown size={18} weight="duotone" />
         </div>
       </button>
 
-      <div 
+      <div
         ref={wrapperRef}
         id={`faq-content-${idx}`}
         aria-labelledby={`faq-btn-${idx}`}
@@ -143,7 +142,7 @@ export default function FaqSection() {
 
   return (
     <section className="w-full py-20 border-t border-brand-light-border bg-brand-light relative z-10 overflow-hidden">
-      
+
       {/* Vetores Flutuantes */}
       <div className="absolute top-20 left-10 w-24 h-24 text-brand-orange opacity-20 animate-wiggle pointer-events-none hidden lg:block">
         <svg viewBox="0 0 100 100" fill="currentColor">
@@ -160,7 +159,7 @@ export default function FaqSection() {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 flex flex-col gap-10 relative z-10">
-        
+
         {/* Título */}
         <div className="text-center flex flex-col gap-3 items-center relative">
           <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-orange font-bold">
@@ -169,7 +168,7 @@ export default function FaqSection() {
           <h2 className="font-serif text-3xl md:text-4xl text-brand-charcoal font-bold relative inline-block">
             Central de Ajuda
             <svg className="absolute -bottom-2 left-0 w-full h-3 text-brand-orange/40" viewBox="0 0 100 10" preserveAspectRatio="none">
-              <path d="M0,5 Q25,8 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+              <path d="M0,5 Q25,8 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
             </svg>
           </h2>
           <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/80 font-semibold max-w-lg mx-auto mt-2">
@@ -186,11 +185,10 @@ export default function FaqSection() {
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveCat(cat.id)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-sans text-xs font-bold uppercase tracking-wider transition-all duration-300 border-2 ${
-                  isActive 
-                    ? 'bg-brand-orange border-brand-orange-dark text-white shadow-[2px_4px_0_0_#e05300] -translate-y-1' 
+                className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-sans text-xs font-bold uppercase tracking-wider transition-all duration-300 border-2 ${isActive
+                    ? 'bg-brand-orange border-brand-orange-dark text-white shadow-[2px_4px_0_0_#e05300] -translate-y-1'
                     : 'bg-white border-brand-light-border text-brand-charcoal-light hover:border-brand-orange/50 hover:bg-brand-orange/5 hover:-translate-y-0.5'
-                }`}
+                  }`}
               >
                 {cat.icon}
                 <span>{cat.title.split(' ')[0]}</span>
@@ -200,18 +198,18 @@ export default function FaqSection() {
         </div>
 
         {/* Acordeão Accordion */}
-        <div 
+        <div
           ref={containerRef}
           className="flex flex-col gap-2"
         >
           {activeCategory.items.map((item, idx) => (
-              <FaqItem 
-                key={idx} 
-                item={item} 
-                idx={idx}
-                isOpen={openIdx === idx} 
-                onClick={() => setOpenIdx(openIdx === idx ? null : idx)} 
-              />
+            <FaqItem
+              key={idx}
+              item={item}
+              idx={idx}
+              isOpen={openIdx === idx}
+              onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+            />
           ))}
         </div>
 

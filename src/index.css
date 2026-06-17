@@ -5,11 +5,11 @@
   --font-serif: "Fredoka", sans-serif;
   --font-sans: "Quicksand", sans-serif;
   --font-doodle: "Kalam", cursive;
-  
+
   --color-brand-orange: #ff7e1b;
   --color-brand-orange-light: #ffa15c;
   --color-brand-orange-dark: #e05300;
-  
+
   --color-brand-yellow: #ffcb1e;
   --color-brand-yellow-light: #ffe574;
   --color-brand-yellow-dark: #d89f00;
@@ -25,7 +25,7 @@
   --color-brand-pink: #ff65a3;
   --color-brand-pink-light: #fff1f2;
   --color-brand-pink-dark: #be123c;
-  
+
   --color-brand-light: #ffffff;
   --color-brand-light-card: #fffcf7;
   --color-brand-light-border: #f5ebd5;
@@ -35,7 +35,8 @@
 
 @layer base {
   html {
-    font-size: 18px; /* ~112.5% scale for roomy layout */
+    font-size: 18px;
+    /* ~112.5% scale for roomy layout */
   }
 
   * {
@@ -44,7 +45,8 @@
     padding: 0;
   }
 
-  html, body {
+  html,
+  body {
     background-color: var(--color-brand-light);
     color: var(--color-brand-charcoal);
     font-family: var(--font-sans);
@@ -56,18 +58,19 @@
   }
 
   /* Lenis-smooth scrolling class support */
-  html.lenis, html.lenis body {
+  html.lenis,
+  html.lenis body {
     height: auto;
   }
-  
+
   .lenis-smooth {
     scroll-behavior: auto !important;
   }
-  
+
   .lenis-smooth [data-lenis-prevent] {
     overflow: clip;
   }
-  
+
   .lenis-prevent {
     overscroll-behavior: contain;
   }
@@ -75,10 +78,14 @@
 
 /* Custom Utilities for premium aesthetics */
 @utility no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+
+  /* Firefox */
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+    display: none;
+    /* Chrome, Safari and Opera */
   }
 }
 
@@ -98,6 +105,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -110,8 +118,15 @@
 
 /* Animações Lúdicas (Wiggle e Float) */
 @keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
 }
 
 .animate-wiggle {
@@ -123,8 +138,15 @@
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(2deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
 }
 
 .animate-float-slow {
@@ -137,9 +159,15 @@
     background: white;
     color: black;
   }
-  header, footer, nav, button, .no-print {
+
+  header,
+  footer,
+  nav,
+  button,
+  .no-print {
     display: none !important;
   }
+
   .print-only {
     display: block !important;
   }
@@ -152,11 +180,11 @@ html.high-contrast {
   --color-brand-light-border: #ffffff;
   --color-brand-charcoal: #ffffff;
   --color-brand-charcoal-light: #e5e5e5;
-  
+
   --color-brand-orange: #ffff00;
   --color-brand-orange-light: #ffff66;
   --color-brand-orange-dark: #cccc00;
-  
+
   --color-brand-yellow: #ffff00;
   --color-brand-yellow-light: #ffff66;
   --color-brand-yellow-dark: #cccc00;
@@ -167,12 +195,12 @@ html.high-contrast * {
   border-color: #ffffff !important;
 }
 
-html.high-contrast button, 
+html.high-contrast button,
 html.high-contrast a {
   outline: 2px solid transparent;
 }
 
-html.high-contrast button:focus, 
+html.high-contrast button:focus,
 html.high-contrast a:focus,
 html.high-contrast [tabindex="0"]:focus,
 html.high-contrast [role="button"]:focus {

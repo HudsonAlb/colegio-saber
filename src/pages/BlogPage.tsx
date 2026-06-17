@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { MagnifyingGlass, X, Calendar, User, Tag, ArrowRight, BookOpen, Image, Sparkle , PlayCircle } from '@phosphor-icons/react';
+import { MagnifyingGlass, X, Calendar, User, Tag, ArrowRight, BookOpen, Image, Sparkle, PlayCircle } from '@phosphor-icons/react';
 import gsap from 'gsap';
 
 interface BlogPost {
@@ -177,7 +177,7 @@ export default function BlogPage() {
       {/* HERO SECTION */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center md:text-left">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-orange/20 bg-brand-orange/5 text-brand-orange-dark text-xs uppercase tracking-widest font-semibold mb-6">
-          <PlayCircle size={12} className="animate-pulse"  weight="duotone" />
+          <PlayCircle size={12} className="animate-pulse" weight="duotone" />
           <span>Saber em Ação</span>
         </div>
         <h1 className="font-serif text-4xl md:text-6xl text-brand-charcoal mb-6 leading-tight max-w-4xl">
@@ -202,11 +202,10 @@ export default function BlogPage() {
               role="tab"
               aria-selected={selectedCategory === cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-500 ${
-                selectedCategory === cat.id
+              className={`px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-500 ${selectedCategory === cat.id
                   ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/20 scale-105'
                   : 'bg-white border border-brand-light-border text-brand-charcoal-light hover:border-brand-orange hover:text-brand-orange-dark'
-              }`}
+                }`}
             >
               {cat.label}
             </button>
@@ -222,7 +221,7 @@ export default function BlogPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-10 py-3 rounded-full border border-brand-light-border bg-white text-xs text-brand-charcoal placeholder-brand-charcoal/40 focus:outline-none focus:border-brand-orange/60 transition-colors duration-500"
           />
-          <MagnifyingGlass size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/40"  weight="duotone" />
+          <MagnifyingGlass size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/40" weight="duotone" />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
@@ -253,9 +252,8 @@ export default function BlogPage() {
                     loading="lazy"
                   />
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider text-brand-light shadow-sm ${
-                      post.type === 'article' ? 'bg-brand-charcoal' : 'bg-brand-orange'
-                    }`}>
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider text-brand-light shadow-sm ${post.type === 'article' ? 'bg-brand-charcoal' : 'bg-brand-orange'
+                      }`}>
                       {post.type === 'article' ? (
                         <BookOpen size={10} weight="duotone" />
                       ) : (
@@ -372,9 +370,8 @@ export default function BlogPage() {
               {/* Informações do Banner */}
               <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 text-white">
                 <div className="flex flex-wrap gap-2 mb-3">
-                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider text-brand-light ${
-                    activePost.type === 'article' ? 'bg-brand-charcoal' : 'bg-brand-orange'
-                  }`}>
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider text-brand-light ${activePost.type === 'article' ? 'bg-brand-charcoal' : 'bg-brand-orange'
+                    }`}>
                     {activePost.type === 'article' ? <BookOpen size={10} weight="duotone" /> : <Image size={10} weight="duotone" />}
                     {activePost.category}
                   </span>

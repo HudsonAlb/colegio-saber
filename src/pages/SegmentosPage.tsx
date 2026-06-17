@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, Info, CaretRight , Question } from '@phosphor-icons/react';
+import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, Info, CaretRight, Question } from '@phosphor-icons/react';
 
 import infantilImg from '../assets/segmento_infantil.png';
 import fund1Img from '../assets/segmento_fund1.png';
@@ -122,9 +122,9 @@ const getIcon = (iconName: string) => {
     case 'Compass': return <Compass size={18} weight="duotone" />;
     case 'Lightbulb': return <Lightbulb size={18} weight="duotone" />;
     case 'Medal': return <Medal size={18} weight="duotone" />;
-    case 'Sparkles': return <Sparkle size={18}  weight="duotone" />;
+    case 'Sparkles': return <Sparkle size={18} weight="duotone" />;
     case 'Target': return <Target size={18} weight="duotone" />;
-    default: return <Question size={18}  weight="duotone" />;
+    default: return <Question size={18} weight="duotone" />;
   }
 };
 
@@ -196,7 +196,7 @@ export default function SegmentosPage() {
   return (
     <div className="pt-32 pb-24 min-h-screen bg-brand-light relative z-10 flex flex-col items-center">
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col gap-12">
-        
+
         {/* Título & Cabeçalho de Introdução */}
         <div className="flex flex-col gap-3 text-left max-w-2xl">
           <span className="font-sans text-[11px] uppercase tracking-[0.3em] text-brand-orange font-semibold">
@@ -212,25 +212,25 @@ export default function SegmentosPage() {
 
         {/* Layout Grid Separador (Split Screen) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start mt-4">
-          
+
           {/* PAINEL DA ESQUERDA: Menu de Navegação Vertical (Sticky) */}
           <div className="md:col-span-4 md:sticky md:top-36 flex flex-col gap-6 self-start z-10">
             <span className="font-sans text-[9px] uppercase tracking-widest text-brand-charcoal/45 font-bold">
               Etapas Escolares
             </span>
-            
+
             {/* Lista de Abas */}
-            <div 
-              role="tablist" 
+            <div
+              role="tablist"
               aria-label="Segmentos de ensino"
               className="relative flex flex-col gap-4 pl-6 border-l border-brand-light-border"
             >
               {/* Linha indicadora ativa que desliza de cima para baixo */}
-              <div 
+              <div
                 ref={indicatorRef}
                 className="absolute left-[-1px] w-[2px] bg-brand-orange transition-all duration-700 ease-out"
-                style={{ 
-                  height: '24px', 
+                style={{
+                  height: '24px',
                   top: '10px',
                   transform: `translateY(${activeIndex * 48}px)` // altura de espaçamento entre as abas
                 }}
@@ -248,11 +248,10 @@ export default function SegmentosPage() {
                     type="button"
                     onClick={() => setActiveSegment(seg)}
                     onKeyDown={(e) => handleTabKeyDown(e, idx)}
-                    className={`w-full text-left py-2 font-serif text-sm transition-all duration-300 focus:outline-none cursor-pointer ${
-                      isActive 
-                        ? 'text-brand-orange font-bold text-base scale-x-[1.01] translate-x-1' 
+                    className={`w-full text-left py-2 font-serif text-sm transition-all duration-300 focus:outline-none cursor-pointer ${isActive
+                        ? 'text-brand-orange font-bold text-base scale-x-[1.01] translate-x-1'
                         : 'text-brand-charcoal-light/70 hover:text-brand-orange hover:translate-x-0.5'
-                    }`}
+                      }`}
                   >
                     <span className="font-sans text-[10px] opacity-40 font-semibold mr-2">{String(idx + 1).padStart(2, '0')}.</span>
                     {seg.title}
@@ -279,7 +278,7 @@ export default function SegmentosPage() {
           </div>
 
           {/* PAINEL DA DIREITA: Exibição do Conteúdo do Segmento */}
-          <div 
+          <div
             id={`panel-${activeSegment.id}`}
             role="tabpanel"
             aria-labelledby={`tab-${activeSegment.id}`}
@@ -287,10 +286,10 @@ export default function SegmentosPage() {
           >
             {/* Bloco de Imagem com Máscara e Animação */}
             <div className="w-full h-[260px] sm:h-[350px] md:h-[400px] overflow-hidden rounded-3xl border border-brand-light-border bg-brand-light-card relative">
-              <img 
+              <img
                 ref={imageRef}
-                src={activeSegment.image} 
-                alt={`Estudantes em atividade do segmento ${activeSegment.title}`} 
+                src={activeSegment.image}
+                alt={`Estudantes em atividade do segmento ${activeSegment.title}`}
                 className="w-full h-full object-cover select-none pointer-events-none"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/30 to-transparent pointer-events-none"></div>
@@ -298,7 +297,7 @@ export default function SegmentosPage() {
 
             {/* Conteúdo Detalhado (Animado via GSAP Ref) */}
             <div ref={contentRef} className="flex flex-col gap-6 text-left">
-              
+
               {/* Idade Indicada e Título */}
               <div className="flex flex-col gap-2">
                 <span className="self-start px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-sans text-[9px] uppercase tracking-widest font-semibold border border-brand-orange/15">
@@ -327,7 +326,7 @@ export default function SegmentosPage() {
                     Diferenciais Curriculares & Oficinas
                   </h3>
                 </div>
-                
+
                 {/* Grid das Oficinas */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {activeSegment.oficinas.map(oficina => (
@@ -348,7 +347,7 @@ export default function SegmentosPage() {
                       </div>
                       <span className="text-[10px] text-brand-orange font-bold uppercase tracking-wider flex items-center gap-1">
                         Saber mais
-                        <CaretRight size={10} className="group-hover:translate-x-0.5 transition-transform duration-300"  weight="duotone" />
+                        <CaretRight size={10} className="group-hover:translate-x-0.5 transition-transform duration-300" weight="duotone" />
                       </span>
                     </button>
                   ))}
@@ -381,7 +380,7 @@ export default function SegmentosPage() {
 
       {/* DIALOG/MODAL DE DETALHES DA OFICINA (Glassmorphism Premium) */}
       {activeOficina && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-brand-charcoal/40 backdrop-blur-md animate-fade-in"
           onClick={() => setActiveOficina(null)}
           role="dialog"
@@ -389,7 +388,7 @@ export default function SegmentosPage() {
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
         >
-          <div 
+          <div
             className="bg-white border border-brand-light-border rounded-3xl max-w-md w-full p-8 relative shadow-2xl flex flex-col gap-6 text-left"
             onClick={(e) => e.stopPropagation()} // impede fechamento ao clicar no card
           >

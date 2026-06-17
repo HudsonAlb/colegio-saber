@@ -67,7 +67,7 @@ export default function PillarsSection() {
 
   return (
     <section className="relative w-full py-24 md:py-32 bg-brand-light flex flex-col gap-24 md:gap-36 overflow-hidden">
-      
+
       {/* Elementos Lúdicos de Fundo */}
       <div className="absolute top-[15%] right-[5%] w-24 h-24 text-brand-orange opacity-20 animate-wiggle pointer-events-none hidden lg:block">
         {/* Lápis desenhado */}
@@ -75,13 +75,13 @@ export default function PillarsSection() {
       </div>
       <div className="absolute top-[45%] left-[5%] w-24 h-24 text-brand-yellow-dark opacity-30 animate-float-slow pointer-events-none hidden lg:block">
         {/* Lâmpada */}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18h6" /><path d="M10 22h4" /><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14" /></svg>
       </div>
       <div className="absolute bottom-[10%] right-[10%] w-32 h-32 text-brand-pink opacity-20 animate-wiggle pointer-events-none hidden lg:block">
         {/* Coração Rabiscado */}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
       </div>
-      
+
       {/* SEÇÃO TÍTULO DE INTRODUÇÃO */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="flex flex-col gap-4 max-w-2xl">
@@ -101,7 +101,7 @@ export default function PillarsSection() {
       </div>
 
       {/* PILLAR 1: TRADIÇÃO (Texto Esquerda, Imagem Direita) */}
-      <div 
+      <div
         ref={pillar1Ref}
         className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
       >
@@ -123,16 +123,16 @@ export default function PillarsSection() {
           </p>
           <div className="stagger-item mt-2">
             <button className="flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-brand-orange-dark font-semibold hover:text-brand-charcoal transition-colors duration-300">
-              Conheça Nossa História <CaretRight size={14} className="text-brand-orange"  weight="duotone" />
+              Conheça Nossa História <CaretRight size={14} className="text-brand-orange" weight="duotone" />
             </button>
           </div>
         </div>
 
         <div className="pillar-image-container order-1 lg:order-2 flex justify-center lg:justify-end">
           <div className="relative w-full max-w-lg aspect-[4/3] rounded-[3rem] rounded-br-2xl overflow-hidden border-4 border-brand-light-border bg-brand-light-card shadow-[8px_8px_0_0_rgba(0,0,0,0.05)] rotate-1 hover:rotate-0 transition-transform duration-500">
-            <img 
-              src={tradicaoImg} 
-              alt="Criança lendo livro na biblioteca do Colégio Saber" 
+            <img
+              src={tradicaoImg}
+              alt="Criança lendo livro na biblioteca do Colégio Saber"
               loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out"
             />
@@ -143,15 +143,15 @@ export default function PillarsSection() {
       </div>
 
       {/* PILLAR 2: INOVAÇÃO (Imagem Esquerda, Texto Direita) */}
-      <div 
+      <div
         ref={pillar2Ref}
         className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
       >
         <div className="pillar-image-container flex justify-center lg:justify-start">
           <div className="relative w-full max-w-lg aspect-[4/3] rounded-[3rem] rounded-br-2xl overflow-hidden border-4 border-brand-light-border bg-brand-light-card shadow-[8px_8px_0_0_rgba(0,0,0,0.05)] rotate-1 hover:rotate-0 transition-transform duration-500">
-            <img 
-              src={inovacaoImg} 
-              alt="Estudante montando projeto de robótica no laboratório" 
+            <img
+              src={inovacaoImg}
+              alt="Estudante montando projeto de robótica no laboratório"
               loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out"
             />
@@ -177,14 +177,14 @@ export default function PillarsSection() {
           </p>
           <div className="stagger-item mt-2">
             <button className="flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-brand-orange-dark font-semibold hover:text-brand-charcoal transition-colors duration-300">
-              Explore Nossos Laboratórios <CaretRight size={14} className="text-brand-orange"  weight="duotone" />
+              Explore Nossos Laboratórios <CaretRight size={14} className="text-brand-orange" weight="duotone" />
             </button>
           </div>
         </div>
       </div>
 
       {/* PILLAR 3: HUMANISMO (Texto Esquerda, Imagem Direita) */}
-      <div 
+      <div
         ref={pillar3Ref}
         className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
       >
@@ -206,16 +206,16 @@ export default function PillarsSection() {
           </p>
           <div className="stagger-item mt-2">
             <button className="flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-brand-orange-dark font-semibold hover:text-brand-charcoal transition-colors duration-300">
-              Conheça Nossos Projetos Sociais <CaretRight size={14} className="text-brand-orange"  weight="duotone" />
+              Conheça Nossos Projetos Sociais <CaretRight size={14} className="text-brand-orange" weight="duotone" />
             </button>
           </div>
         </div>
 
         <div className="pillar-image-container order-1 lg:order-2 flex justify-center lg:justify-end">
           <div className="relative w-full max-w-lg aspect-[4/3] rounded-[3rem] rounded-br-2xl overflow-hidden border-4 border-brand-light-border bg-brand-light-card shadow-[8px_8px_0_0_rgba(0,0,0,0.05)] rotate-1 hover:rotate-0 transition-transform duration-500">
-            <img 
-              src={humanismoImg} 
-              alt="Crianças colaborando em atividades escolares" 
+            <img
+              src={humanismoImg}
+              alt="Crianças colaborando em atividades escolares"
               loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out"
             />

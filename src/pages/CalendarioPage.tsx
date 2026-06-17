@@ -44,7 +44,7 @@ const MONTH_NAMES = [
 
 export default function CalendarioPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  
+
   // Data atual de visualização (inicia em Janeiro de 2026 para ver o ano)
   const [currentDate, setCurrentDate] = useState<Date>(new Date(2026, 0, 1)); // 2026-01-01
   const [selectedDayEvents, setSelectedDayEvents] = useState<SchoolEvent[]>([]);
@@ -105,9 +105,9 @@ export default function CalendarioPage() {
 
   // Filtragem dos eventos com base em busca e filtros de categoria
   const filteredEvents = EVENTS_DATA.filter(evt => {
-    const matchesSearch = evt.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          evt.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          evt.location.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = evt.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      evt.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      evt.location.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesFilter = activeFilters.includes(evt.category);
     return matchesSearch && matchesFilter;
   });
@@ -152,16 +152,16 @@ export default function CalendarioPage() {
   // Clique em um dia na visualização de grade
   const handleDayClick = (day: number, isCurrentMonth: boolean, dateString: string) => {
     if (!isCurrentMonth) return;
-    
+
     setSelectedDay(day);
     const dayEvents = filteredEvents.filter(evt => evt.date === dateString);
     setSelectedDayEvents(dayEvents);
   };
 
   const toggleFilter = (catId: string) => {
-    setActiveFilters(prev => 
-      prev.includes(catId) 
-        ? prev.filter(c => c !== catId) 
+    setActiveFilters(prev =>
+      prev.includes(catId)
+        ? prev.filter(c => c !== catId)
         : [...prev, catId]
     );
   };
@@ -182,7 +182,7 @@ export default function CalendarioPage() {
       const cleanDate = evt.date.replace(/-/g, '');
       const startDateTime = evt.time === 'Dia Todo' ? `${cleanDate}` : `${cleanDate}T${evt.time.replace(/:/g, '')}00`;
       const endDateTime = evt.time === 'Dia Todo' ? `${cleanDate}` : `${cleanDate}T${String(parseInt(evt.time.split(':')[0]) + 2).padStart(2, '0')}${evt.time.split(':')[1]}00`;
-      
+
       const isDayTodo = evt.time === 'Dia Todo';
 
       icsContent += [
@@ -250,7 +250,7 @@ export default function CalendarioPage() {
   return (
     <div className="pt-32 pb-24 min-h-screen bg-brand-light flex flex-col justify-center items-center relative z-10">
       <div className="max-w-6xl w-full px-6 flex flex-col gap-10">
-        
+
         {/* Título & Introdução */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="flex flex-col gap-2 max-w-xl text-left">
@@ -323,11 +323,10 @@ export default function CalendarioPage() {
                   key={id}
                   type="button"
                   onClick={() => toggleFilter(id)}
-                  className={`px-4 py-2.5 rounded-xl border font-sans text-xs font-medium flex items-center gap-2.5 transition-all duration-500 ${
-                    isActive 
-                      ? `${cat.bgClass} shadow-sm font-semibold` 
+                  className={`px-4 py-2.5 rounded-xl border font-sans text-xs font-medium flex items-center gap-2.5 transition-all duration-500 ${isActive
+                      ? `${cat.bgClass} shadow-sm font-semibold`
                       : 'border-brand-light-border bg-white text-brand-charcoal-light/60 hover:border-brand-orange/40 hover:text-brand-orange'
-                  }`}
+                    }`}
                 >
                   <span className={`w-2 h-2 rounded-full ${cat.dotClass}`}></span>
                   <span>{cat.label}</span>
@@ -340,10 +339,10 @@ export default function CalendarioPage() {
 
         {/* Layout do Calendário */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
+
           {/* Calendário Grade/Lista (Esquerda) */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            
+
             {/* Controles de Cabeçalho do Mês e ViewMode */}
             <div className="flex justify-between items-center p-5 rounded-2xl border border-brand-light-border bg-brand-light-card">
               {/* Navegador de Mês */}
@@ -354,9 +353,9 @@ export default function CalendarioPage() {
                   className="p-2.5 rounded-xl border border-brand-light-border bg-white hover:border-brand-orange/40 text-brand-charcoal hover:text-brand-orange transition-colors duration-500"
                   aria-label="Mês anterior"
                 >
-                  <CaretRight size={16}  weight="duotone" />
+                  <CaretRight size={16} weight="duotone" />
                 </button>
-                
+
                 <h3 className="font-serif text-lg md:text-xl font-semibold text-brand-charcoal tracking-wide w-40 text-center select-none">
                   {MONTH_NAMES[month]} {year}
                 </h3>
@@ -367,7 +366,7 @@ export default function CalendarioPage() {
                   className="p-2.5 rounded-xl border border-brand-light-border bg-white hover:border-brand-orange/40 text-brand-charcoal hover:text-brand-orange transition-colors duration-500"
                   aria-label="Próximo mês"
                 >
-                  <CaretRight size={16}  weight="duotone" />
+                  <CaretRight size={16} weight="duotone" />
                 </button>
               </div>
 
@@ -376,9 +375,8 @@ export default function CalendarioPage() {
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-lg flex items-center justify-center transition-colors duration-500 ${
-                    viewMode === 'grid' ? 'bg-brand-orange text-white' : 'text-brand-charcoal/65 hover:text-brand-orange'
-                  }`}
+                  className={`p-2 rounded-lg flex items-center justify-center transition-colors duration-500 ${viewMode === 'grid' ? 'bg-brand-orange text-white' : 'text-brand-charcoal/65 hover:text-brand-orange'
+                    }`}
                   title="Exibição em Grade"
                 >
                   <Calendar size={16} weight="duotone" />
@@ -386,9 +384,8 @@ export default function CalendarioPage() {
                 <button
                   type="button"
                   onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-lg flex items-center justify-center transition-colors duration-500 ${
-                    viewMode === 'list' ? 'bg-brand-orange text-white' : 'text-brand-charcoal/65 hover:text-brand-orange'
-                  }`}
+                  className={`p-2 rounded-lg flex items-center justify-center transition-colors duration-500 ${viewMode === 'list' ? 'bg-brand-orange text-white' : 'text-brand-charcoal/65 hover:text-brand-orange'
+                    }`}
                   title="Exibição em Feed"
                 >
                   <List size={16} weight="duotone" />
@@ -398,7 +395,7 @@ export default function CalendarioPage() {
 
             {/* Visualização de Grade */}
             {viewMode === 'grid' && (
-              <div 
+              <div
                 ref={gridRef}
                 className="bg-brand-light-card border border-brand-light-border rounded-3xl p-6 shadow-sm select-none"
               >
@@ -417,24 +414,22 @@ export default function CalendarioPage() {
                     const hasEvents = filteredEvents.some(e => e.date === cell.dateString);
                     const dayEvents = filteredEvents.filter(e => e.date === cell.dateString);
                     const isSelected = selectedDay === cell.day && cell.isCurrentMonth;
-                    
+
                     return (
                       <button
                         key={idx}
                         type="button"
                         onClick={() => handleDayClick(cell.day, cell.isCurrentMonth, cell.dateString)}
                         disabled={!cell.isCurrentMonth}
-                        className={`h-16 sm:h-20 p-2 border rounded-2xl flex flex-col justify-between items-start text-left transition-all duration-300 relative ${
-                          !cell.isCurrentMonth
+                        className={`h-16 sm:h-20 p-2 border rounded-2xl flex flex-col justify-between items-start text-left transition-all duration-300 relative ${!cell.isCurrentMonth
                             ? 'border-transparent bg-transparent opacity-20'
                             : isSelected
-                            ? 'border-brand-orange bg-brand-orange/5 font-bold shadow-md shadow-brand-orange/5 scale-[1.02]'
-                            : 'border-brand-light-border bg-white hover:border-brand-orange/40 text-brand-charcoal'
-                        }`}
+                              ? 'border-brand-orange bg-brand-orange/5 font-bold shadow-md shadow-brand-orange/5 scale-[1.02]'
+                              : 'border-brand-light-border bg-white hover:border-brand-orange/40 text-brand-charcoal'
+                          }`}
                       >
-                        <span className={`font-sans text-xs font-semibold ${
-                          isSelected ? 'text-brand-orange' : 'text-brand-charcoal/80'
-                        }`}>
+                        <span className={`font-sans text-xs font-semibold ${isSelected ? 'text-brand-orange' : 'text-brand-charcoal/80'
+                          }`}>
                           {cell.day}
                         </span>
 
@@ -442,8 +437,8 @@ export default function CalendarioPage() {
                         {cell.isCurrentMonth && hasEvents && (
                           <div className="flex gap-1 flex-wrap mt-2 w-full">
                             {dayEvents.slice(0, 3).map(evt => (
-                              <span 
-                                key={evt.id} 
+                              <span
+                                key={evt.id}
                                 className={`w-1.5 h-1.5 rounded-full ${CATEGORIES[evt.category].dotClass}`}
                                 title={evt.title}
                               ></span>
@@ -462,18 +457,18 @@ export default function CalendarioPage() {
 
             {/* Visualização em Feed / Lista */}
             {viewMode === 'list' && (
-              <div 
+              <div
                 ref={listRef}
                 className="flex flex-col gap-4"
               >
                 {activeMonthEvents.length === 0 ? (
                   <div className="p-12 text-center rounded-3xl border border-brand-light-border bg-brand-light-card flex flex-col items-center gap-3">
-                    <List size={24} className="text-brand-charcoal/30"  weight="duotone" />
+                    <List size={24} className="text-brand-charcoal/30" weight="duotone" />
                     <p className="font-sans text-xs font-medium text-brand-charcoal-light/70">Nenhum compromisso escolar agendado com os filtros ativos para este mês.</p>
                   </div>
                 ) : (
                   activeMonthEvents.map(evt => (
-                    <div 
+                    <div
                       key={evt.id}
                       className={`p-6 rounded-3xl border  bg-brand-light-card border-brand-light-border hover:shadow-md transition-all duration-300 flex flex-col md:flex-row justify-between gap-4 text-left`}
                       style={{ borderLeftColor: CATEGORIES[evt.category].color }}
@@ -517,7 +512,7 @@ export default function CalendarioPage() {
                   Compromissos do Dia
                 </h4>
                 <p className="font-sans text-[10px] text-brand-charcoal-light/60">
-                  {selectedDay 
+                  {selectedDay
                     ? `Visualizando: ${String(selectedDay).padStart(2, '0')}/${String(month + 1).padStart(2, '0')}/${year}`
                     : 'Selecione um dia no calendário para detalhar os eventos.'
                   }
@@ -541,8 +536,8 @@ export default function CalendarioPage() {
               ) : (
                 <div className="flex flex-col gap-3.5">
                   {selectedDayEvents.map(evt => (
-                    <div 
-                      key={evt.id} 
+                    <div
+                      key={evt.id}
                       className="p-4 rounded-xl border border-brand-light-border bg-white flex flex-col gap-2 transition-shadow duration-300 hover:shadow-md"
                     >
                       <div className="flex items-center gap-2">
@@ -551,10 +546,10 @@ export default function CalendarioPage() {
                           {CATEGORIES[evt.category].label}
                         </span>
                       </div>
-                      
+
                       <h5 className="font-serif text-xs font-semibold text-brand-charcoal leading-snug">{evt.title}</h5>
                       <p className="font-sans text-[10px] text-brand-charcoal-light/75 font-medium leading-relaxed">{evt.description}</p>
-                      
+
                       <div className="flex items-center justify-between text-[9px] uppercase tracking-wider font-semibold text-brand-charcoal/40 border-t border-brand-light-border/60 pt-2 mt-1">
                         <span className="flex items-center gap-1"><Clock size={10} weight="duotone" /> {evt.time}</span>
                         <span className="flex items-center gap-1"><MapPin size={10} weight="duotone" /> {evt.location}</span>
@@ -564,7 +559,7 @@ export default function CalendarioPage() {
                 </div>
               )}
             </div>
-            
+
             {/* Aviso Informativo das Férias */}
             <div className="p-5 rounded-3xl bg-brand-orange/5 border border-brand-orange/15 flex gap-3 text-left">
               <Info size={18} className="text-brand-orange shrink-0 mt-0.5" weight="duotone" />
@@ -582,9 +577,9 @@ export default function CalendarioPage() {
       {/* --- MODAL DO SIMULADOR DE SINCRONIZAÇÃO GOOGLE CALENDAR --- */}
       {isSyncModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-brand-charcoal/60 backdrop-blur-md animate-fade-in">
-          
+
           <div className="bg-white border border-brand-light-border rounded-3xl max-w-md w-full p-8 shadow-2xl relative flex flex-col gap-6 text-center">
-            
+
             {/* Botão Fechar */}
             <button
               type="button"
@@ -615,7 +610,7 @@ export default function CalendarioPage() {
                   className="w-full flex items-center justify-center gap-3 px-5 py-3.5 border border-brand-light-border hover:border-brand-charcoal/30 bg-white rounded-xl shadow-sm hover:shadow-md font-sans text-xs font-semibold text-brand-charcoal transition-all duration-300"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
-                    <path fill="#ea4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.2-5.136 4.2A5.727 5.727 0 0 1 8.24 12.87a5.727 5.727 0 0 1 5.751-5.73c1.554 0 2.973.567 4.072 1.503l3.203-3.2A10.222 10.222 0 0 0 13.991 1.44a10.286 10.286 0 0 0-10.25 10.29 10.286 10.286 0 0 0 10.25 10.29c5.688 0 10.25-4.14 10.25-10.29 0-.64-.067-1.285-.201-1.92H12.24z"/>
+                    <path fill="#ea4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.2-5.136 4.2A5.727 5.727 0 0 1 8.24 12.87a5.727 5.727 0 0 1 5.751-5.73c1.554 0 2.973.567 4.072 1.503l3.203-3.2A10.222 10.222 0 0 0 13.991 1.44a10.286 10.286 0 0 0-10.25 10.29 10.286 10.286 0 0 0 10.25 10.29c5.688 0 10.25-4.14 10.25-10.29 0-.64-.067-1.285-.201-1.92H12.24z" />
                   </svg>
                   <span>Acessar com o Google</span>
                 </button>
@@ -629,10 +624,10 @@ export default function CalendarioPage() {
                   <span className="font-sans text-[10px] uppercase tracking-wider font-semibold text-brand-orange">
                     Sincronizando Dados
                   </span>
-                  
+
                   {/* Barra de Progresso */}
                   <div className="w-full bg-brand-light-border h-2 rounded-full overflow-hidden mt-1 relative">
-                    <div 
+                    <div
                       className="bg-brand-orange h-full rounded-full transition-all duration-300"
                       style={{ width: `${syncProgress}%` }}
                     ></div>
@@ -668,7 +663,7 @@ export default function CalendarioPage() {
             )}
 
           </div>
-          
+
         </div>
       )}
 

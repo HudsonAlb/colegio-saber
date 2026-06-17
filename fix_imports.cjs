@@ -17,19 +17,19 @@ const files = walk('src');
 files.forEach(file => {
   let content = fs.readFileSync(file, 'utf8');
   let phosphorMatch = content.match(/import\s+\{([^}]+)\}\s+from\s+['"]@phosphor-icons\/react['"]/);
-  
+
   if (phosphorMatch) {
     let importedIcons = phosphorMatch[1].split(',').map(i => i.trim());
-    
+
     let tagMatches = content.match(/<([A-Z][a-zA-Z0-9]*)/g);
     if (tagMatches) {
       let uniqueTags = [...new Set(tagMatches.map(t => t.substring(1)))];
-      
+
       let changed = false;
       let newImportStr = phosphorMatch[0];
-      
+
       uniqueTags.forEach(tag => {
-        let knownPhosphor = ['List','X','Student','MapPin','Phone','Envelope','CaretRight','CaretLeft','PlayCircle','MapTrifold','CornersOut','MagnifyingGlass','Sparkle','WarningCircle','Faders','CheckCircle','Question','Compass','Info','Maximize2','MoveHorizontal'];
+        let knownPhosphor = ['List', 'X', 'Student', 'MapPin', 'Phone', 'Envelope', 'CaretRight', 'CaretLeft', 'PlayCircle', 'MapTrifold', 'CornersOut', 'MagnifyingGlass', 'Sparkle', 'WarningCircle', 'Faders', 'CheckCircle', 'Question', 'Compass', 'Info', 'Maximize2', 'MoveHorizontal'];
         if (knownPhosphor.includes(tag) && !importedIcons.includes(tag)) {
           console.log(file + ' is missing import for: ' + tag);
           newImportStr = newImportStr.replace('}', ', ' + tag + ' }');
@@ -37,7 +37,7 @@ files.forEach(file => {
           changed = true;
         }
       });
-      
+
       if (changed) {
         content = content.replace(phosphorMatch[0], newImportStr);
         fs.writeFileSync(file, content, 'utf8');
