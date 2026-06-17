@@ -1,4 +1,5 @@
 
+
 function FamilyHeartIcon() {
   return (
     <svg className="w-32 h-32 mx-auto mb-4" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,11 +83,28 @@ export default function HighlightsSection() {
   ];
 
   return (
-    <section className="py-20 bg-brand-light relative z-10" aria-label="Nossos Diferenciais">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+    <section className="py-24 bg-brand-light relative z-10 overflow-hidden" aria-label="Nossos Diferenciais">
+      
+      {/* Vetores Desenhados de Fundo */}
+      <div className="absolute top-10 left-10 w-20 h-20 text-brand-green opacity-30 animate-wiggle pointer-events-none hidden lg:block">
+        {/* Leaf doodle */}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+        </svg>
+      </div>
+      <div className="absolute bottom-10 right-10 w-24 h-24 text-brand-yellow opacity-40 animate-float-slow pointer-events-none hidden lg:block">
+        {/* Sun/Spiral doodle */}
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+          <path d="M50 20 C60 10 70 30 50 50 C30 70 40 90 50 80" />
+          <path d="M20 50 C10 40 30 30 50 50 C70 70 90 60 80 50" />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
         {/* Title details */}
-        <div className="text-center mb-16 max-w-2xl mx-auto">
-          <span className="font-sans text-xs uppercase tracking-[0.25em] text-brand-orange-dark font-bold block mb-3">
+        <div className="text-center mb-20 max-w-2xl mx-auto">
+          <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#d94a00] font-black block mb-3">
             Diferenciais Saber
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-charcoal leading-tight">

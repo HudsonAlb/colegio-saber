@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, X, Calendar, User, Tag, ArrowRight, BookOpen, Image, Sparkles } from 'lucide-react';
+import { MagnifyingGlass, X, Calendar, User, Tag, ArrowRight, BookOpen, Image, Sparkle , PlayCircle } from '@phosphor-icons/react';
 import gsap from 'gsap';
 
 interface BlogPost {
@@ -177,13 +177,13 @@ export default function BlogPage() {
       {/* HERO SECTION */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center md:text-left">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-orange/20 bg-brand-orange/5 text-brand-orange-dark text-xs uppercase tracking-widest font-semibold mb-6">
-          <Sparkles size={12} className="animate-pulse" />
+          <PlayCircle size={12} className="animate-pulse"  weight="duotone" />
           <span>Saber em Ação</span>
         </div>
         <h1 className="font-serif text-4xl md:text-6xl text-brand-charcoal mb-6 leading-tight max-w-4xl">
           Compartilhando <span className="text-brand-orange-dark font-medium italic">Conhecimento</span> & Conquistas
         </h1>
-        <p className="font-sans text-sm md:text-base text-brand-charcoal-light/80 max-w-2xl font-light leading-relaxed">
+        <p className="font-sans text-sm md:text-base text-brand-charcoal-light/80 max-w-2xl font-medium leading-relaxed">
           Explore nossos artigos pedagógicos de vanguarda escritos pelo nosso corpo docente e encante-se com a riqueza e criatividade dos projetos práticos desenvolvidos por nossos alunos.
         </p>
       </section>
@@ -222,14 +222,14 @@ export default function BlogPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-10 py-3 rounded-full border border-brand-light-border bg-white text-xs text-brand-charcoal placeholder-brand-charcoal/40 focus:outline-none focus:border-brand-orange/60 transition-colors duration-500"
           />
-          <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/40" />
+          <MagnifyingGlass size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/40"  weight="duotone" />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-charcoal/40 hover:text-brand-charcoal"
               aria-label="Limpar pesquisa"
             >
-              <X size={14} />
+              <X size={14} weight="duotone" />
             </button>
           )}
         </div>
@@ -257,9 +257,9 @@ export default function BlogPage() {
                       post.type === 'article' ? 'bg-brand-charcoal' : 'bg-brand-orange'
                     }`}>
                       {post.type === 'article' ? (
-                        <BookOpen size={10} />
+                        <BookOpen size={10} weight="duotone" />
                       ) : (
-                        <Image size={10} />
+                        <Image size={10} weight="duotone" />
                       )}
                       {post.category}
                     </span>
@@ -304,7 +304,7 @@ export default function BlogPage() {
                       className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold text-brand-orange-dark hover:text-brand-charcoal group/btn transition-colors duration-300"
                     >
                       {post.type === 'article' ? 'Ler Artigo' : 'Ver Projeto'}
-                      <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform duration-300" />
+                      <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform duration-300" weight="duotone" />
                     </button>
                   </div>
                 </div>
@@ -313,7 +313,7 @@ export default function BlogPage() {
           </div>
         ) : (
           <div className="text-center py-20 bg-brand-light-card border border-brand-light-border rounded-3xl">
-            <Search className="w-12 h-12 text-brand-charcoal/20 mx-auto mb-4" />
+            <MagnifyingGlass className="w-12 h-12 text-brand-charcoal/20 mx-auto mb-4" />
             <h3 className="font-serif text-xl text-brand-charcoal mb-2">Nenhum resultado encontrado</h3>
             <p className="font-sans text-xs text-brand-charcoal-light/70 max-w-sm mx-auto">
               Não encontramos nenhum artigo ou projeto correspondente a "{searchQuery}". Experimente usar termos diferentes ou limpar os filtros.
@@ -352,7 +352,7 @@ export default function BlogPage() {
             className="relative bg-[#fffcf7] w-full max-w-4xl max-h-[85vh] rounded-[2rem] shadow-2xl border border-brand-light-border overflow-y-auto outline-none animate-fade-in"
           >
             {/* Header/Banner do Modal */}
-            <div className="relative h-64 md:h-96 w-full bg-brand-light-border">
+            <div className="relative h-full min-h-[16rem] md:h-96 w-full bg-brand-light-border">
               <img
                 src={activePost.imageUrl}
                 alt={activePost.title}
@@ -366,7 +366,7 @@ export default function BlogPage() {
                 className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-300"
                 aria-label="Fechar detalhes"
               >
-                <X size={18} />
+                <X size={18} weight="duotone" />
               </button>
 
               {/* Informações do Banner */}
@@ -375,7 +375,7 @@ export default function BlogPage() {
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider text-brand-light ${
                     activePost.type === 'article' ? 'bg-brand-charcoal' : 'bg-brand-orange'
                   }`}>
-                    {activePost.type === 'article' ? <BookOpen size={10} /> : <Image size={10} />}
+                    {activePost.type === 'article' ? <BookOpen size={10} weight="duotone" /> : <Image size={10} weight="duotone" />}
                     {activePost.category}
                   </span>
                   {activePost.readTime && (
@@ -408,13 +408,13 @@ export default function BlogPage() {
                   {activePost.type === 'article' && (
                     <div className="bg-brand-light-card border border-brand-light-border rounded-2xl p-6">
                       <h4 className="font-serif text-xs text-brand-charcoal-light/50 uppercase tracking-widest font-semibold mb-4 flex items-center gap-1.5">
-                        <User size={12} className="text-brand-orange" />
+                        <User size={12} className="text-brand-orange" weight="duotone" />
                         Autor do Artigo
                       </h4>
                       <p className="font-serif text-base text-brand-charcoal font-medium">
                         {activePost.author}
                       </p>
-                      <p className="font-sans text-xs text-brand-charcoal-light/70 font-light mt-1">
+                      <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium mt-1">
                         {activePost.role}
                       </p>
                     </div>
@@ -424,12 +424,12 @@ export default function BlogPage() {
                   {activePost.type === 'project' && activePost.learningObjectives && (
                     <div className="bg-brand-light-card border border-brand-light-border rounded-2xl p-6">
                       <h4 className="font-serif text-xs text-brand-charcoal-light/50 uppercase tracking-widest font-semibold mb-4 flex items-center gap-1.5">
-                        <Tag size={12} className="text-brand-orange" />
+                        <Tag size={12} className="text-brand-orange" weight="duotone" />
                         Objetivos de Aprendizado
                       </h4>
                       <ul className="flex flex-col gap-3">
                         {activePost.learningObjectives.map((obj, i) => (
-                          <li key={i} className="font-sans text-xs text-brand-charcoal-light/85 font-light leading-relaxed flex gap-2">
+                          <li key={i} className="font-sans text-xs text-brand-charcoal-light/85 font-medium leading-relaxed flex gap-2">
                             <span className="text-brand-orange font-bold">•</span>
                             <span>{obj}</span>
                           </li>
@@ -439,13 +439,13 @@ export default function BlogPage() {
                   )}
 
                   {/* Metadados Comuns */}
-                  <div className="flex flex-col gap-3 font-sans text-xs font-light text-brand-charcoal-light/80">
+                  <div className="flex flex-col gap-3 font-sans text-xs font-medium text-brand-charcoal-light/80">
                     <div className="flex items-center gap-2">
-                      <Calendar size={14} className="text-brand-orange shrink-0" />
+                      <Calendar size={14} className="text-brand-orange shrink-0" weight="duotone" />
                       <span>Publicado em: <strong>{activePost.date}</strong></span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Tag size={14} className="text-brand-orange shrink-0" />
+                      <Tag size={14} className="text-brand-orange shrink-0" weight="duotone" />
                       <div className="flex flex-wrap gap-1">
                         {activePost.tags.map((tag) => (
                           <span key={tag} className="bg-brand-light-border px-1.5 py-0.5 rounded text-[10px] text-brand-charcoal">

@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { 
-  Baby, Music, BookOpen, Leaf, Hammer, Cpu, PenTool, Smile, 
-  MessagesSquare, Code, Compass, Lightbulb, Award, Sparkles, 
-  Target, X, ArrowRight, Quote, Info, ChevronRight
-} from 'lucide-react';
+import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, Info, CaretRight , Question } from '@phosphor-icons/react';
 
 import infantilImg from '../assets/segmento_infantil.png';
 import fund1Img from '../assets/segmento_fund1.png';
@@ -48,7 +44,7 @@ const SEGMENTOS: Segmento[] = [
     },
     oficinas: [
       { title: 'Psicomotricidade Ativa', description: 'Atividades físicas planejadas para o desenvolvimento do equilíbrio, coordenação motora ampla, lateralidade e consciência corporal no espaço.', icon: 'Baby' },
-      { title: 'Musicalização Infantil', description: 'Introdução ao universo sonoro através de brincadeiras cantadas, exploração de ritmos e contato inicial com instrumentos de percussão simples.', icon: 'Music' },
+      { title: 'Musicalização Infantil', description: 'Introdução ao universo sonoro através de brincadeiras cantadas, exploração de ritmos e contato inicial com instrumentos de percussão simples.', icon: 'MusicNotes' },
       { title: 'Contação de Histórias', description: 'Estímulo à imaginação, ampliação do vocabulário e gosto pela leitura utilizando fantasias, fantoches e cenários de faz de conta.', icon: 'BookOpen' },
       { title: 'Horta & Sustentabilidade', description: 'Vivências práticas onde as crianças colocam as mãos na terra, aprendem sobre o cultivo vegetal e compreendem a importância do cuidado ambiental.', icon: 'Leaf' }
     ]
@@ -68,8 +64,8 @@ const SEGMENTOS: Segmento[] = [
     oficinas: [
       { title: 'Maker Lab', description: 'Espaço de cocriação onde os alunos planejam e constroem protótipos físicos utilizando materiais diversos para solucionar desafios reais do dia a dia.', icon: 'Hammer' },
       { title: 'Robótica Inicial', description: 'Primeiro contato com lógica de programação básica e montagem de robôs inteligentes através de kits de blocos modulares adaptados.', icon: 'Cpu' },
-      { title: 'Escrita Criativa', description: 'Oficina dedicada à produção literária autoral, estimulando a estruturação de enredos, poesia e criação de livros ilustrados na biblioteca.', icon: 'PenTool' },
-      { title: 'Teatro & Expressão', description: 'Jogos teatrais para o desenvolvimento da oratória, expressão corporal, desinibição e cooperação coletiva entre os colegas.', icon: 'Smile' }
+      { title: 'Escrita Criativa', description: 'Oficina dedicada à produção literária autoral, estimulando a estruturação de enredos, poesia e criação de livros ilustrados na biblioteca.', icon: 'PenNib' },
+      { title: 'Teatro & Expressão', description: 'Jogos teatrais para o desenvolvimento da oratória, expressão corporal, desinibição e cooperação coletiva entre os colegas.', icon: 'Smiley' }
     ]
   },
   {
@@ -85,7 +81,7 @@ const SEGMENTOS: Segmento[] = [
       role: 'Mãe da Julia (8º Ano)'
     },
     oficinas: [
-      { title: 'Clube de Debates', description: 'Desenvolvimento de técnicas de retórica, argumentação fundamentada e oratória baseadas nos moldes das conferências das Nações Unidas (ONU).', icon: 'MessagesSquare' },
+      { title: 'Clube de Debates', description: 'Desenvolvimento de técnicas de retórica, argumentação fundamentada e oratória baseadas nos moldes das conferências das Nações Unidas (ONU).', icon: 'Chats' },
       { title: 'Lógica & Programação', description: 'Aprofundamento de algoritmos lógicos e códigos reais, programando com Scratch e Arduino para criar sistemas funcionais de automação eletrônica.', icon: 'Code' },
       { title: 'Iniciação Científica', description: 'Pesquisa acadêmica aplicada, ensinando técnicas de investigação bibliográfica, escrita científica de relatórios e condução de hipóteses.', icon: 'Compass' },
       { title: 'Empreendedorismo Social', description: 'Elaboração de projetos comunitários de impacto real, ensinando noções de finanças, economia sustentável e elaboração de planos de ação.', icon: 'Lightbulb' }
@@ -104,7 +100,7 @@ const SEGMENTOS: Segmento[] = [
       role: 'Pai da Gabriela (Egressa de 2025)'
     },
     oficinas: [
-      { title: 'Redação Nota Mil', description: 'Trabalho analítico individual de redação focada no modelo do ENEM e nos principais vestibulares estaduais públicos (FUVEST/UNICAMP).', icon: 'Award' },
+      { title: 'Redação Nota Mil', description: 'Trabalho analítico individual de redação focada no modelo do ENEM e nos principais vestibulares estaduais públicos (FUVEST/UNICAMP).', icon: 'Medal' },
       { title: 'Eletivas Avançadas', description: 'Aprofundamento em trilhas eletivas especiais opcionais como Astrotecnologia, Filosofia Contemporânea e Economia Internacional.', icon: 'Sparkles' },
       { title: 'Mentoria Vocacional', description: 'Encontros individuais periódicos com psicólogos e mentores de carreira para delinear opções profissionais, testes vocacionais e projeto de vida.', icon: 'Target' }
     ]
@@ -113,22 +109,22 @@ const SEGMENTOS: Segmento[] = [
 
 const getIcon = (iconName: string) => {
   switch (iconName) {
-    case 'Baby': return <Baby size={18} />;
-    case 'Music': return <Music size={18} />;
-    case 'BookOpen': return <BookOpen size={18} />;
-    case 'Leaf': return <Leaf size={18} />;
-    case 'Hammer': return <Hammer size={18} />;
-    case 'Cpu': return <Cpu size={18} />;
-    case 'PenTool': return <PenTool size={18} />;
-    case 'Smile': return <Smile size={18} />;
-    case 'MessagesSquare': return <MessagesSquare size={18} />;
-    case 'Code': return <Code size={18} />;
-    case 'Compass': return <Compass size={18} />;
-    case 'Lightbulb': return <Lightbulb size={18} />;
-    case 'Award': return <Award size={18} />;
-    case 'Sparkles': return <Sparkles size={18} />;
-    case 'Target': return <Target size={18} />;
-    default: return <Sparkles size={18} />;
+    case 'Baby': return <Baby size={18} weight="duotone" />;
+    case 'MusicNotes': return <MusicNotes size={18} weight="duotone" />;
+    case 'BookOpen': return <BookOpen size={18} weight="duotone" />;
+    case 'Leaf': return <Leaf size={18} weight="duotone" />;
+    case 'Hammer': return <Hammer size={18} weight="duotone" />;
+    case 'Cpu': return <Cpu size={18} weight="duotone" />;
+    case 'PenNib': return <PenNib size={18} weight="duotone" />;
+    case 'Smiley': return <Smiley size={18} weight="duotone" />;
+    case 'Chats': return <Chats size={18} weight="duotone" />;
+    case 'Code': return <Code size={18} weight="duotone" />;
+    case 'Compass': return <Compass size={18} weight="duotone" />;
+    case 'Lightbulb': return <Lightbulb size={18} weight="duotone" />;
+    case 'Medal': return <Medal size={18} weight="duotone" />;
+    case 'Sparkles': return <Sparkle size={18}  weight="duotone" />;
+    case 'Target': return <Target size={18} weight="duotone" />;
+    default: return <Question size={18}  weight="duotone" />;
   }
 };
 
@@ -209,7 +205,7 @@ export default function SegmentosPage() {
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-charcoal font-medium">
             Segmentos de Ensino
           </h1>
-          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-light leading-relaxed">
+          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium leading-relaxed">
             Conheça as etapas de desenvolvimento oferecidas pelo Colégio Saber, desenhadas com foco no aprendizado ativo, autonomia intelectual e acolhimento socioemocional.
           </p>
         </div>
@@ -269,7 +265,7 @@ export default function SegmentosPage() {
             <div className="hidden md:flex flex-col gap-4 p-6 rounded-2xl bg-brand-light-card border border-brand-light-border mt-8 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand-orange/2 rounded-full blur-2xl pointer-events-none"></div>
               <h4 className="font-serif text-xs font-semibold text-brand-charcoal uppercase tracking-wider">Ingresso 2026/2027</h4>
-              <p className="font-sans text-[10px] text-brand-charcoal-light/75 leading-relaxed font-light">Garanta a matrícula do seu filho através do nosso processo digital interativo.</p>
+              <p className="font-sans text-[10px] text-brand-charcoal-light/75 leading-relaxed font-medium">Garanta a matrícula do seu filho através do nosso processo digital interativo.</p>
               <button
                 type="button"
                 onClick={() => navigate('/admissao')}
@@ -277,7 +273,7 @@ export default function SegmentosPage() {
                 aria-label="Ir para formulário de admissão"
               >
                 Matricular agora
-                <ArrowRight size={10} />
+                <ArrowRight size={10} weight="duotone" />
               </button>
             </div>
           </div>
@@ -314,19 +310,19 @@ export default function SegmentosPage() {
               </div>
 
               {/* Destaque Curricular */}
-              <p className="font-serif text-base sm:text-lg italic text-brand-orange-dark font-light leading-relaxed border-l-2 border-brand-orange/30 pl-4 py-1">
+              <p className="font-serif text-base sm:text-lg italic text-brand-orange-dark font-medium leading-relaxed border-l-2 border-brand-orange/30 pl-4 py-1">
                 "{activeSegment.highlight}"
               </p>
 
               {/* Descrição Longa */}
-              <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/85 font-light leading-relaxed">
+              <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/85 font-medium leading-relaxed">
                 {activeSegment.description}
               </p>
 
               {/* Disciplinas Complementares e Oficinas */}
               <div className="flex flex-col gap-4 mt-4">
                 <div className="flex items-center gap-2 text-brand-charcoal">
-                  <Info size={14} className="text-brand-orange shrink-0" />
+                  <Info size={14} className="text-brand-orange shrink-0" weight="duotone" />
                   <h3 className="font-serif text-sm font-semibold uppercase tracking-wider">
                     Diferenciais Curriculares & Oficinas
                   </h3>
@@ -352,7 +348,7 @@ export default function SegmentosPage() {
                       </div>
                       <span className="text-[10px] text-brand-orange font-bold uppercase tracking-wider flex items-center gap-1">
                         Saber mais
-                        <ChevronRight size={10} className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                        <CaretRight size={10} className="group-hover:translate-x-0.5 transition-transform duration-300"  weight="duotone" />
                       </span>
                     </button>
                   ))}
@@ -361,8 +357,8 @@ export default function SegmentosPage() {
 
               {/* Depoimento do Responsável (Testimonial Card) */}
               <div className="p-6 sm:p-8 rounded-3xl bg-brand-light-card border border-brand-light-border mt-6 relative overflow-hidden flex flex-col gap-4">
-                <Quote size={40} className="absolute -right-4 -bottom-4 text-brand-orange/4 opacity-40 transform rotate-12" />
-                <p className="font-sans text-xs italic text-brand-charcoal-light/90 leading-relaxed font-light relative z-10">
+                <Quotes size={40} className="absolute -right-4 -bottom-4 text-brand-orange/4 opacity-40 transform rotate-12" />
+                <p className="font-sans text-xs italic text-brand-charcoal-light/90 leading-relaxed font-medium relative z-10">
                   "{activeSegment.testimonial.text}"
                 </p>
                 <div className="flex flex-col text-left relative z-10 border-t border-brand-light-border/40 pt-3.5">
@@ -405,7 +401,7 @@ export default function SegmentosPage() {
               className="absolute top-6 right-6 p-1.5 rounded-lg hover:bg-brand-light-card text-brand-charcoal-light/50 hover:text-brand-orange transition-colors duration-300 focus:outline-none focus:text-brand-orange cursor-pointer"
               aria-label="Fechar informações da oficina"
             >
-              <X size={16} />
+              <X size={16} weight="duotone" />
             </button>
 
             {/* Ícone & Categoria */}
@@ -422,7 +418,7 @@ export default function SegmentosPage() {
             </div>
 
             {/* Descritivo */}
-            <p id="modal-description" className="font-sans text-xs text-brand-charcoal-light/85 leading-relaxed font-light">
+            <p id="modal-description" className="font-sans text-xs text-brand-charcoal-light/85 leading-relaxed font-medium">
               {activeOficina.description}
             </p>
 

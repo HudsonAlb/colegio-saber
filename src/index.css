@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&family=Kalam:wght@300;400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-serif: "Fredoka", sans-serif;
   --font-sans: "Quicksand", sans-serif;
+  --font-doodle: "Kalam", cursive;
   
   --color-brand-orange: #ff7e1b;
   --color-brand-orange-light: #ffa15c;
@@ -33,6 +34,10 @@
 }
 
 @layer base {
+  html {
+    font-size: 18px; /* ~112.5% scale for roomy layout */
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -43,6 +48,7 @@
     background-color: var(--color-brand-light);
     color: var(--color-brand-charcoal);
     font-family: var(--font-sans);
+    font-weight: 500;
     overflow-x: hidden !important;
     max-width: 100%;
     width: 100%;
@@ -100,6 +106,29 @@
 
 .animate-fade-in {
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Animações Lúdicas (Wiggle e Float) */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.animate-wiggle-fast {
+  animation: wiggle 0.8s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
 }
 
 /* Otimização de Impressão */

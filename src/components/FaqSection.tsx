@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, HelpCircle, Clock, Truck } from 'lucide-react';
+import { CaretDown, Question, Clock, Tote } from '@phosphor-icons/react';
 import gsap from 'gsap';
-
 interface FaqItemData {
   question: string;
   answer: string;
@@ -18,7 +17,7 @@ const FAQ_DATA: CategoryData[] = [
   {
     id: 'admissao',
     title: 'Admissão & Matrículas',
-    icon: <HelpCircle size={14} />,
+    icon: <Question size={20} weight="duotone" className="text-brand-orange" />,
     items: [
       {
         question: 'Qual é o período de matrículas para o ano letivo?',
@@ -37,7 +36,7 @@ const FAQ_DATA: CategoryData[] = [
   {
     id: 'academico',
     title: 'Rotina & Horários',
-    icon: <Clock size={14} />,
+    icon: <Clock size={20} weight="duotone" className="text-brand-orange" />,
     items: [
       {
         question: 'Quais são os turnos e horários das aulas?',
@@ -56,7 +55,7 @@ const FAQ_DATA: CategoryData[] = [
   {
     id: 'servicos',
     title: 'Serviços & Logística',
-    icon: <Truck size={14} />,
+    icon: <Tote size={20} weight="duotone" className="text-brand-orange" />,
     items: [
       {
         question: 'Como funciona a aquisição de uniformes e materiais didáticos?',
@@ -75,7 +74,7 @@ const FAQ_DATA: CategoryData[] = [
 ];
 
 // Sub-componente de item de acordeão para animar a altura dinamicamente
-function AccordionItem({ item, isOpen, onClick }: { item: FaqItemData; isOpen: boolean; onClick: () => void }) {
+function FaqItem({ item, isOpen, onClick, idx }: { item: FaqItemData, isOpen: boolean, onClick: () => void, idx: number }) {
   const contentRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -91,26 +90,32 @@ function AccordionItem({ item, isOpen, onClick }: { item: FaqItemData; isOpen: b
   }, [isOpen]);
 
   return (
-    <div className="border-b border-brand-light-border last:border-none flex flex-col">
+    <div className={`border-[3px] border-dashed rounded-[2.5rem] flex flex-col mb-4 overflow-hidden transition-all duration-500 ${isOpen ? "bg-brand-yellow/15 border-brand-yellow-dark/40 shadow-[4px_4px_0_0_rgba(216,159,0,0.2)] -translate-y-1" : "bg-brand-light-card border-brand-light-border hover:border-brand-orange/40 hover:bg-brand-orange/5"}`}>
       <button
         type="button"
+        id={`faq-btn-${idx}`}
+        aria-expanded={isOpen}
+        aria-controls={`faq-content-${idx}`}
         onClick={onClick}
-        className="w-full py-5 text-left flex justify-between items-center gap-4 hover:text-brand-orange transition-colors duration-500 font-serif text-sm md:text-base font-medium text-brand-charcoal focus:outline-none"
+        className="w-full py-5 px-6 text-left flex justify-between items-center gap-4 hover:text-brand-orange transition-colors duration-500 font-serif text-sm md:text-base font-bold text-brand-charcoal focus:outline-none"
       >
         <span>{item.question}</span>
         <div className={`p-1.5 rounded-full border border-brand-light-border bg-brand-light-card text-brand-charcoal/50 transition-transform duration-700 shrink-0 ${
           isOpen ? 'rotate-180 text-brand-orange border-brand-orange/30' : ''
         }`}>
-          <ChevronDown size={14} />
+          <CaretDown size={18} weight="duotone" />
         </div>
       </button>
 
       <div 
         ref={wrapperRef}
+        id={`faq-content-${idx}`}
+        aria-labelledby={`faq-btn-${idx}`}
+        role="region"
         className="overflow-hidden h-0"
         style={{ willChange: 'height' }}
       >
-        <div ref={contentRef} className="pb-6 font-sans text-xs sm:text-sm font-light leading-relaxed text-brand-charcoal-light/80 text-left">
+        <div ref={contentRef} className="pb-6 px-6 font-sans text-xs sm:text-sm font-semibold leading-relaxed text-brand-charcoal-light/90 text-left">
           {item.answer}
         </div>
       </div>
@@ -137,18 +142,37 @@ export default function FaqSection() {
   const activeCategory = FAQ_DATA.find(cat => cat.id === activeCat) || FAQ_DATA[0];
 
   return (
-    <section className="w-full py-20 border-t border-brand-light-border bg-white relative z-10">
-      <div className="max-w-4xl mx-auto px-6 flex flex-col gap-10">
+    <section className="w-full py-20 border-t border-brand-light-border bg-brand-light relative z-10 overflow-hidden">
+      
+      {/* Vetores Flutuantes */}
+      <div className="absolute top-20 left-10 w-24 h-24 text-brand-orange opacity-20 animate-wiggle pointer-events-none hidden lg:block">
+        <svg viewBox="0 0 100 100" fill="currentColor">
+          <path d="M40,20 C40,10 60,10 60,20 C60,30 40,40 50,60 L50,60 C55,40 80,30 80,20 C80,-10 20,-10 20,20 C20,30 30,35 40,35 C50,35 40,25 40,20 Z M50,75 C45,75 40,80 40,85 C40,90 45,95 50,95 C55,95 60,90 60,85 C60,80 55,75 50,75 Z" />
+        </svg>
+      </div>
+      <div className="absolute bottom-20 right-10 w-16 h-16 text-brand-green opacity-30 animate-float-slow pointer-events-none hidden lg:block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+          <line x1="9" y1="9" x2="9.01" y2="9" />
+          <line x1="15" y1="9" x2="15.01" y2="9" />
+        </svg>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 flex flex-col gap-10 relative z-10">
         
         {/* Título */}
-        <div className="text-center flex flex-col gap-3">
+        <div className="text-center flex flex-col gap-3 items-center relative">
           <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-orange font-bold">
             Dúvidas Frequentes
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl text-brand-charcoal font-medium">
+          <h2 className="font-serif text-3xl md:text-4xl text-brand-charcoal font-bold relative inline-block">
             Central de Ajuda
+            <svg className="absolute -bottom-2 left-0 w-full h-3 text-brand-orange/40" viewBox="0 0 100 10" preserveAspectRatio="none">
+              <path d="M0,5 Q25,8 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+            </svg>
           </h2>
-          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-light max-w-lg mx-auto">
+          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/80 font-semibold max-w-lg mx-auto mt-2">
             Encontre respostas rápidas para as principais questões sobre o processo de admissão, regras escolares e serviços de apoio.
           </p>
         </div>
@@ -162,10 +186,10 @@ export default function FaqSection() {
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveCat(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-700 ${
+                className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-sans text-xs font-bold uppercase tracking-wider transition-all duration-300 border-2 ${
                   isActive 
-                    ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/15' 
-                    : 'text-brand-charcoal-light hover:bg-white hover:text-brand-orange'
+                    ? 'bg-brand-orange border-brand-orange-dark text-white shadow-[2px_4px_0_0_#e05300] -translate-y-1' 
+                    : 'bg-white border-brand-light-border text-brand-charcoal-light hover:border-brand-orange/50 hover:bg-brand-orange/5 hover:-translate-y-0.5'
                 }`}
               >
                 {cat.icon}
@@ -178,15 +202,16 @@ export default function FaqSection() {
         {/* Acordeão Accordion */}
         <div 
           ref={containerRef}
-          className="border border-brand-light-border rounded-3xl bg-brand-light-card px-6 md:px-8 py-2 shadow-sm"
+          className="flex flex-col gap-2"
         >
           {activeCategory.items.map((item, idx) => (
-            <AccordionItem
-              key={idx}
-              item={item}
-              isOpen={openIdx === idx}
-              onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-            />
+              <FaqItem 
+                key={idx} 
+                item={item} 
+                idx={idx}
+                isOpen={openIdx === idx} 
+                onClick={() => setOpenIdx(openIdx === idx ? null : idx)} 
+              />
           ))}
         </div>
 

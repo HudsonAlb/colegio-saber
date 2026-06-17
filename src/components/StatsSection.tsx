@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Award, Trophy, Users } from 'lucide-react';
+import { Star, Target, Users } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,7 +11,7 @@ interface StatItem {
   suffix: string;
   label: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon: React.ElementType;
 }
 
 export default function StatsSection() {
@@ -25,7 +25,7 @@ export default function StatsSection() {
       suffix: '+',
       label: 'Anos de Tradição',
       description: 'Aliando solidez pedagógica à evolução constante de nossa metodologia.',
-      icon: Trophy
+      icon: Star
     },
     {
       id: 'aprovacao',
@@ -33,7 +33,7 @@ export default function StatsSection() {
       suffix: '%',
       label: 'Aprovação Nacional',
       description: 'Estudantes preparados para ingressar nas universidades mais concorridas.',
-      icon: Award
+      icon: Target
     },
     {
       id: 'lideres',
@@ -102,6 +102,23 @@ export default function StatsSection() {
       {/* Soft background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] rounded-full bg-brand-orange/5 blur-[120px] pointer-events-none z-0"></div>
 
+      {/* Estrelas desenhadas no fundo */}
+      <div className="absolute top-[20%] left-[10%] w-12 h-12 text-brand-yellow-dark opacity-40 animate-wiggle pointer-events-none hidden lg:block">
+        <svg viewBox="0 0 40 40" fill="currentColor">
+          <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" stroke="#d89f00" strokeWidth="1" strokeLinejoin="round" />
+        </svg>
+      </div>
+      <div className="absolute bottom-[10%] left-[20%] w-8 h-8 text-brand-pink opacity-30 animate-float-slow pointer-events-none hidden lg:block">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+        </svg>
+      </div>
+      <div className="absolute top-[30%] right-[10%] w-16 h-16 text-brand-blue opacity-25 animate-wiggle pointer-events-none hidden lg:block">
+        <svg viewBox="0 0 40 40" fill="currentColor">
+          <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" stroke="#0284c7" strokeWidth="1" strokeLinejoin="round" />
+        </svg>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 flex flex-col gap-16">
         
         {/* Header */}
@@ -119,7 +136,7 @@ export default function StatsSection() {
           >
             Mural de <span className="text-brand-orange">Conquistas</span>
           </h2>
-          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-light leading-relaxed">
+          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium leading-relaxed">
             Mais do que números, refletimos a excelência diária e a paixão pelo saber compartilhada em nossa história.
           </p>
         </div>
@@ -127,15 +144,24 @@ export default function StatsSection() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4">
           {stats.map((item, idx) => {
-            const Icon = item.icon;
+            const rotationClass = idx % 2 === 0 ? 'rotate-2' : '-rotate-3';
+            const colors = [
+              { bg: 'bg-[#fff5ee]', border: 'border-[#fcd2af]', text: 'text-[#d94a00]' },
+              { bg: 'bg-[#f0f8fc]', border: 'border-[#b9dcf4]', text: 'text-[#0284c7]' },
+              { bg: 'bg-[#fefce8]', border: 'border-[#fae69e]', text: 'text-[#d89f00]' }
+            ];
+            const theme = colors[idx % colors.length];
+            const PhosphorIcon = item.icon;
             return (
               <div 
                 key={item.id}
-                className="stat-card flex flex-col items-center text-center p-8 md:p-10 rounded-[2rem] border border-brand-light-border bg-brand-light-card/85 backdrop-blur-sm shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-500"
+                className={`stat-card flex flex-col items-center text-center p-8 md:p-10 rounded-[3rem] rounded-bl-xl border-4 ${theme.border} ${theme.bg} shadow-[6px_6px_0_0_#2d2a26] hover:shadow-[10px_10px_0_0_#2d2a26] hover:-translate-y-2 transition-all duration-500 ${rotationClass}`}
               >
                 {/* Icon Container */}
-                <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange mb-6">
-                  <Icon size={24} className="stroke-[1.5]" />
+                <div className="w-16 h-16 rounded-full bg-white/60 border border-white/50 shadow-sm flex items-center justify-center mb-6">
+                  <div className={`w-8 h-8 flex items-center justify-center ${theme.text}`}>
+                    <PhosphorIcon size={32} weight="duotone" />
+                  </div>
                 </div>
 
                 {/* Animated Number */}
@@ -147,17 +173,17 @@ export default function StatsSection() {
                   >
                     0
                   </span>
-                  <span className="text-brand-orange">{item.suffix}</span>
+                  <span className={`${theme.text}`}>{item.suffix}</span>
                 </div>
 
                 {/* Divider */}
-                <div className="w-8 h-[1px] bg-brand-light-border my-2"></div>
+                <div className="w-8 h-1 rounded-full bg-brand-charcoal/10 my-2"></div>
 
                 {/* Labels */}
                 <h3 className="font-serif text-lg text-brand-charcoal uppercase tracking-wider font-bold mb-2 mt-2">
                   {item.label}
                 </h3>
-                <p className="font-sans text-xs text-brand-charcoal-light/80 font-light leading-relaxed max-w-xs">
+                <p className="font-sans text-xs text-brand-charcoal-light/80 font-bold leading-relaxed max-w-xs">
                   {item.description}
                 </p>
               </div>

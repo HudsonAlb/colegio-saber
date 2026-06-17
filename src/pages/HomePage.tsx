@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@phosphor-icons/react';
 import Hero from '../components/Hero';
 import HighlightsSection from '../components/HighlightsSection';
-import StatsSection from '../components/StatsSection';
 import TestimonialsSection from '../components/TestimonialsSection';
+import CalendarioSection from '../components/CalendarioSection';
+import { BookOpen, GraduationCap, PenNib } from '@phosphor-icons/react';
 
 export default function HomePage() {
   const quickAccessRef = useRef<HTMLDivElement>(null);
@@ -41,49 +42,83 @@ export default function HomePage() {
     <div className="page-home">
       <Hero />
       <HighlightsSection />
-      <StatsSection />
+      <CalendarioSection />
       <TestimonialsSection />
       
       {/* Quick Access Block for Parents */}
-      <section ref={quickAccessRef} className="py-20 bg-brand-light border-t border-brand-light-border relative z-10">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="quick-access-card p-8 rounded-3xl border border-brand-light-border bg-brand-light-card hover:shadow-lg transition-shadow duration-500 flex flex-col justify-between h-64">
-            <span className="font-serif text-brand-orange text-lg font-medium">Sobre Nós</span>
-            <div>
-              <h3 className="font-serif text-xl text-brand-charcoal mb-2">Tradição & Visão</h3>
-              <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed mb-4">
-                Conheça nossa trajetória dedicada à formação de cidadãos completos e éticos.
-              </p>
-            </div>
-            <Link to="/historia" className="flex items-center gap-2 text-xs uppercase font-semibold text-brand-orange hover:text-brand-orange-dark">
-              Ler História <ArrowRight size={12} />
-            </Link>
+      <section ref={quickAccessRef} className="py-24 bg-brand-light relative z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          {/* Decorative Section Header */}
+          <div className="text-center mb-16 max-w-2xl mx-auto">
+            <span className="font-sans text-xs uppercase tracking-[0.25em] text-brand-orange-dark font-black block mb-3">
+              Acesso Rápido
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-charcoal leading-tight">
+              O que você procura?
+            </h2>
           </div>
 
-          <div className="quick-access-card p-8 rounded-3xl border border-brand-light-border bg-brand-light-card hover:shadow-lg transition-shadow duration-500 flex flex-col justify-between h-64">
-            <span className="font-serif text-brand-orange text-lg font-medium">Ensino</span>
-            <div>
-              <h3 className="font-serif text-xl text-brand-charcoal mb-2">Segmentos Escolares</h3>
-              <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed mb-4">
-                Conheça nossas fases pedagógicas da Educação Infantil ao Ensino Médio.
-              </p>
-            </div>
-            <Link to="/segmentos" className="flex items-center gap-2 text-xs uppercase font-semibold text-brand-orange hover:text-brand-orange-dark">
-              Ver Ensino <ArrowRight size={12} />
-            </Link>
-          </div>
-
-          <div className="quick-access-card p-8 rounded-3xl border border-brand-light-border bg-brand-light-card hover:shadow-lg transition-shadow duration-500 flex flex-col justify-between h-64">
-            <span className="font-serif text-brand-orange text-lg font-medium">Admissões</span>
-            <div>
-              <h3 className="font-serif text-xl text-brand-charcoal mb-2">Matrículas Abertas</h3>
-              <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed mb-4">
-                Preencha nossa ficha de matrícula digital e agende o teste diagnóstico e a visita guiada.
-              </p>
-            </div>
-            <Link to="/admissao" className="flex items-center gap-2 text-xs uppercase font-semibold text-brand-orange hover:text-brand-orange-dark">
-              Iniciar Inscrição <ArrowRight size={12} />
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                tag: 'Sobre Nós',
+                title: 'Tradição & Visão',
+                desc: 'Conheça nossa trajetória dedicada à formação de cidadãos completos e éticos.',
+                link: '/historia',
+                btnText: 'Ler História',
+                bg: 'bg-[#fff5ee]',
+                border: 'border-[#fcd2af]/60',
+                tagColor: 'text-[#d94a00]',
+                icon: <BookOpen size={40} weight="duotone" className="text-[#d94a00]" />
+              },
+              {
+                tag: 'Ensino',
+                title: 'Segmentos Escolares',
+                desc: 'Conheça nossas fases pedagógicas da Educação Infantil ao Ensino Médio.',
+                link: '/segmentos',
+                btnText: 'Ver Ensino',
+                bg: 'bg-[#f0f8fc]',
+                border: 'border-[#b9dcf4]/80',
+                tagColor: 'text-[#0284c7]',
+                icon: <GraduationCap size={40} weight="duotone" className="text-[#0284c7]" />
+              },
+              {
+                tag: 'Admissões',
+                title: 'Matrículas Abertas',
+                desc: 'Preencha nossa ficha de matrícula digital e agende o teste diagnóstico.',
+                link: '/admissao',
+                btnText: 'Iniciar Inscrição',
+                bg: 'bg-[#fefce8]',
+                border: 'border-[#fae69e]',
+                tagColor: 'text-[#d89f00]',
+                icon: <PenNib size={40} weight="duotone" className="text-[#d89f00]" />
+              }
+            ].map((card, idx) => (
+              <div 
+                key={idx}
+                className={`quick-access-card p-8 rounded-[2.5rem] border-4 ${card.bg} ${card.border} hover:shadow-[0_20px_40px_rgba(67,56,50,0.06)] transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between h-full min-h-[18rem]`}
+              >
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-center justify-between">
+                    <span className={`font-serif text-sm uppercase tracking-wider font-bold ${card.tagColor} px-4 py-1.5 rounded-full bg-white/60 border border-white/50 shadow-sm backdrop-blur-sm`}>
+                      {card.tag}
+                    </span>
+                    <div className="p-3 bg-white/60 rounded-2xl shadow-sm backdrop-blur-sm border border-white/50">
+                      {card.icon}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-2xl text-brand-charcoal font-bold mb-3">{card.title}</h3>
+                    <p className="font-sans text-sm text-brand-charcoal-light/90 font-semibold leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+                </div>
+                <Link to={card.link} className={`flex items-center gap-2 text-sm uppercase font-black ${card.tagColor} hover:opacity-70 transition-opacity mt-6 group`}>
+                  {card.btnText} <ArrowRight size={16} weight="bold" className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

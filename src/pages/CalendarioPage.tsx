@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { 
-  Calendar, List, Search, Download, RefreshCw, X, Check,
-  ChevronLeft, ChevronRight, MapPin, Clock, Info, CheckCircle, AlertCircle
-} from 'lucide-react';
+import { Calendar, List, MagnifyingGlass, Download, ArrowsClockwise, X, Check, CaretLeft, CaretRight, MapPin, Clock, Info, CheckCircle, WarningCircle } from '@phosphor-icons/react';
 
 interface SchoolEvent {
   id: string;
@@ -23,32 +20,21 @@ const CATEGORIES = {
 };
 
 const EVENTS_DATA: SchoolEvent[] = [
-  // Maio 2026
-  { id: '1', title: 'Avaliação Trimestral - Português', description: 'Exame escrito individual referente ao 1º trimestre para alunos do Ensino Fundamental II e Médio.', date: '2026-05-20', time: '08:00', location: 'Salas de Aula', category: 'exames' },
-  { id: '2', title: 'Reunião de Pais e Mestres', description: 'Entrega de boletins informativos e mentoria pedagógica individualizada entre professores e pais.', date: '2026-05-23', time: '09:00', location: 'Auditório Principal', category: 'reunioes' },
-  { id: '3', title: 'Mostra Científica e Cultural', description: 'Apresentação pública de projetos científicos e experimentos integrados desenvolvidos pelos alunos.', date: '2026-05-28', time: '10:00', location: 'Pátio Central & Laboratórios', category: 'eventos' },
-  { id: '4', title: 'Recesso de Corpus Christi', description: 'Recesso escolar institucional sem atividades acadêmicas ou administrativas.', date: '2026-05-29', time: 'Dia Todo', location: 'Campus', category: 'feriados' },
-  
-  // Junho 2026
-  { id: '5', title: 'Simulado ENEM - 1º Dia', description: 'Primeira fase do simulado nacional preparatório para o Ensino Médio, contendo Ciências Humanas e Linguagens.', date: '2026-06-03', time: '13:00', location: 'Bloco C', category: 'exames' },
-  { id: '6', title: 'Dia da Preservação do Meio Ambiente', description: 'Oficinas práticas de plantio, compostagem e palestras educativas no Bosque Pedagógico.', date: '2026-06-05', time: '09:00', location: 'Bosque Externo', category: 'eventos' },
-  { id: '7', title: 'Simulado ENEM - 2º Dia', description: 'Segunda fase do simulado nacional preparatório para o Ensino Médio, contendo Matemática e Ciências da Natureza.', date: '2026-06-10', time: '13:00', location: 'Bloco C', category: 'exames' },
-  { id: '8', title: 'Festa Junina do Colégio Saber', description: 'Celebração tradicional beneficente com barracas típicas, danças folclóricas e shows musicais de alunos.', date: '2026-06-20', time: '12:00', location: 'Complexo Poliesportivo', category: 'eventos' },
-  { id: '9', title: 'Conselho de Classe de Meio de Ano', description: 'Alinhamento acadêmico e pedagógico entre coordenadores e docentes. Sem aula para os alunos.', date: '2026-06-26', time: '08:00', location: 'Sala dos Professores', category: 'reunioes' },
-
-  // Julho 2026 (Férias)
-  { id: '10', title: 'Início do Recesso Escolar (Férias)', description: 'Período oficial de férias escolares de meio de ano para alunos e docentes.', date: '2026-07-01', time: 'Dia Todo', location: 'Campus', category: 'feriados' },
-  { id: '11', title: 'Fim do Recesso Escolar (Retorno às Aulas)', description: 'Retorno às aulas regulares e início das atividades do 2º semestre.', date: '2026-07-27', time: '07:15', location: 'Salas de Aula', category: 'feriados' },
-  
-  // Agosto 2026
-  { id: '12', title: 'Palestra: Inteligência Emocional e Futuro', description: 'Conversa voltada aos estudantes do Ensino Médio e familiares sobre vestibular e desenvolvimento socioemocional.', date: '2026-08-07', time: '19:30', location: 'Auditório Principal', category: 'reunioes' },
-  { id: '13', title: 'Olimpíada Interna de Robótica', description: 'Competição interativa de robôs e automação com desafios de lógica programados pelos alunos.', date: '2026-08-18', time: '09:00', location: 'Laboratório de Robótica', category: 'eventos' },
-  { id: '14', title: 'Avaliação Trimestral - Matemática', description: 'Exame de matemática e raciocínio lógico-matemático para todos os segmentos.', date: '2026-08-25', time: '07:30', location: 'Salas de Aula', category: 'exames' },
-
-  // Setembro 2026
-  { id: '15', title: 'Independência do Brasil (Feriado)', description: 'Feriado nacional. Campus fechado.', date: '2026-09-07', time: 'Dia Todo', location: 'Campus', category: 'feriados' },
-  { id: '16', title: 'Festival de Artes & Teatro', description: 'Apresentações teatrais, mostras de música e galeria de pinturas criadas no semestre.', date: '2026-09-18', time: '14:00', location: 'Teatro do Colégio', category: 'eventos' },
-  { id: '17', title: 'Reunião de Planejamento do 3º Trimestre', description: 'Reunião pedagógica de alinhamento estratégico para fechamento de ano.', date: '2026-09-29', time: '18:00', location: 'Auditório Principal', category: 'reunioes' }
+  // Feriados 2026 - Datas Reais
+  { id: '1', title: 'Confraternização Universal', description: 'Feriado Nacional. Início de ano e recesso geral.', date: '2026-01-01', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '2', title: 'Carnaval (Recesso)', description: 'Recesso escolar de Carnaval.', date: '2026-02-16', time: 'Dia Todo', location: 'Campus', category: 'feriados' },
+  { id: '3', title: 'Carnaval (Feriado)', description: 'Feriado Nacional de Carnaval.', date: '2026-02-17', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '4', title: 'Quarta-feira de Cinzas', description: 'Recesso no período da manhã. Aulas apenas no contraturno.', date: '2026-02-18', time: 'Dia Todo', location: 'Campus', category: 'feriados' },
+  { id: '5', title: 'Paixão de Cristo', description: 'Feriado Nacional (Sexta-feira Santa).', date: '2026-04-03', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '6', title: 'Páscoa', description: 'Domingo de Páscoa.', date: '2026-04-05', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '7', title: 'Tiradentes', description: 'Feriado Nacional. Homenagem ao inconfidente Joaquim José da Silva Xavier.', date: '2026-04-21', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '8', title: 'Dia do Trabalhador', description: 'Feriado Nacional.', date: '2026-05-01', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '9', title: 'Corpus Christi', description: 'Feriado Nacional Religioso. Recesso escolar.', date: '2026-06-04', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '10', title: 'Independência do Brasil', description: 'Feriado Nacional.', date: '2026-09-07', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '11', title: 'Nossa Sra. Aparecida (Dia das Crianças)', description: 'Feriado Nacional da Padroeira do Brasil.', date: '2026-10-12', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '12', title: 'Finados', description: 'Feriado Nacional.', date: '2026-11-02', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '13', title: 'Proclamação da República', description: 'Feriado Nacional.', date: '2026-11-15', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
+  { id: '14', title: 'Natal', description: 'Feriado Nacional. Celebração do Natal.', date: '2026-12-25', time: 'Dia Todo', location: 'Brasil', category: 'feriados' }
 ];
 
 const MONTH_NAMES = [
@@ -59,8 +45,8 @@ const MONTH_NAMES = [
 export default function CalendarioPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   
-  // Data atual de visualização (inicia em Maio de 2026 para alinhar com os eventos criados)
-  const [currentDate, setCurrentDate] = useState<Date>(new Date(2026, 4, 1)); // 2026-05-01
+  // Data atual de visualização (inicia em Janeiro de 2026 para ver o ano)
+  const [currentDate, setCurrentDate] = useState<Date>(new Date(2026, 0, 1)); // 2026-01-01
   const [selectedDayEvents, setSelectedDayEvents] = useState<SchoolEvent[]>([]);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
 
@@ -274,7 +260,7 @@ export default function CalendarioPage() {
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-charcoal font-medium">
               Calendário Acadêmico
             </h1>
-            <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-light leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium leading-relaxed">
               Consulte datas de avaliações, feriados, recessos e eventos socioculturais. Sincronize com a sua agenda pessoal para não perder nenhum prazo.
             </p>
           </div>
@@ -286,7 +272,7 @@ export default function CalendarioPage() {
               onClick={handleExportICS}
               className="px-5 py-3 rounded-full border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-colors duration-700 font-sans text-xs uppercase tracking-wider font-semibold flex items-center gap-2"
             >
-              <Download size={14} />
+              <Download size={14} weight="duotone" />
               Exportar Agenda (.ics)
             </button>
 
@@ -297,7 +283,7 @@ export default function CalendarioPage() {
                 className="px-5 py-3 rounded-full bg-green-50 border border-green-200 text-green-700 hover:bg-red-50 hover:border-red-200 hover:text-red-700 transition-colors duration-700 font-sans text-xs uppercase tracking-wider font-semibold flex items-center gap-2"
                 title="Desconectar calendário do Google"
               >
-                <CheckCircle size={14} className="text-green-600" />
+                <CheckCircle size={14} className="text-green-600" weight="duotone" />
                 Sincronizado
               </button>
             ) : (
@@ -306,7 +292,7 @@ export default function CalendarioPage() {
                 onClick={() => { setIsSyncModalOpen(true); handleStartSync(); }}
                 className="px-5 py-3 rounded-full bg-brand-charcoal hover:bg-brand-orange text-white transition-colors duration-700 font-sans text-xs uppercase tracking-wider font-semibold flex items-center gap-2 shadow-md"
               >
-                <RefreshCw size={14} className="animate-spin-slow" />
+                <ArrowsClockwise size={14} className="animate-spin-slow" weight="duotone" />
                 Sincronizar Google Agenda
               </button>
             )}
@@ -317,7 +303,7 @@ export default function CalendarioPage() {
         <div className="p-6 rounded-3xl bg-brand-light-card border border-brand-light-border flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Barra de Busca */}
           <div className="relative w-full md:max-w-xs">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} />
+            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} />
             <input
               type="text"
               value={searchQuery}
@@ -368,7 +354,7 @@ export default function CalendarioPage() {
                   className="p-2.5 rounded-xl border border-brand-light-border bg-white hover:border-brand-orange/40 text-brand-charcoal hover:text-brand-orange transition-colors duration-500"
                   aria-label="Mês anterior"
                 >
-                  <ChevronLeft size={16} />
+                  <CaretRight size={16}  weight="duotone" />
                 </button>
                 
                 <h3 className="font-serif text-lg md:text-xl font-semibold text-brand-charcoal tracking-wide w-40 text-center select-none">
@@ -381,7 +367,7 @@ export default function CalendarioPage() {
                   className="p-2.5 rounded-xl border border-brand-light-border bg-white hover:border-brand-orange/40 text-brand-charcoal hover:text-brand-orange transition-colors duration-500"
                   aria-label="Próximo mês"
                 >
-                  <ChevronRight size={16} />
+                  <CaretRight size={16}  weight="duotone" />
                 </button>
               </div>
 
@@ -395,7 +381,7 @@ export default function CalendarioPage() {
                   }`}
                   title="Exibição em Grade"
                 >
-                  <Calendar size={16} />
+                  <Calendar size={16} weight="duotone" />
                 </button>
                 <button
                   type="button"
@@ -405,7 +391,7 @@ export default function CalendarioPage() {
                   }`}
                   title="Exibição em Feed"
                 >
-                  <List size={16} />
+                  <List size={16} weight="duotone" />
                 </button>
               </div>
             </div>
@@ -482,14 +468,14 @@ export default function CalendarioPage() {
               >
                 {activeMonthEvents.length === 0 ? (
                   <div className="p-12 text-center rounded-3xl border border-brand-light-border bg-brand-light-card flex flex-col items-center gap-3">
-                    <AlertCircle size={24} className="text-brand-charcoal/30" />
-                    <p className="font-sans text-xs font-light text-brand-charcoal-light/70">Nenhum compromisso escolar agendado com os filtros ativos para este mês.</p>
+                    <List size={24} className="text-brand-charcoal/30"  weight="duotone" />
+                    <p className="font-sans text-xs font-medium text-brand-charcoal-light/70">Nenhum compromisso escolar agendado com os filtros ativos para este mês.</p>
                   </div>
                 ) : (
                   activeMonthEvents.map(evt => (
                     <div 
                       key={evt.id}
-                      className={`p-6 rounded-3xl border border-l-4 bg-brand-light-card border-brand-light-border hover:shadow-md transition-all duration-300 flex flex-col md:flex-row justify-between gap-4 text-left`}
+                      className={`p-6 rounded-3xl border  bg-brand-light-card border-brand-light-border hover:shadow-md transition-all duration-300 flex flex-col md:flex-row justify-between gap-4 text-left`}
                       style={{ borderLeftColor: CATEGORIES[evt.category].color }}
                     >
                       <div className="flex flex-col gap-2 max-w-xl">
@@ -502,16 +488,16 @@ export default function CalendarioPage() {
                           </span>
                         </div>
                         <h4 className="font-serif text-base font-semibold text-brand-charcoal">{evt.title}</h4>
-                        <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed">{evt.description}</p>
+                        <p className="font-sans text-xs text-brand-charcoal-light/75 font-medium leading-relaxed">{evt.description}</p>
                       </div>
 
                       <div className="flex md:flex-col justify-start gap-4 text-[10px] uppercase font-semibold text-brand-charcoal/50 shrink-0 border-t md:border-t-0 md:border-l border-brand-light-border pt-3 md:pt-0 md:pl-5">
                         <div className="flex items-center gap-1.5">
-                          <Clock size={12} className="text-brand-orange" />
+                          <Clock size={12} className="text-brand-orange" weight="duotone" />
                           <span>{evt.time}</span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                          <MapPin size={12} className="text-brand-orange" />
+                          <MapPin size={12} className="text-brand-orange" weight="duotone" />
                           <span>{evt.location}</span>
                         </div>
                       </div>
@@ -540,15 +526,15 @@ export default function CalendarioPage() {
 
               {selectedDay === null ? (
                 <div className="py-8 flex flex-col items-center gap-2.5 text-center border-2 border-dashed border-brand-light-border rounded-2xl bg-white p-4">
-                  <Info size={20} className="text-brand-orange" />
-                  <p className="font-sans text-[11px] font-light text-brand-charcoal-light/70 leading-relaxed">
+                  <Info size={20} className="text-brand-orange" weight="duotone" />
+                  <p className="font-sans text-[11px] font-medium text-brand-charcoal-light/70 leading-relaxed">
                     Clique em um dia ativo no grid mensal do calendário para carregar a pauta de atividades da data.
                   </p>
                 </div>
               ) : selectedDayEvents.length === 0 ? (
                 <div className="py-8 flex flex-col items-center gap-2.5 text-center border border-brand-light-border rounded-2xl bg-white p-4">
-                  <CheckCircle size={20} className="text-green-500" />
-                  <p className="font-sans text-[11px] font-light text-brand-charcoal-light/70 leading-relaxed">
+                  <CheckCircle size={20} className="text-green-500" weight="duotone" />
+                  <p className="font-sans text-[11px] font-medium text-brand-charcoal-light/70 leading-relaxed">
                     Nenhum compromisso ou prova marcada para este dia.
                   </p>
                 </div>
@@ -567,11 +553,11 @@ export default function CalendarioPage() {
                       </div>
                       
                       <h5 className="font-serif text-xs font-semibold text-brand-charcoal leading-snug">{evt.title}</h5>
-                      <p className="font-sans text-[10px] text-brand-charcoal-light/75 font-light leading-relaxed">{evt.description}</p>
+                      <p className="font-sans text-[10px] text-brand-charcoal-light/75 font-medium leading-relaxed">{evt.description}</p>
                       
                       <div className="flex items-center justify-between text-[9px] uppercase tracking-wider font-semibold text-brand-charcoal/40 border-t border-brand-light-border/60 pt-2 mt-1">
-                        <span className="flex items-center gap-1"><Clock size={10} /> {evt.time}</span>
-                        <span className="flex items-center gap-1"><MapPin size={10} /> {evt.location}</span>
+                        <span className="flex items-center gap-1"><Clock size={10} weight="duotone" /> {evt.time}</span>
+                        <span className="flex items-center gap-1"><MapPin size={10} weight="duotone" /> {evt.location}</span>
                       </div>
                     </div>
                   ))}
@@ -581,8 +567,8 @@ export default function CalendarioPage() {
             
             {/* Aviso Informativo das Férias */}
             <div className="p-5 rounded-3xl bg-brand-orange/5 border border-brand-orange/15 flex gap-3 text-left">
-              <Info size={18} className="text-brand-orange shrink-0 mt-0.5" />
-              <div className="flex flex-col gap-1 font-sans text-xs text-brand-charcoal-light/80 font-light leading-relaxed">
+              <Info size={18} className="text-brand-orange shrink-0 mt-0.5" weight="duotone" />
+              <div className="flex flex-col gap-1 font-sans text-xs text-brand-charcoal-light/80 font-medium leading-relaxed">
                 <span className="font-semibold text-brand-charcoal">Planejamento das Férias:</span>
                 <span>O recesso letivo escolar de meio de ano está previsto para o período de 01/07 a 26/07. A secretaria operará em horários diferenciados de plantão.</span>
               </div>
@@ -606,18 +592,18 @@ export default function CalendarioPage() {
               className="absolute top-4 right-4 text-brand-charcoal/40 hover:text-brand-orange transition-colors duration-300 pointer-events-auto"
               aria-label="Fechar"
             >
-              <X size={18} />
+              <X size={18} weight="duotone" />
             </button>
 
             {/* Estados da Sincronização */}
             {syncState === 'auth' && (
               <div className="flex flex-col items-center gap-5">
                 <div className="w-14 h-14 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange animate-pulse">
-                  <Calendar size={28} />
+                  <Calendar size={28} weight="duotone" />
                 </div>
                 <div>
                   <h3 className="font-serif text-lg font-bold text-brand-charcoal">Sincronizar Google Agenda</h3>
-                  <p className="font-sans text-xs text-brand-charcoal-light/70 font-light leading-relaxed mt-2">
+                  <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium leading-relaxed mt-2">
                     Conecte sua conta do Google para importar automaticamente todos os compromissos escolares do Colégio Saber para sua agenda móvel.
                   </p>
                 </div>
@@ -638,7 +624,7 @@ export default function CalendarioPage() {
 
             {syncState === 'syncing' && (
               <div className="flex flex-col items-center gap-6 py-4">
-                <RefreshCw size={36} className="text-brand-orange animate-spin" />
+                <ArrowsClockwise size={36} className="text-brand-orange animate-spin" weight="duotone" />
                 <div className="w-full flex flex-col gap-2">
                   <span className="font-sans text-[10px] uppercase tracking-wider font-semibold text-brand-orange">
                     Sincronizando Dados
@@ -653,7 +639,7 @@ export default function CalendarioPage() {
                   </div>
                   <span className="font-sans text-xs font-bold text-brand-charcoal">{syncProgress}%</span>
                 </div>
-                <p className="font-sans text-[11px] text-brand-charcoal-light/60 font-light">
+                <p className="font-sans text-[11px] text-brand-charcoal-light/60 font-medium">
                   Aguarde enquanto os eventos do ano de 2026 estão sendo vinculados ao seu calendário escolar.
                 </p>
               </div>
@@ -661,12 +647,12 @@ export default function CalendarioPage() {
 
             {syncState === 'completed' && (
               <div className="flex flex-col items-center gap-5">
-                <div className="w-16 h-16 rounded-full bg-green-100 border border-green-200 flex items-center justify-center text-green-600 animate-bounce">
-                  <Check size={32} />
+                <div className="w-16 h-16 rounded-full bg-green-100 border border-green-200 flex items-center justify-center text-green-600 transition-transform duration-700 ease-out hover:-translate-y-1">
+                  <Check size={32} weight="duotone" />
                 </div>
                 <div>
                   <h3 className="font-serif text-lg font-bold text-brand-charcoal">Sincronização Ativada!</h3>
-                  <p className="font-sans text-xs text-brand-charcoal-light/70 font-light leading-relaxed mt-2">
+                  <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium leading-relaxed mt-2">
                     Agenda escolar sincronizada com sucesso. Quaisquer novas atualizações pedagógicas serão enviadas diretamente para a sua conta do Google Calendar.
                   </p>
                 </div>

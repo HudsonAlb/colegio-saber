@@ -2,18 +2,18 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Menu, X, GraduationCap, MapPin, Phone, Mail } from 'lucide-react';
+import { List, X, Student, MapPin, Phone, Envelope } from '@phosphor-icons/react';
 import SmoothScroll from './components/SmoothScroll';
 import PageTransition from './components/PageTransition';
 import WhatsappButton from './components/WhatsappButton';
-import heroMockup from './assets/hero_mockup.png';
+import logoSaber from './assets/LOGO-SABER.svg';
 
 // Lazy loaded page components to improve initial page load speed and decouple app layout
 const HomePage = lazy(() => import('./pages/HomePage'));
 const HistoriaPage = lazy(() => import('./pages/HistoriaPage'));
 const PilaresPage = lazy(() => import('./pages/PilaresPage'));
 const AdmissaoPage = lazy(() => import('./pages/AdmissaoPage'));
-const DiferenciaisPage = lazy(() => import('./pages/DiferenciaisPage'));
+const InfraestruturaPage = lazy(() => import('./pages/InfraestruturaPage'));
 const MatriculasPage = lazy(() => import('./pages/MatriculasPage'));
 const CalendarioPage = lazy(() => import('./pages/CalendarioPage'));
 const SegmentosPage = lazy(() => import('./pages/SegmentosPage'));
@@ -21,18 +21,7 @@ const BlogPage = lazy(() => import('./pages/BlogPage'));
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ----------------- CROPPED LOGO ICON -----------------
-function LogoIcon() {
-  return (
-    <div className="w-8 h-8 rounded-full overflow-hidden relative border border-brand-charcoal/5 shrink-0 flex items-center justify-center bg-white group-hover:scale-110 transition-transform duration-300">
-      <img
-        src={heroMockup}
-        alt="Logo Colégio Saber"
-        className="w-full h-full object-cover scale-[21] origin-[12.62%_11.82%] pointer-events-none"
-      />
-    </div>
-  );
-}
+
 
 // ----------------- HEADER & NAV COMPONENT -----------------
 function Header() {
@@ -67,26 +56,24 @@ function Header() {
         className="w-full relative z-40 transition-all duration-500 bg-white/95 backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
       >
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 md:gap-3 group shrink-0" aria-label="Colégio Saber - Início">
-          <LogoIcon />
-          <div className="flex flex-col">
-            <span className="font-serif text-sm md:text-base font-bold tracking-normal text-brand-charcoal group-hover:text-brand-orange transition-colors duration-300">
-              Colégio Saber
-            </span>
-            <span className="text-[8px] md:text-[9px] font-sans tracking-[0.2em] font-semibold text-brand-charcoal/50">
-              CUIDAR & APRENDER
-            </span>
-          </div>
+        <Link 
+          to="/" 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex items-center group shrink-0 cursor-pointer" 
+          aria-label="Colégio Saber - Início"
+        >
+          <img src={logoSaber} alt="Colégio Saber Logo" className="h-10 md:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300" />
         </Link>
 
         {/* Desktop Navigation */}
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 shrink" role="navigation" aria-label="Menu de Navegação Principal">
+        <nav className="hidden lg:flex items-center gap-2 xl:gap-3 shrink" role="navigation" aria-label="Menu de Navegação Principal">
           {[
             { label: 'Início', path: '/' },
             { label: 'Nosso Método', path: '/pilares' },
             { label: 'Educação Infantil', path: '/segmentos' },
-            { label: 'Infraestrutura', path: '/diferenciais' },
+            { label: 'Infraestrutura', path: '/infraestrutura' },
+            { label: 'Calendário', path: '/calendario' },
             { label: 'Contato', path: '/admissao' }
           ].map((item, idx) => {
             const isActive = location.pathname === item.path;
@@ -95,10 +82,10 @@ function Header() {
                 key={idx} 
                 to={item.path}
                 aria-current={isActive ? 'page' : undefined}
-                className={`font-sans text-[11px] xl:text-xs font-semibold py-2 px-3.5 rounded-full transition-all duration-300 whitespace-nowrap ${
+                className={`font-serif text-[13px] xl:text-[15px] py-1.5 px-4 rounded-full transition-all duration-300 whitespace-nowrap ${
                   isActive 
-                    ? 'bg-brand-orange/15 text-brand-orange-dark font-bold'
-                    : 'text-brand-charcoal hover:text-brand-orange hover:bg-brand-orange/5'
+                    ? 'bg-brand-orange/15 text-brand-orange-dark font-bold shadow-sm'
+                    : 'text-brand-charcoal font-semibold hover:text-brand-orange hover:bg-brand-orange/5'
                 }`}
               >
                 {item.label}
@@ -111,7 +98,7 @@ function Header() {
         <div className="hidden lg:block shrink-0">
           <Link 
             to="/admissao" 
-            className="relative inline-flex items-center justify-center px-5 py-2.5 rounded-full overflow-hidden bg-brand-orange text-white hover:bg-brand-orange-dark transition-all duration-300 text-xs font-semibold tracking-wide whitespace-nowrap shadow-sm"
+            className="font-serif relative inline-flex items-center justify-center px-6 py-2.5 rounded-full overflow-hidden bg-brand-yellow text-brand-charcoal hover:bg-brand-yellow-light hover:-translate-y-1 transition-all duration-300 text-xs xl:text-sm font-bold tracking-wide whitespace-nowrap shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-2 border-brand-charcoal"
           >
             Matrículas Abertas
           </Link>
@@ -125,7 +112,7 @@ function Header() {
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu-container"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={24} weight="duotone" /> : <List size={24} weight="duotone" />}
         </button>
       </header>
 
@@ -145,14 +132,15 @@ function Header() {
             { label: 'Início', path: '/' },
             { label: 'Nosso Método', path: '/pilares' },
             { label: 'Educação Infantil', path: '/segmentos' },
-            { label: 'Infraestrutura', path: '/diferenciais' },
+            { label: 'Infraestrutura', path: '/infraestrutura' },
+            { label: 'Calendário', path: '/calendario' },
             { label: 'Contato', path: '/admissao' }
           ].map((item, idx) => (
             <Link 
               key={idx} 
               to={item.path}
               onClick={() => setIsMenuOpen(false)}
-              className="font-serif text-2xl tracking-wide text-brand-charcoal hover:text-brand-orange transition-colors duration-300 font-semibold"
+              className="font-serif text-2xl tracking-wide text-brand-charcoal hover:text-brand-orange transition-colors duration-300 font-bold"
             >
               {item.label}
             </Link>
@@ -163,7 +151,7 @@ function Header() {
           <Link 
             to="/admissao"
             onClick={() => setIsMenuOpen(false)}
-            className="w-full py-3 text-center rounded-full bg-brand-orange text-white text-sm font-semibold shadow-md"
+            className="font-serif w-full py-3 text-center rounded-full bg-brand-yellow text-brand-charcoal text-base font-bold shadow-[4px_4px_0_0_#2d2a26] border-2 border-brand-charcoal hover:-translate-y-1 transition-transform hover:shadow-[6px_6px_0_0_#2d2a26]"
           >
             Matrículas Abertas
           </Link>
@@ -180,13 +168,19 @@ function Header() {
 // ----------------- FOOTER COMPONENT -----------------
 function Footer() {
   return (
-    <footer className="w-full bg-brand-light-card border-t border-brand-light-border py-16 md:py-24 text-brand-charcoal/80 relative z-10">
+    <footer className="w-full bg-[#fdfbf7] border-t-4 border-brand-light-border py-16 md:py-24 text-brand-charcoal/80 relative z-10 overflow-hidden">
+      {/* Decorative Wave at the Top */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-0">
+        <svg className="relative block w-[calc(100%+1.3px)] h-[30px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#fdfbf7" stroke="#e8e1d7" strokeWidth="2"></path>
+        </svg>
+      </div>
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
         
         {/* Col 1: Brand */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3">
-            <GraduationCap className="text-[#ff7e1b] w-8 h-8 stroke-[1.5]" />
+            <Student className="text-[#ff7e1b] w-8 h-8 stroke-[1.5]" weight="duotone" />
             <span className="font-serif text-lg tracking-[0.2em] font-bold text-brand-charcoal">
               COLÉGIO SABER
             </span>
@@ -195,22 +189,22 @@ function Footer() {
             Mais do que uma escola, um ecossistema educacional comprometido com a excelência ética e intelectual.
           </p>
           <div className="flex items-center gap-4 mt-2">
-            <a href="#" className="w-9 h-9 rounded-full border border-brand-light-border flex items-center justify-center hover:border-[#ff7e1b] hover:text-[#ff7e1b] transition-colors duration-500" aria-label="Visitar página do Instagram do Colégio Saber">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <a href="#" className="w-10 h-10 rounded-[1rem] border-2 border-brand-charcoal bg-[#fff8f3] text-[#ff7e1b] flex items-center justify-center hover:bg-[#ff7e1b] hover:text-white shadow-[2px_2px_0_0_#2d2a26] hover:-translate-y-1 transition-all duration-300" aria-label="Visitar página do Instagram do Colégio Saber">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
               </svg>
             </a>
-            <a href="#" className="w-9 h-9 rounded-full border border-brand-light-border flex items-center justify-center hover:border-[#ff7e1b] hover:text-[#ff7e1b] transition-colors duration-500" aria-label="Visitar página do LinkedIn do Colégio Saber">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <a href="#" className="w-10 h-10 rounded-[1rem] border-2 border-brand-charcoal bg-[#f0f8fc] text-[#0284c7] flex items-center justify-center hover:bg-[#0284c7] hover:text-white shadow-[2px_2px_0_0_#2d2a26] hover:-translate-y-1 transition-all duration-300" aria-label="Visitar página do LinkedIn do Colégio Saber">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                 <rect x="2" y="9" width="4" height="12"></rect>
                 <circle cx="4" cy="4" r="2"></circle>
               </svg>
             </a>
-            <a href="#" className="w-9 h-9 rounded-full border border-brand-light-border flex items-center justify-center hover:border-[#ff7e1b] hover:text-[#ff7e1b] transition-colors duration-500" aria-label="Visitar página do Facebook do Colégio Saber">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <a href="#" className="w-10 h-10 rounded-[1rem] border-2 border-brand-charcoal bg-[#fefce8] text-[#d89f00] flex items-center justify-center hover:bg-[#d89f00] hover:text-white shadow-[2px_2px_0_0_#2d2a26] hover:-translate-y-1 transition-all duration-300" aria-label="Visitar página do Facebook do Colégio Saber">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
               </svg>
             </a>
@@ -223,14 +217,14 @@ function Footer() {
             Institucional
           </h5>
           <div className="flex flex-col gap-2 font-sans text-xs font-semibold text-brand-charcoal/75">
-            <Link to="/historia" className="hover:text-[#ff7e1b] transition-colors duration-300">Nossa História</Link>
+            {/* <Link to="/historia" className="hover:text-[#ff7e1b] transition-colors duration-300">Nossa História</Link> */}
             <Link to="/pilares" className="hover:text-[#ff7e1b] transition-colors duration-300">Pilares Pedagógicos</Link>
             <Link to="/segmentos" className="hover:text-[#ff7e1b] transition-colors duration-300">Segmentos de Ensino</Link>
-            <Link to="/diferenciais" className="hover:text-[#ff7e1b] transition-colors duration-300">Diferenciais</Link>
+            <Link to="/infraestrutura" className="hover:text-[#ff7e1b] transition-colors duration-300">Infraestrutura</Link>
             <Link to="/matriculas" className="hover:text-[#ff7e1b] transition-colors duration-300">Processo de Admissão</Link>
             <Link to="/admissao" className="hover:text-[#ff7e1b] transition-colors duration-300">Matrícula Interativa</Link>
-            <Link to="/calendario" className="hover:text-[#ff7e1b] transition-colors duration-300">Calendário Escolar</Link>
-            <Link to="/blog" className="hover:text-[#ff7e1b] transition-colors duration-300">Blog Saber em Ação</Link>
+            {/* <Link to="/calendario" className="hover:text-[#ff7e1b] transition-colors duration-300">Calendário Escolar</Link> */}
+            {/* <Link to="/blog" className="hover:text-[#ff7e1b] transition-colors duration-300">Blog Saber em Ação</Link> */}
           </div>
         </div>
 
@@ -241,15 +235,15 @@ function Footer() {
           </h5>
           <div className="flex flex-col gap-3 font-sans text-xs font-semibold text-brand-charcoal/75">
             <div className="flex items-center gap-2 text-left">
-              <MapPin size={14} className="text-[#ff7e1b] shrink-0" />
+              <MapPin size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
               <span>Rua Projetada, s/n, Escada - PE, 55.500-000</span>
             </div>
             <div className="flex items-center gap-2">
-              <Phone size={14} className="text-[#ff7e1b] shrink-0" />
+              <Phone size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
               <span>(81) 3556-1122</span>
             </div>
             <div className="flex items-center gap-2">
-              <Mail size={14} className="text-[#ff7e1b] shrink-0" />
+              <Envelope size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
               <span>admissoes@colegiosaber.com.br</span>
             </div>
           </div>
@@ -264,7 +258,7 @@ function Footer() {
             Assine nossa newsletter informativa mensal para se manter informado.
           </p>
           <form 
-            className="flex rounded-full overflow-hidden border border-brand-light-border bg-white p-1.5 focus-within:border-[#ff7e1b]/60 transition-colors duration-500"
+            className="flex rounded-full overflow-hidden border-[3px] border-brand-charcoal bg-white p-1.5 focus-within:border-[#ff7e1b] transition-colors duration-500 shadow-[4px_4px_0_0_#2d2a26]"
             onSubmit={(e) => e.preventDefault()}
             aria-label="Assinar nossa newsletter mensal"
           >
@@ -272,12 +266,12 @@ function Footer() {
               type="email" 
               placeholder="Seu email" 
               aria-label="Seu endereço de e-mail para receber novidades"
-              className="bg-transparent border-none text-xs px-4 py-1.5 text-brand-charcoal placeholder-brand-charcoal/35 outline-none w-full font-semibold"
+              className="bg-transparent border-none text-sm px-4 py-1.5 text-brand-charcoal placeholder-brand-charcoal/40 outline-none w-full font-serif font-semibold"
             />
             <button 
               type="submit"
               aria-label="Enviar cadastro da newsletter"
-              className="bg-[#ff7e1b] hover:bg-[#e78b53] text-brand-light text-xs uppercase px-4 py-1.5 rounded-full font-bold transition-colors duration-500 cursor-pointer"
+              className="bg-[#ff7e1b] hover:bg-[#e78b53] text-brand-light text-xs uppercase px-5 py-2 rounded-full font-bold transition-colors duration-500 cursor-pointer"
             >
               Enviar
             </button>
@@ -439,12 +433,11 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/historia" element={<HistoriaPage />} />
                     <Route path="/pilares" element={<PilaresPage />} />
+                    <Route path="/infraestrutura" element={<InfraestruturaPage />} />
                     <Route path="/segmentos" element={<SegmentosPage />} />
-                    <Route path="/diferenciais" element={<DiferenciaisPage />} />
+                    <Route path="/calendario" element={<CalendarioPage />} />
                     <Route path="/matriculas" element={<MatriculasPage />} />
                     <Route path="/admissao" element={<AdmissaoPage />} />
-                    <Route path="/calendario" element={<CalendarioPage />} />
-                    <Route path="/blog" element={<BlogPage />} />
                   </Routes>
                 </Suspense>
               </PageTransition>

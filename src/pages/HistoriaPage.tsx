@@ -61,7 +61,7 @@ export default function HistoriaPage() {
           
           <div 
             ref={quoteTextRef}
-            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl italic leading-relaxed text-brand-charcoal font-light"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl italic leading-relaxed text-brand-charcoal font-medium"
           >
             "A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original."
           </div>
@@ -77,10 +77,10 @@ export default function HistoriaPage() {
 
       <section className="max-w-4xl mx-auto px-6 mt-12 text-center md:text-left flex flex-col gap-8">
         <h1 className="font-serif text-3xl md:text-4xl text-brand-charcoal">Uma trajetória com Propósito</h1>
-        <p className="font-sans text-sm text-brand-charcoal-light/85 font-light leading-relaxed">
+        <p className="font-sans text-sm text-brand-charcoal-light/85 font-medium leading-relaxed">
           Fundado em 26 de julho de 1995 sob a razão social <strong>Amara Vandira Santos de Oliveira Colegio</strong>, o <strong>Colégio Saber</strong> nasceu com a missão de ser um farol de ensino humanista de qualidade em Escada, PE. Acreditamos que a educação de excelência deve atuar na formação integral do indivíduo: desenvolvendo o pensamento crítico do estudante, estimulando a criatividade e a exploração desde a Educação Infantil ao Ensino Fundamental, e solidificando valores éticos essenciais de cidadania.
         </p>
-        <p className="font-sans text-sm text-brand-charcoal-light/85 font-light leading-relaxed">
+        <p className="font-sans text-sm text-brand-charcoal-light/85 font-medium leading-relaxed">
           Nosso corpo docente qualificado atua de forma integrada, prestando mentoria constante e garantindo que cada aluno receba a atenção necessária para alcançar seu pleno potencial intelectual e pessoal.
         </p>
       </section>

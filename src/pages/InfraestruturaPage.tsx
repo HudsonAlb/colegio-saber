@@ -8,7 +8,7 @@ export default function DiferenciaisPage() {
           
           <div className="max-w-2xl mx-auto flex flex-col gap-4">
             <h1 className="font-serif text-4xl text-brand-charcoal">Nossos Diferenciais em Números</h1>
-            <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-light leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium leading-relaxed">
               O Colégio Saber combina solidez e resultados acadêmicos expressivos. Veja o impacto da nossa proposta educacional.
             </p>
           </div>
@@ -23,7 +23,7 @@ export default function DiferenciaisPage() {
               <h2 className="font-serif text-lg text-brand-charcoal uppercase tracking-widest">
                 Anos de Tradição
               </h2>
-              <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed max-w-xs">
+              <p className="font-sans text-xs text-brand-charcoal-light/75 font-medium leading-relaxed max-w-xs">
                 Construindo pontes entre a sabedoria do passado e as novas fronteiras científicas.
               </p>
             </div>
@@ -37,7 +37,7 @@ export default function DiferenciaisPage() {
               <h2 className="font-serif text-lg text-brand-charcoal uppercase tracking-widest">
                 Aprovação Nacional
               </h2>
-              <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed max-w-xs">
+              <p className="font-sans text-xs text-brand-charcoal-light/75 font-medium leading-relaxed max-w-xs">
                 Estudantes preparados para ingressar nos centros de ensino superior mais competitivos do país.
               </p>
             </div>
@@ -51,7 +51,7 @@ export default function DiferenciaisPage() {
               <h2 className="font-serif text-lg text-brand-charcoal uppercase tracking-widest">
                 Líderes Formados
               </h2>
-              <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed max-w-xs">
+              <p className="font-sans text-xs text-brand-charcoal-light/75 font-medium leading-relaxed max-w-xs">
                 Cidadãos que atuam e impactam a sociedade com forte integridade ética e humanismo.
               </p>
             </div>

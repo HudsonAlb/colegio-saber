@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@phosphor-icons/react';
 import FaqSection from '../components/FaqSection';
 
 export default function MatriculasPage() {
@@ -51,7 +51,7 @@ export default function MatriculasPage() {
           <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-brand-charcoal leading-tight">
             Escreva o Futuro da Sua Jornada Conosco
           </h1>
-          <p className="font-sans text-sm md:text-base font-light text-brand-charcoal-light/80 max-w-xl mx-auto leading-relaxed">
+          <p className="font-sans text-sm md:text-base font-medium text-brand-charcoal-light/80 max-w-xl mx-auto leading-relaxed">
             Agende uma visita exclusiva ao nosso campus e conheça a nossa proposta pedagógica integrada de excelência intelectual e humana.
           </p>
           <div className="mt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -60,7 +60,7 @@ export default function MatriculasPage() {
               className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-brand-light font-sans text-xs font-semibold uppercase tracking-[0.2em] transition-colors duration-700 shadow-lg group"
             >
               Iniciar Matrícula Online 
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-700" />
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-700" weight="duotone" />
             </Link>
             <a 
               href="tel:551134567890"

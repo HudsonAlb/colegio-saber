@@ -1,8 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-
+import { CaretLeft, CaretRight, Quotes } from '@phosphor-icons/react';
 gsap.registerPlugin(ScrollTrigger);
 
 interface Testimonial {
@@ -199,39 +198,42 @@ export default function TestimonialsSection() {
         {/* Header da Seção */}
         <div className="section-header flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <span className="font-sans text-xs uppercase tracking-[0.25em] text-brand-orange font-semibold block mb-3">
+            <span className="font-sans text-xs uppercase tracking-[0.25em] text-brand-orange font-bold block mb-3">
               Comunidade Saber
             </span>
-            <h2 id="testimonials-heading" className="font-serif text-3xl md:text-4xl lg:text-5xl text-brand-charcoal leading-tight">
+            <h2 id="testimonials-heading" className="font-serif text-3xl md:text-4xl lg:text-5xl text-brand-charcoal leading-tight relative inline-block">
               A voz de quem vivencia nossa excelência diariamente
+              <svg className="absolute -bottom-2 left-0 w-48 h-4 text-brand-yellow/50" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <path d="M0,5 Q25,8 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
+              </svg>
             </h2>
           </div>
           
           {/* Controles de Navegação */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 relative z-20">
             <button
               onClick={() => scrollTo('left')}
               disabled={!canScrollLeft}
-              className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
+              className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${
                 canScrollLeft 
-                  ? 'border-brand-orange/30 text-brand-orange hover:bg-brand-orange hover:text-brand-light hover:border-brand-orange cursor-pointer' 
-                  : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed'
+                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer' 
+                  : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
               }`}
               aria-label="Depoimento anterior"
             >
-              <ChevronLeft size={20} />
+              <CaretLeft size={20} weight="bold" />
             </button>
             <button
               onClick={() => scrollTo('right')}
               disabled={!canScrollRight}
-              className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
+              className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${
                 canScrollRight 
-                  ? 'border-brand-orange/30 text-brand-orange hover:bg-brand-orange hover:text-brand-light hover:border-brand-orange cursor-pointer' 
-                  : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed'
+                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer' 
+                  : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
               }`}
               aria-label="Próximo depoimento"
             >
-              <ChevronRight size={20} />
+              <CaretRight size={20} weight="bold" />
             </button>
           </div>
         </div>
@@ -239,7 +241,7 @@ export default function TestimonialsSection() {
         {/* Viewport do Carrossel */}
         <div 
           ref={carouselRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8 px-4 -mx-4 scroll-smooth focus:outline-none"
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8 pt-10 -mt-10 px-4 -mx-4 scroll-smooth focus:outline-none"
           tabIndex={0}
           role="region"
           aria-label="Carrossel de depoimentos"
@@ -247,11 +249,27 @@ export default function TestimonialsSection() {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="testimonial-card min-w-[280px] sm:min-w-[380px] md:min-w-[450px] max-w-[500px] flex-shrink-0 snap-center bg-brand-light border border-brand-light-border rounded-[2rem] p-8 md:p-10 shadow-sm hover:shadow-md transition-all duration-500 flex flex-col justify-between relative group"
+              className="testimonial-card min-w-[280px] sm:min-w-[380px] md:min-w-[450px] max-w-[500px] flex-shrink-0 snap-center bg-[#fffefc] border-[3px] border-brand-orange/40 rounded-[3rem] rounded-bl-2xl p-8 md:p-10 shadow-[6px_6px_0_0_rgba(255,126,27,0.2)] hover:shadow-[10px_10px_0_0_rgba(255,126,27,0.3)] hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between relative group"
             >
+              {/* Sticker Flutuante Opcional */}
+              {t.id % 2 === 0 && (
+                <div className="absolute -top-5 -right-5 w-12 h-12 text-brand-pink animate-wiggle pointer-events-none drop-shadow-md">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+                  </svg>
+                </div>
+              )}
+              {t.id % 3 === 0 && (
+                <div className="absolute -bottom-6 -right-2 w-14 h-14 text-brand-blue animate-float-slow pointer-events-none drop-shadow-md">
+                  <svg viewBox="0 0 40 40" fill="currentColor">
+                    <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" stroke="#0284c7" strokeWidth="1" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              )}
+
               {/* Ícone de Aspas Flutuante */}
-              <div className="absolute top-8 right-8 text-brand-orange/10 group-hover:text-brand-orange/20 transition-colors duration-500">
-                <Quote size={40} className="transform rotate-180" />
+              <div className="absolute top-8 right-8 text-brand-orange/15 group-hover:text-brand-orange/40 group-hover:animate-wiggle-fast transition-colors duration-500">
+                <Quotes size={48} weight="duotone" />
               </div>
 
               {/* Conteúdo do Depoimento */}

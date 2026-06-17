@@ -145,7 +145,7 @@ export default function Hero() {
             
             <Link 
               to="/admissao" 
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#e78b53] text-white hover:bg-brand-orange-dark transition-all duration-300 text-sm font-bold shadow-[0_6px_20px_rgba(231,139,83,0.3)] hover:shadow-[0_8px_25px_rgba(231,139,83,0.4)] tracking-wide"
+              className="font-serif inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-brand-orange text-white hover:bg-brand-orange-light hover:-translate-y-1 transition-all duration-300 text-sm md:text-base font-bold shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-[3px] border-brand-charcoal tracking-wide"
             >
               Agende sua Visita
             </Link>

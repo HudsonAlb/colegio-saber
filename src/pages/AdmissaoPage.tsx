@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { 
-  User, Mail, Phone, Calendar, UploadCloud, CheckCircle, 
-  FileText, ArrowLeft, ArrowRight, File, 
-  Trash2, Loader2, Send, Download, Check, AlertCircle 
-} from 'lucide-react';
+import { User, Envelope, Phone, Calendar, CloudArrowUp, CheckCircle, FileText, ArrowLeft, ArrowRight, File, Trash, Spinner, PaperPlaneRight, Download, Check, WarningCircle } from '@phosphor-icons/react';
 import { jsPDF } from 'jspdf';
 
 // Tipos para os dados do formulário
@@ -423,7 +419,7 @@ export default function AdmissaoPage() {
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-8 left-8 z-50 flex items-center gap-3 px-6 py-4 rounded-2xl bg-brand-charcoal text-brand-light shadow-xl border border-brand-orange/30 animate-fade-in font-sans text-xs uppercase tracking-wider">
-          <CheckCircle size={18} className="text-brand-orange animate-bounce" />
+          <CheckCircle size={18} className="text-brand-orange animate-bounce" weight="duotone" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -438,7 +434,7 @@ export default function AdmissaoPage() {
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-charcoal font-medium">
             Formulário de Ingresso
           </h1>
-          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-light max-w-lg mx-auto">
+          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium max-w-lg mx-auto">
             Dê o primeiro passo para garantir a formação de excelência intelectual e humana do seu filho no Colégio Saber.
           </p>
 
@@ -457,10 +453,10 @@ export default function AdmissaoPage() {
             ></div>
 
             {[
-              { num: 1, label: 'Cadastro', activeClass: 'bg-[#ff7e1b] text-white border-[#ff7e1b] shadow-lg shadow-[#ff7e1b]/20 scale-110', completedClass: 'bg-[#fcd2af] text-[#433832] border-[#fcd2af]', textActive: 'text-[#ff7e1b]' },
-              { num: 2, label: 'Agendamento', activeClass: 'bg-[#4ea8de] text-white border-[#4ea8de] shadow-lg shadow-[#4ea8de]/20 scale-110', completedClass: 'bg-[#b9dcf4] text-[#433832] border-[#b9dcf4]', textActive: 'text-[#4ea8de]' },
-              { num: 3, label: 'Documentos', activeClass: 'bg-[#ffd166] text-[#433832] border-[#ffd166] shadow-lg shadow-[#ffd166]/20 scale-110', completedClass: 'bg-[#fde293] text-[#433832] border-[#fde293]', textActive: 'text-[#ffd166]' },
-              { num: 4, label: 'Ficha', activeClass: 'bg-[#ff7e1b] text-white border-[#ff7e1b] shadow-lg shadow-[#ff7e1b]/20 scale-110', completedClass: 'bg-[#fcd2af] text-[#433832] border-[#fcd2af]', textActive: 'text-[#ff7e1b]' }
+              { num: 1, label: 'Cadastro', activeClass: 'bg-brand-orange text-white border-brand-orange shadow-lg shadow-brand-orange/20 scale-110', completedClass: 'bg-brand-orange-light/40 text-brand-charcoal border-brand-orange-light/40', textActive: 'text-brand-orange' },
+              { num: 2, label: 'Agendamento', activeClass: 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/20 scale-110', completedClass: 'bg-brand-blue-light/40 text-brand-charcoal border-brand-blue-light/40', textActive: 'text-brand-blue' },
+              { num: 3, label: 'Documentos', activeClass: 'bg-brand-yellow text-brand-charcoal border-brand-yellow shadow-lg shadow-brand-yellow/20 scale-110', completedClass: 'bg-brand-yellow-light/40 text-brand-charcoal border-brand-yellow-light/40', textActive: 'text-brand-yellow' },
+              { num: 4, label: 'Ficha', activeClass: 'bg-brand-orange text-white border-brand-orange shadow-lg shadow-brand-orange/20 scale-110', completedClass: 'bg-brand-orange-light/40 text-brand-charcoal border-brand-orange-light/40', textActive: 'text-brand-orange' }
             ].map(s => {
               const isCurrent = step === s.num;
               const isPast = step > s.num;
@@ -478,7 +474,7 @@ export default function AdmissaoPage() {
                         : 'bg-white text-brand-charcoal/50 border-brand-light-border'
                     }`}
                   >
-                    {isPast ? <Check size={14} /> : s.num}
+                    {isPast ? <Check size={14} weight="duotone" /> : s.num}
                   </button>
                   <span className={`font-sans text-[10px] uppercase tracking-wider font-medium ${
                     isCurrent ? s.textActive : 'text-brand-charcoal/50'
@@ -495,7 +491,7 @@ export default function AdmissaoPage() {
         <div className="bg-brand-light-card border border-brand-light-border rounded-3xl p-8 sm:p-12 shadow-sm relative overflow-hidden">
           
           {/* Fundo decorativo sutil */}
-          <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full bg-brand-orange/2 blur-[80px] pointer-events-none"></div>
+          <div className="absolute -top-32 -right-32 w-64 h-full min-h-[16rem] rounded-full bg-brand-orange/2 blur-[80px] pointer-events-none"></div>
 
           {!isSuccess ? (
             <form onSubmit={handleSubmit} ref={stepContainerRef} className="flex flex-col gap-8">
@@ -505,7 +501,7 @@ export default function AdmissaoPage() {
                 <div className="flex flex-col gap-6">
                   <div>
                     <h3 className="font-serif text-xl text-brand-charcoal mb-1">Dados do Responsável</h3>
-                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-light">Insira as informações de contato para comunicação institucional.</p>
+                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium">Insira as informações de contato para comunicação institucional.</p>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -513,7 +509,7 @@ export default function AdmissaoPage() {
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="respNome" className="font-sans text-xs uppercase tracking-wider font-semibold text-brand-charcoal/80">Nome Completo</label>
                       <div className="relative">
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} />
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} weight="duotone" />
                         <input
                           id="respNome"
                           name="respNome"
@@ -525,11 +521,11 @@ export default function AdmissaoPage() {
                           aria-invalid={errors.respNome ? "true" : "false"}
                           aria-describedby={errors.respNome ? "respNome-error" : undefined}
                           className={`w-full pl-11 pr-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                            errors.respNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
+                            errors.respNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
                           }`}
                         />
                       </div>
-                      {errors.respNome && <span id="respNome-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.respNome}</span>}
+                      {errors.respNome && <span id="respNome-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><WarningCircle size={10}  weight="duotone" /> {errors.respNome}</span>}
                     </div>
 
                     {/* CPF do Responsável */}
@@ -546,17 +542,17 @@ export default function AdmissaoPage() {
                         aria-invalid={errors.respCpf ? "true" : "false"}
                         aria-describedby={errors.respCpf ? "respCpf-error" : undefined}
                         className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.respCpf ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
+                          errors.respCpf ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
                         }`}
                       />
-                      {errors.respCpf && <span id="respCpf-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.respCpf}</span>}
+                      {errors.respCpf && <span id="respCpf-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><WarningCircle size={10}  weight="duotone" /> {errors.respCpf}</span>}
                     </div>
 
                     {/* E-mail */}
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="respEmail" className="font-sans text-xs uppercase tracking-wider font-semibold text-brand-charcoal/80">E-mail de Contato</label>
                       <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} />
+                        <Envelope className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} weight="duotone" />
                         <input
                           id="respEmail"
                           name="respEmail"
@@ -568,18 +564,18 @@ export default function AdmissaoPage() {
                           aria-invalid={errors.respEmail ? "true" : "false"}
                           aria-describedby={errors.respEmail ? "respEmail-error" : undefined}
                           className={`w-full pl-11 pr-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                            errors.respEmail ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
+                            errors.respEmail ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
                           }`}
                         />
                       </div>
-                      {errors.respEmail && <span id="respEmail-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.respEmail}</span>}
+                      {errors.respEmail && <span id="respEmail-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><WarningCircle size={10}  weight="duotone" /> {errors.respEmail}</span>}
                     </div>
 
                     {/* Telefone/WhatsApp */}
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="respTel" className="font-sans text-xs uppercase tracking-wider font-semibold text-brand-charcoal/80">Telefone / WhatsApp</label>
                       <div className="relative">
-                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} />
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-charcoal/30" size={16} weight="duotone" />
                         <input
                           id="respTel"
                           name="respTel"
@@ -591,11 +587,11 @@ export default function AdmissaoPage() {
                           aria-invalid={errors.respTel ? "true" : "false"}
                           aria-describedby={errors.respTel ? "respTel-error" : undefined}
                           className={`w-full pl-11 pr-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                            errors.respTel ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
+                            errors.respTel ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
                           }`}
                         />
                       </div>
-                      {errors.respTel && <span id="respTel-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.respTel}</span>}
+                      {errors.respTel && <span id="respTel-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><WarningCircle size={10}  weight="duotone" /> {errors.respTel}</span>}
                     </div>
                   </div>
 
@@ -603,7 +599,7 @@ export default function AdmissaoPage() {
 
                   <div>
                     <h3 className="font-serif text-xl text-brand-charcoal mb-1">Dados do Candidato (Estudante)</h3>
-                    <p className="font-sans text-xs text-brand-charcoal-light/77 font-light">Informe os dados básicos da criança ou jovem.</p>
+                    <p className="font-sans text-xs text-brand-charcoal-light/77 font-medium">Informe os dados básicos da criança ou jovem.</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -621,10 +617,10 @@ export default function AdmissaoPage() {
                         aria-invalid={errors.alunoNome ? "true" : "false"}
                         aria-describedby={errors.alunoNome ? "alunoNome-error" : undefined}
                         className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.alunoNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
+                          errors.alunoNome ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
                         }`}
                       />
-                      {errors.alunoNome && <span id="alunoNome-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.alunoNome}</span>}
+                      {errors.alunoNome && <span id="alunoNome-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><WarningCircle size={10}  weight="duotone" /> {errors.alunoNome}</span>}
                     </div>
 
                     {/* Data de Nascimento */}
@@ -640,10 +636,10 @@ export default function AdmissaoPage() {
                         aria-invalid={errors.alunoNasc ? "true" : "false"}
                         aria-describedby={errors.alunoNasc ? "alunoNasc-error" : undefined}
                         className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.alunoNasc ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
+                          errors.alunoNasc ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
                         }`}
                       />
-                      {errors.alunoNasc && <span id="alunoNasc-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.alunoNasc}</span>}
+                      {errors.alunoNasc && <span id="alunoNasc-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><WarningCircle size={10}  weight="duotone" /> {errors.alunoNasc}</span>}
                     </div>
 
                     {/* Série Pretendida */}
@@ -658,7 +654,7 @@ export default function AdmissaoPage() {
                         aria-invalid={errors.alunoSerie ? "true" : "false"}
                         aria-describedby={errors.alunoSerie ? "alunoSerie-error" : undefined}
                         className={`w-full px-4 py-3.5 rounded-2xl border bg-white font-sans text-xs outline-none transition-all duration-500 ${
-                          errors.alunoSerie ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-[#ff7e1b]'
+                          errors.alunoSerie ? 'border-red-400 focus:border-red-400' : 'border-brand-light-border focus:border-brand-orange'
                         }`}
                       >
                         <option value="">Selecione...</option>
@@ -666,7 +662,7 @@ export default function AdmissaoPage() {
                           <option key={s} value={s}>{s}</option>
                         ))}
                       </select>
-                      {errors.alunoSerie && <span id="alunoSerie-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle size={10} /> {errors.alunoSerie}</span>}
+                      {errors.alunoSerie && <span id="alunoSerie-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1"><WarningCircle size={10}  weight="duotone" /> {errors.alunoSerie}</span>}
                     </div>
                   </div>
                 </div>
@@ -677,7 +673,7 @@ export default function AdmissaoPage() {
                 <div className="flex flex-col gap-6">
                   <div>
                     <h3 className="font-serif text-xl text-brand-charcoal mb-1">Agendamento de Avaliação</h3>
-                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-light">Selecione uma data para o Teste Diagnóstico do aluno e uma data para a Visita Guiada dos pais.</p>
+                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium">Selecione uma data para o Teste Diagnóstico do aluno e uma data para a Visita Guiada dos pais.</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -685,7 +681,7 @@ export default function AdmissaoPage() {
                     {/* Agendamento do Teste */}
                     <div className="flex flex-col gap-4 p-5 rounded-2xl border border-brand-light-border bg-white">
                       <div className="flex items-center gap-2 text-brand-orange">
-                        <Calendar size={16} />
+                        <Calendar size={16} weight="duotone" />
                         <h4 className="font-serif text-sm font-semibold uppercase tracking-wider">1. Teste Diagnóstico</h4>
                       </div>
 
@@ -705,8 +701,8 @@ export default function AdmissaoPage() {
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
                                 className={`py-2 rounded-full border text-center font-sans text-[10px] transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-[#ff7e1b] text-white border-[#ff7e1b] font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-[#ff7e1b]/50 text-brand-charcoal bg-white'
+                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}
@@ -719,7 +715,7 @@ export default function AdmissaoPage() {
                         </div>
                         {errors.dataTeste && (
                           <span id="dataTeste-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
-                            <AlertCircle size={10} />
+                            <WarningCircle size={10}  weight="duotone" />
                             {errors.dataTeste}
                           </span>
                         )}
@@ -739,8 +735,8 @@ export default function AdmissaoPage() {
                                 aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
                                 className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-[#ff7e1b] text-white border-[#ff7e1b] font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-[#ff7e1b]/50 text-brand-charcoal bg-white'
+                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {time}
@@ -750,7 +746,7 @@ export default function AdmissaoPage() {
                         </div>
                         {errors.horarioTeste && (
                           <span id="horarioTeste-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
-                            <AlertCircle size={10} />
+                            <WarningCircle size={10}  weight="duotone" />
                             {errors.horarioTeste}
                           </span>
                         )}
@@ -760,7 +756,7 @@ export default function AdmissaoPage() {
                     {/* Agendamento da Visita */}
                     <div className="flex flex-col gap-4 p-5 rounded-2xl border border-brand-light-border bg-white">
                       <div className="flex items-center gap-2 text-brand-orange">
-                        <Calendar size={16} />
+                        <Calendar size={16} weight="duotone" />
                         <h4 className="font-serif text-sm font-semibold uppercase tracking-wider">2. Visita ao Campus</h4>
                       </div>
 
@@ -780,8 +776,8 @@ export default function AdmissaoPage() {
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
                                 className={`py-2 rounded-full border text-center font-sans text-[10px] transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-[#4ea8de] text-white border-[#4ea8de] font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-[#4ea8de]/50 text-brand-charcoal bg-white'
+                                    ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}
@@ -794,7 +790,7 @@ export default function AdmissaoPage() {
                         </div>
                         {errors.dataVisita && (
                           <span id="dataVisita-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
-                            <AlertCircle size={10} />
+                            <WarningCircle size={10}  weight="duotone" />
                             {errors.dataVisita}
                           </span>
                         )}
@@ -814,8 +810,8 @@ export default function AdmissaoPage() {
                                 aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
                                 className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 ${
                                   isSelected 
-                                    ? 'bg-[#4ea8de] text-white border-[#4ea8de] font-semibold shadow-md' 
-                                    : 'border-brand-light-border hover:border-[#4ea8de]/50 text-brand-charcoal bg-white'
+                                    ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md' 
+                                    : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
                                 }`}
                               >
                                 {time}
@@ -825,7 +821,7 @@ export default function AdmissaoPage() {
                         </div>
                         {errors.horarioVisita && (
                           <span id="horarioVisita-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
-                            <AlertCircle size={10} />
+                            <WarningCircle size={10}  weight="duotone" />
                             {errors.horarioVisita}
                           </span>
                         )}
@@ -840,7 +836,7 @@ export default function AdmissaoPage() {
                   <div className="flex flex-col gap-3">
                     <div>
                       <h4 className="font-serif text-sm font-semibold uppercase tracking-wider text-brand-charcoal">Foco Pedagógico & Interesses</h4>
-                      <p className="font-sans text-xs text-brand-charcoal-light/70 font-light">Selecione as áreas extracurriculares ou acadêmicas que mais interessam ao candidato.</p>
+                      <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium">Selecione as áreas extracurriculares ou acadêmicas que mais interessam ao candidato.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" role="group" aria-label="Interesses pedagógicos">
@@ -855,15 +851,15 @@ export default function AdmissaoPage() {
                             aria-label={`${opt.label}${isChecked ? ', selecionado' : ''}`}
                             className={`p-3.5 px-5 rounded-full border text-left font-sans text-xs flex items-center justify-between transition-all duration-300 cursor-pointer ${
                               isChecked 
-                                ? 'bg-[#ff7e1b]/10 border-[#ff7e1b] text-brand-charcoal font-semibold' 
-                                : 'border-brand-light-border hover:border-[#ff7e1b]/30 text-brand-charcoal-light bg-white'
+                                ? 'bg-brand-orange/10 border-brand-orange text-brand-charcoal font-semibold' 
+                                : 'border-brand-light-border hover:border-brand-orange/30 text-brand-charcoal-light bg-white'
                             }`}
                           >
                             <span>{opt.label}</span>
                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors duration-300 ${
-                              isChecked ? 'bg-[#ff7e1b] border-[#ff7e1b] text-white' : 'border-brand-light-border bg-white'
+                              isChecked ? 'bg-brand-orange border-brand-orange text-white' : 'border-brand-light-border bg-white'
                             }`}>
-                              {isChecked && <Check size={10} />}
+                              {isChecked && <Check size={10} weight="duotone" />}
                             </div>
                           </button>
                         );
@@ -878,7 +874,7 @@ export default function AdmissaoPage() {
                 <div className="flex flex-col gap-6">
                   <div>
                     <h3 className="font-serif text-xl text-brand-charcoal mb-1">Documentação Preliminar</h3>
-                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-light">Anexe os arquivos preliminares para agilizar a análise da secretaria. O envio é recomendado, mas você pode avançar sem arquivos e enviá-los posteriormente.</p>
+                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium">Anexe os arquivos preliminares para agilizar a análise da secretaria. O envio é recomendado, mas você pode avançar sem arquivos e enviá-los posteriormente.</p>
                   </div>
 
                   {/* Área Drag & Drop */}
@@ -897,10 +893,10 @@ export default function AdmissaoPage() {
                         document.getElementById('file-upload')?.click();
                       }
                     }}
-                    className={`w-full py-12 border-2 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-500 outline-none focus:border-[#ff7e1b] ${
+                    className={`w-full py-12 border-2 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-500 outline-none focus:border-brand-orange ${
                       isDragging 
-                        ? 'border-[#ff7e1b] bg-[#fffcf7] scale-[1.01]' 
-                        : 'border-brand-light-border hover:border-[#ff7e1b]/50 bg-[#fffcf7]'
+                        ? 'border-brand-orange bg-[#fffcf7] scale-[1.01]' 
+                        : 'border-brand-light-border hover:border-brand-orange/50 bg-[#fffcf7]'
                     }`}
                   >
                     <input
@@ -913,8 +909,8 @@ export default function AdmissaoPage() {
                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                     />
                     <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center gap-3">
-                      <div className="w-14 h-14 rounded-full bg-[#ff7e1b]/10 flex items-center justify-center text-[#ff7e1b] animate-pulse">
-                        <UploadCloud size={24} />
+                      <div className="w-14 h-14 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange animate-pulse">
+                        <CloudArrowUp size={24} weight="duotone" />
                       </div>
                       <div className="flex flex-col gap-1 px-4">
                         <span className="font-sans text-xs font-semibold text-brand-charcoal">Arrastar arquivos aqui ou clicar para selecionar</span>
@@ -936,8 +932,8 @@ export default function AdmissaoPage() {
                             className="p-4 rounded-2xl border border-brand-light-border bg-white flex items-center justify-between gap-4 transition-all duration-500"
                           >
                             <div className="flex items-center gap-3 w-full min-w-0">
-                              <div className="p-2 rounded-lg bg-brand-light-card border border-brand-light-border text-[#ff7e1b] shrink-0">
-                                <FileText size={18} />
+                              <div className="p-2 rounded-lg bg-brand-light-card border border-brand-light-border text-brand-orange shrink-0">
+                                <FileText size={18} weight="duotone" />
                               </div>
                               <div className="flex flex-col gap-1 w-full min-w-0">
                                 <span className="font-sans text-xs font-medium text-brand-charcoal truncate">{file.name}</span>
@@ -961,8 +957,8 @@ export default function AdmissaoPage() {
                             </div>
 
                             <div className="flex items-center gap-2 shrink-0">
-                              {file.status === 'completed' && <CheckCircle size={16} className="text-green-500 animate-bounce" aria-label="Upload concluído" />}
-                              {file.status === 'uploading' && <Loader2 size={16} className="text-brand-orange animate-spin" aria-label="Enviando arquivo" />}
+                              {file.status === 'completed' && <CheckCircle size={16} className="text-green-500 animate-bounce" aria-label="Upload concluído" weight="duotone" />}
+                              {file.status === 'uploading' && <Spinner size={16} className="text-brand-orange animate-spin" aria-label="Enviando arquivo" weight="duotone" />}
                               
                               <button
                                 type="button"
@@ -970,7 +966,7 @@ export default function AdmissaoPage() {
                                 className="p-2 rounded-lg hover:bg-red-50 text-brand-charcoal-light/50 hover:text-red-500 transition-colors duration-300"
                                 aria-label={`Remover arquivo ${file.name}`}
                               >
-                                <Trash2 size={14} />
+                                <Trash size={14} weight="duotone" />
                               </button>
                             </div>
                           </div>
@@ -981,8 +977,8 @@ export default function AdmissaoPage() {
 
                   {/* Informativo sutil sobre quais documentos trazer */}
                   <div className="p-4 rounded-2xl bg-brand-light border border-brand-light-border flex gap-3">
-                    <AlertCircle size={18} className="text-brand-orange shrink-0 mt-0.5" />
-                    <div className="flex flex-col gap-1 font-sans text-xs font-light text-brand-charcoal-light/75 leading-relaxed">
+                    <CheckCircle size={18} className="text-brand-orange shrink-0 mt-0.5"  weight="duotone" />
+                    <div className="flex flex-col gap-1 font-sans text-xs font-medium text-brand-charcoal-light/75 leading-relaxed">
                       <span className="font-semibold text-brand-charcoal">Documentação recomendada para o dia da visita:</span>
                       <span>• RG e CPF do estudante e do responsável legal.</span>
                       <span>• Cópia do último boletim de notas ou declaração escolar.</span>
@@ -997,7 +993,7 @@ export default function AdmissaoPage() {
                 <div className="flex flex-col gap-6">
                   <div>
                     <h3 className="font-serif text-xl text-brand-charcoal mb-1">Confirmação de Inscrição</h3>
-                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-light">Revise todas as informações abaixo. Você poderá baixar sua Ficha de Interesse em formato PDF no botão abaixo.</p>
+                    <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium">Revise todas as informações abaixo. Você poderá baixar sua Ficha de Interesse em formato PDF no botão abaixo.</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans text-xs">
@@ -1005,7 +1001,7 @@ export default function AdmissaoPage() {
                     {/* Resumo Responsável */}
                     <div className="p-5 rounded-2xl border border-brand-light-border bg-white flex flex-col gap-3">
                       <h4 className="font-serif text-xs uppercase tracking-wider text-brand-orange font-bold">Responsável Legal</h4>
-                      <div className="flex flex-col gap-1.5 font-light text-brand-charcoal-light">
+                      <div className="flex flex-col gap-1.5 font-medium text-brand-charcoal-light">
                         <p><strong className="font-medium text-brand-charcoal">Nome:</strong> {formData.respNome}</p>
                         <p><strong className="font-medium text-brand-charcoal">CPF:</strong> {formData.respCpf}</p>
                         <p><strong className="font-medium text-brand-charcoal">E-mail:</strong> {formData.respEmail}</p>
@@ -1016,7 +1012,7 @@ export default function AdmissaoPage() {
                     {/* Resumo Aluno */}
                     <div className="p-5 rounded-2xl border border-brand-light-border bg-white flex flex-col gap-3">
                       <h4 className="font-serif text-xs uppercase tracking-wider text-brand-orange font-bold">Candidato(a)</h4>
-                      <div className="flex flex-col gap-1.5 font-light text-brand-charcoal-light">
+                      <div className="flex flex-col gap-1.5 font-medium text-brand-charcoal-light">
                         <p><strong className="font-medium text-brand-charcoal">Nome:</strong> {formData.alunoNome}</p>
                         <p><strong className="font-medium text-brand-charcoal">Nascimento:</strong> {formData.alunoNasc ? new Date(formData.alunoNasc + 'T00:00:00').toLocaleDateString('pt-BR') : ''}</p>
                         <p><strong className="font-medium text-brand-charcoal">Série Pretendida:</strong> {formData.alunoSerie}</p>
@@ -1030,10 +1026,10 @@ export default function AdmissaoPage() {
                     {/* Resumo Agendamentos */}
                     <div className="p-5 rounded-2xl border border-brand-light-border bg-white flex flex-col gap-3 md:col-span-2">
                       <h4 className="font-serif text-xs uppercase tracking-wider text-brand-orange font-bold">Agendamentos Agendados</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-light text-brand-charcoal-light">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-medium text-brand-charcoal-light">
                         <div className="flex items-center gap-3">
                           <div className="p-2.5 rounded-xl bg-brand-orange/10 text-brand-orange">
-                            <Calendar size={16} />
+                            <Calendar size={16} weight="duotone" />
                           </div>
                           <div>
                             <p className="font-medium text-brand-charcoal text-xs">Teste Diagnóstico</p>
@@ -1043,7 +1039,7 @@ export default function AdmissaoPage() {
 
                         <div className="flex items-center gap-3">
                           <div className="p-2.5 rounded-xl bg-brand-orange/10 text-brand-orange">
-                            <Calendar size={16} />
+                            <Calendar size={16} weight="duotone" />
                           </div>
                           <div>
                             <p className="font-medium text-brand-charcoal text-xs">Visita ao Campus</p>
@@ -1057,12 +1053,12 @@ export default function AdmissaoPage() {
                     <div className="p-5 rounded-2xl border border-brand-light-border bg-white flex flex-col gap-3 md:col-span-2">
                       <h4 className="font-serif text-xs uppercase tracking-wider text-brand-orange font-bold">Documentos Anexados ({files.length})</h4>
                       {files.length === 0 ? (
-                        <p className="font-light text-brand-charcoal-light/70 italic">Nenhum documento preliminar foi anexado.</p>
+                        <p className="font-medium text-brand-charcoal-light/70 italic">Nenhum documento preliminar foi anexado.</p>
                       ) : (
                         <div className="flex flex-wrap gap-2">
                           {files.map(f => (
                             <span key={f.id} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-brand-light-border bg-brand-light-card text-[10px] text-brand-charcoal font-medium">
-                              <File size={10} className="text-brand-orange" />
+                              <File size={10} className="text-brand-orange" weight="duotone" />
                               {f.name}
                             </span>
                           ))}
@@ -1072,10 +1068,10 @@ export default function AdmissaoPage() {
                   </div>
 
                   {/* Gerador de Ficha Oficial (Visualmente Premium) */}
-                  <div className="mt-4 p-6 rounded-[2rem] bg-[#fffcf7] border-2 border-[#ff7e1b]/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="mt-4 p-6 rounded-[2rem] bg-[#fffcf7] border-2 border-brand-orange/20 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-4 text-left">
-                      <div className="w-12 h-12 rounded-2xl bg-[#ff7e1b] text-white flex items-center justify-center shrink-0">
-                        <FileText size={24} />
+                      <div className="w-12 h-12 rounded-2xl bg-brand-orange text-white flex items-center justify-center shrink-0">
+                        <FileText size={24} weight="duotone" />
                       </div>
                       <div>
                         <h4 className="font-serif text-sm font-semibold text-brand-charcoal">Ficha de Inscrição Digital</h4>
@@ -1086,9 +1082,9 @@ export default function AdmissaoPage() {
                       type="button"
                       onClick={generatePDF}
                       aria-label="Baixar Ficha de Inscrição em PDF"
-                      className="px-6 py-3 rounded-full border-2 border-[#ff7e1b] text-[#ff7e1b] hover:bg-[#ff7e1b] hover:text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 cursor-pointer"
+                      className="px-6 py-3 rounded-full border-2 border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 cursor-pointer"
                     >
-                      <Download size={14} />
+                      <Download size={14} weight="duotone" />
                       Baixar PDF
                     </button>
                   </div>
@@ -1102,9 +1098,9 @@ export default function AdmissaoPage() {
                     type="button"
                     onClick={handleBack}
                     aria-label="Voltar para o passo anterior"
-                    className="flex items-center gap-2 px-6 py-3.5 rounded-full border-2 border-brand-charcoal/20 hover:border-[#ff7e1b] hover:text-[#ff7e1b] text-brand-charcoal font-sans text-xs uppercase tracking-wider font-semibold transition-all duration-500 cursor-pointer"
+                    className="flex items-center gap-2 px-6 py-3.5 rounded-full border-2 border-brand-charcoal/20 hover:border-brand-orange hover:text-brand-orange text-brand-charcoal font-sans text-xs uppercase tracking-wider font-semibold transition-all duration-500 cursor-pointer"
                   >
-                    <ArrowLeft size={14} />
+                    <ArrowLeft size={14} weight="duotone" />
                     Voltar
                   </button>
                 ) : (
@@ -1116,27 +1112,27 @@ export default function AdmissaoPage() {
                     type="button"
                     onClick={handleNext}
                     aria-label="Continuar para o próximo passo"
-                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-[#ff7e1b] hover:bg-[#e78b53] text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-md shadow-[#ff7e1b]/20 cursor-pointer"
+                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-brand-orange hover:bg-brand-orange-light text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-md shadow-brand-orange/20 cursor-pointer"
                   >
                     Continuar
-                    <ArrowRight size={14} />
+                    <ArrowRight size={14} weight="duotone" />
                   </button>
                 ) : (
                   <button
                     type="submit"
                     disabled={isSubmitting}
                     aria-label="Finalizar inscrição e enviar dados"
-                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-[#4ea8de] hover:bg-[#3a96c4] text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-lg cursor-pointer"
+                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-brand-blue hover:bg-[#3a96c4] text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-700 shadow-lg cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 size={14} className="animate-spin" />
+                        <Spinner size={14} className="animate-spin" weight="duotone" />
                         Enviando...
                       </>
                     ) : (
                       <>
                         Finalizar & Enviar
-                        <Send size={14} />
+                        <PaperPlaneRight size={14} weight="duotone" />
                       </>
                     )}
                   </button>
@@ -1156,7 +1152,7 @@ export default function AdmissaoPage() {
                   ref={envelopeRef}
                   className="w-20 h-20 bg-brand-orange text-white rounded-2xl flex items-center justify-center shadow-lg relative z-10"
                 >
-                  <Send size={36} />
+                  <PaperPlaneRight size={36} weight="duotone" />
                 </div>
               </div>
 
@@ -1167,7 +1163,7 @@ export default function AdmissaoPage() {
                 Seja Bem-vindo ao Processo de Admissão
               </h2>
               
-              <div className="max-w-md font-sans text-xs sm:text-sm font-light text-brand-charcoal-light/80 leading-relaxed flex flex-col gap-3">
+              <div className="max-w-md font-sans text-xs sm:text-sm font-medium text-brand-charcoal-light/80 leading-relaxed flex flex-col gap-3">
                 <p>
                   A ficha de matrícula e o interesse no ingresso do estudante <strong className="font-medium text-brand-charcoal">{formData.alunoNome}</strong> foram registrados em nosso sistema.
                 </p>
@@ -1189,9 +1185,9 @@ export default function AdmissaoPage() {
                 <button
                   type="button"
                   onClick={generatePDF}
-                  className="px-8 py-3.5 rounded-full border-2 border-[#ff7e1b] text-[#ff7e1b] hover:bg-[#ff7e1b] hover:text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-8 py-3.5 rounded-full border-2 border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Download size={14} />
+                  <Download size={14} weight="duotone" />
                   Baixar Ficha (PDF)
                 </button>
                 
@@ -1202,10 +1198,10 @@ export default function AdmissaoPage() {
                     // Força recálculo do Lenis/GSAP scroll
                     window.scrollTo({ top: 0 });
                   }}
-                  className="px-8 py-3.5 rounded-full bg-[#ff7e1b] hover:bg-[#e78b53] text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg cursor-pointer"
+                  className="px-8 py-3.5 rounded-full bg-brand-orange hover:bg-brand-orange-light text-white transition-all duration-700 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                 >
                   Voltar ao Início
-                  <ArrowRight size={14} />
+                  <ArrowRight size={14} weight="duotone" />
                 </button>
               </div>
 

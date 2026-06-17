@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { 
-  Info, Maximize2, MoveHorizontal, 
-  X, Sparkles, Compass
-} from 'lucide-react';
+import { Info, CornersOut, ArrowsHorizontal, X, Sparkle, Compass, PlayCircle } from '@phosphor-icons/react';
 
 // Import de imagens panorâmicas geradas
 import bibliotecaImg from '../assets/tour_biblioteca.png';
@@ -272,26 +269,43 @@ export default function TourVirtual() {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col gap-6">
         
+        {/* Desenhos Decorativos Flutuantes */}
+        <div className="absolute top-10 right-10 w-16 h-16 text-brand-yellow opacity-60 animate-float-slow pointer-events-none hidden lg:block">
+          {/* Star doodle */}
+          <svg viewBox="0 0 40 40" fill="currentColor">
+            <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" stroke="#d89f00" strokeWidth="1" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <div className="absolute bottom-20 left-4 w-20 h-20 text-brand-blue-light animate-wiggle pointer-events-none hidden lg:block">
+          {/* Cloud doodle */}
+          <svg viewBox="0 0 60 40" fill="currentColor">
+            <path d="M15,25 C15,15 25,10 35,15 C40,5 55,5 55,20 C60,20 60,35 50,35 L15,35 C5,35 5,25 15,25 Z" stroke="#4ea8de" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+
         {/* Cabeçalho */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="flex flex-col gap-2 max-w-xl text-left">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+          <div className="flex flex-col gap-2 max-w-xl text-left relative">
             <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-orange font-bold flex items-center gap-1.5">
-              <Compass size={12} className="animate-spin-slow" />
+              <Compass size={14} className="animate-spin-slow text-brand-orange-light" weight="duotone" />
               Tour Virtual Interativo
             </span>
-            <h2 className="font-serif text-3xl md:text-4xl text-brand-charcoal">
+            <h2 className="font-serif text-3xl md:text-4xl text-brand-charcoal relative inline-block">
               Conheça Nossa Infraestrutura
+              <svg className="absolute -bottom-2 left-0 w-32 h-3 text-brand-green/40" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <path d="M0,5 Q25,0 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+              </svg>
             </h2>
-            <p className="font-sans text-xs text-brand-charcoal-light/75 font-light leading-relaxed">
+            <p className="font-sans text-xs text-brand-charcoal-light/75 font-medium leading-relaxed mt-2">
               Arraste a imagem para navegar lateralmente e clique nos pontos azuis/laranjas piscantes para detalhar nossa estrutura acadêmica de ponta.
             </p>
           </div>
 
-           {/* Abas Selecionadoras */}
+           {/* Abas Selecionadoras estilo caderno */}
           <div 
             role="tablist" 
             aria-label="Locais do campus" 
-            className="flex flex-wrap gap-2 md:gap-3 bg-brand-light p-1.5 rounded-2xl border border-brand-light-border shrink-0 self-start md:self-auto"
+            className="flex flex-wrap gap-2 md:gap-3 shrink-0 self-start md:self-auto"
           >
             {LOCATIONS.map(loc => {
               const isActive = activeLoc.id === loc.id;
@@ -304,10 +318,10 @@ export default function TourVirtual() {
                   aria-controls={`panel-${loc.id}`}
                   type="button"
                   onClick={() => handleLocChange(loc)}
-                  className={`px-4 py-2.5 rounded-xl font-sans text-xs font-semibold tracking-wider transition-all duration-700 ${
+                  className={`px-4 py-2.5 font-sans text-xs font-semibold tracking-wider transition-all duration-300 border-2 border-brand-charcoal rounded-2xl ${
                     isActive 
-                      ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/15' 
-                      : 'text-brand-charcoal-light hover:bg-brand-light-card hover:text-brand-orange'
+                      ? 'bg-brand-orange text-white shadow-[2px_4px_0_0_#2d2a26] -translate-y-1' 
+                      : 'bg-[#fdfbf7] text-brand-charcoal shadow-[2px_2px_0_0_#2d2a26] hover:bg-brand-orange/10 hover:-translate-y-0.5'
                   }`}
                 >
                   {loc.name}
@@ -317,9 +331,9 @@ export default function TourVirtual() {
           </div>
         </div>
 
-        {/* Descritivo do local selecionado */}
-        <div className="p-5 rounded-2xl bg-brand-light border border-brand-light-border text-left font-sans text-xs text-brand-charcoal-light/85 font-light flex items-center gap-3">
-          <Info size={16} className="text-brand-orange shrink-0" />
+        {/* Descritivo do local selecionado com visual lúdico */}
+        <div className="p-5 rounded-3xl bg-[#fffefc] border-2 border-brand-yellow/40 border-dashed text-left font-sans text-xs text-brand-charcoal-light/85 font-semibold flex items-center gap-3 shadow-sm transform rotate-[-0.5deg]">
+          <Info size={20} className="text-brand-yellow-dark shrink-0 animate-wiggle" weight="duotone" />
           <p>{activeLoc.description}</p>
         </div>
 
@@ -339,7 +353,7 @@ export default function TourVirtual() {
           id={`panel-${activeLoc.id}`}
           aria-labelledby={`tab-${activeLoc.id}`}
           aria-label={`Visualização panorâmica da ${activeLoc.name}. Use as setas Esquerda e Direita para navegar pela imagem e ESC para fechar detalhes.`}
-          className="relative w-full h-[380px] sm:h-[460px] md:h-[540px] overflow-hidden rounded-3xl border border-brand-light-border bg-brand-light-card cursor-grab active:cursor-grabbing select-none focus:outline-none focus:ring-2 focus:ring-brand-orange"
+          className="relative w-full h-[380px] sm:h-[460px] md:h-[540px] overflow-hidden rounded-[3rem] border-4 border-brand-charcoal shadow-[6px_6px_0_0_#2d2a26] md:shadow-[10px_10px_0_0_#2d2a26] bg-[#fdfbf7] cursor-grab active:cursor-grabbing select-none focus:outline-none"
         >
           {/* Container Deslizante */}
           <div 
@@ -379,7 +393,7 @@ export default function TourVirtual() {
                     <div className={`w-4.5 h-4.5 rounded-full border border-white flex items-center justify-center shadow-lg transition-colors duration-500 ${
                       isOpen ? 'bg-brand-charcoal text-white' : 'bg-brand-orange text-white'
                     }`}>
-                      <Sparkles size={8} />
+                      <PlayCircle size={8}  weight="duotone" />
                     </div>
                   </button>
 
@@ -396,10 +410,10 @@ export default function TourVirtual() {
                           aria-label="Fechar detalhes"
                           className="text-brand-light/50 hover:text-brand-orange transition-colors duration-300 cursor-pointer"
                         >
-                          <X size={14} />
+                          <X size={14} weight="duotone" />
                         </button>
                       </div>
-                      <p className="text-[11px] font-light leading-relaxed text-brand-light/90">
+                      <p className="text-[11px] font-medium leading-relaxed text-brand-light/90">
                         {hotspot.desc}
                       </p>
                     </div>
@@ -411,13 +425,13 @@ export default function TourVirtual() {
 
           {/* Dica de Controle Overlay (Some após 4s) */}
           <div className="absolute bottom-6 left-6 z-20 pointer-events-none flex items-center gap-2 bg-brand-charcoal/80 backdrop-blur-md text-brand-light px-4 py-2.5 rounded-full font-sans text-[10px] uppercase tracking-wider border border-white/10 animate-fade-out delay-3000">
-            <MoveHorizontal size={14} className="text-brand-orange animate-bounce" />
+            <ArrowsHorizontal size={14} className="text-brand-orange transition-transform duration-1000 translate-x-1" weight="duotone" />
             <span>Arraste para explorar</span>
           </div>
 
           {/* Botão de feedback visual do centro */}
           <div className="absolute top-6 right-6 z-20 bg-brand-light/90 backdrop-blur-md text-brand-charcoal px-3 py-1.5 rounded-xl border border-brand-light-border font-sans text-[9px] uppercase tracking-widest font-semibold flex items-center gap-1.5">
-            <Maximize2 size={10} className="text-brand-orange" />
+            <CornersOut size={10} className="text-brand-orange" weight="duotone" />
             <span>Pan 360°</span>
           </div>
 
