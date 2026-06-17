@@ -97,7 +97,7 @@ function FaqItem({ item, isOpen, onClick, idx }: { item: FaqItemData, isOpen: bo
         aria-expanded={isOpen}
         aria-controls={`faq-content-${idx}`}
         onClick={onClick}
-        className="w-full py-5 px-6 text-left flex justify-between items-center gap-4 hover:text-brand-orange transition-colors duration-500 font-serif text-sm md:text-base font-bold text-brand-charcoal focus:outline-none"
+        className="w-full p-[var(--spacing-fluid-sm)] md:p-[var(--spacing-fluid-md)] text-left flex justify-between items-center gap-4 hover:text-brand-orange transition-colors duration-500 font-serif text-sm md:text-base font-bold text-brand-charcoal focus:outline-none"
       >
         <span>{item.question}</span>
         <div className={`p-1.5 rounded-full border border-brand-light-border bg-brand-light-card text-brand-charcoal/50 transition-transform duration-700 shrink-0 ${isOpen ? 'rotate-180 text-brand-orange border-brand-orange/30' : ''
@@ -114,7 +114,7 @@ function FaqItem({ item, isOpen, onClick, idx }: { item: FaqItemData, isOpen: bo
         className="overflow-hidden h-0"
         style={{ willChange: 'height' }}
       >
-        <div ref={contentRef} className="pb-6 px-6 font-sans text-xs sm:text-sm font-semibold leading-relaxed text-brand-charcoal-light/90 text-left">
+        <div ref={contentRef} className="pb-[var(--spacing-fluid-md)] px-[var(--spacing-fluid-md)] font-sans text-xs sm:text-sm font-semibold leading-relaxed text-brand-charcoal-light/90 text-left">
           {item.answer}
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function FaqSection() {
   const activeCategory = FAQ_DATA.find(cat => cat.id === activeCat) || FAQ_DATA[0];
 
   return (
-    <section className="w-full py-20 border-t border-brand-light-border bg-brand-light relative z-10 overflow-hidden">
+    <section className="w-full py-[var(--spacing-fluid-section)] border-t border-brand-light-border bg-brand-light relative z-10 overflow-hidden">
 
       {/* Vetores Flutuantes */}
       <div className="absolute top-20 left-10 w-24 h-24 text-brand-orange opacity-20 animate-wiggle pointer-events-none hidden lg:block">
@@ -200,7 +200,7 @@ export default function FaqSection() {
         {/* Acordeão Accordion */}
         <div
           ref={containerRef}
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-[var(--spacing-fluid-sm)]"
         >
           {activeCategory.items.map((item, idx) => (
             <FaqItem

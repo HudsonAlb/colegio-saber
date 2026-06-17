@@ -31,6 +31,12 @@
   --color-brand-light-border: #f5ebd5;
   --color-brand-charcoal: #2d2a26;
   --color-brand-charcoal-light: #524f4b;
+
+  /* Fluid Spacing Scale for Impeccable Layouts */
+  --spacing-fluid-sm: clamp(0.75rem, 1.5vw, 1.5rem);
+  --spacing-fluid-md: clamp(1.5rem, 3vw, 3rem);
+  --spacing-fluid-lg: clamp(3rem, 5vw, 5rem);
+  --spacing-fluid-section: clamp(4rem, 8vw, 8rem);
 }
 
 @layer base {
@@ -92,6 +98,14 @@
 @utility text-reveal-wrapper {
   overflow: hidden;
   display: block;
+}
+
+@utility bento-hover-lift {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  &:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.08);
+  }
 }
 
 @utility text-reveal-line {

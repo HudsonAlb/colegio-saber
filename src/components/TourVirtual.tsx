@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Info, CornersOut, ArrowsHorizontal, X, Sparkle, Compass, PlayCircle } from '@phosphor-icons/react';
+import { Info, CornersOut, ArrowsHorizontal, X, Compass, PlayCircle } from '@phosphor-icons/react';
 
 // Import de imagens panorâmicas geradas
 import bibliotecaImg from '../assets/tour_biblioteca.png';
@@ -18,8 +18,13 @@ interface Hotspot {
 interface LocationData {
   id: string;
   name: string;
+  shortName: string;
   image: string;
   description: string;
+  themeColor: string;
+  themeBg: string;
+  themeBorder: string;
+  themeShadow: string;
   hotspots: Hotspot[];
 }
 
@@ -27,8 +32,13 @@ const LOCATIONS: LocationData[] = [
   {
     id: 'biblioteca',
     name: 'Biblioteca Central',
+    shortName: 'Biblioteca',
     image: bibliotecaImg,
-    description: 'Um espaço de pesquisa acolhedor e dinâmico, que promove a leitura através de acervo físico amplo e biblioteca digital moderna.',
+    themeColor: 'text-brand-orange',
+    themeBg: 'bg-brand-orange',
+    themeBorder: 'border-brand-orange/30',
+    themeShadow: 'shadow-brand-orange/30',
+    description: 'Um espaço de pesquisa acolhedor e dinâmico, que promove a leitura com milhares de livros mágicos.',
     hotspots: [
       { x: 28, y: 48, title: 'Acervo Físico & Digital', desc: 'Mais de 15.000 títulos catalogados e acesso a bases acadêmicas internacionais via tablets disponíveis aos alunos.' },
       { x: 68, y: 55, title: 'Área de Cocriação', desc: 'Mesas modulares equipadas para trabalhos em grupo, integrando tecnologia, tomadas rápidas e lousas móveis.' }
@@ -36,9 +46,14 @@ const LOCATIONS: LocationData[] = [
   },
   {
     id: 'laboratorio',
-    name: 'Laboratório de Ciências & Robótica',
+    name: 'Laboratório Maker',
+    shortName: 'Robótica',
     image: laboratorioImg,
-    description: 'Espaço equipado com tecnologia de ponta para o ensino prático de física, química, biologia e robótica STEM.',
+    themeColor: 'text-brand-yellow-dark',
+    themeBg: 'bg-brand-yellow',
+    themeBorder: 'border-brand-yellow/40',
+    themeShadow: 'shadow-brand-yellow/30',
+    description: 'Espaço equipado para as mentes mais curiosas inventarem robôs e aprenderem ciências na prática.',
     hotspots: [
       { x: 32, y: 42, title: 'Bancadas STEM & Robótica', desc: 'Kits LEGO Education e microcontroladores Arduino para que estudantes desenvolvam projetos de programação e engenharia real.' },
       { x: 74, y: 52, title: 'Ciências Aplicadas', desc: 'Microscópios eletrônicos digitais conectados a telas compartilhadas, permitindo estudos moleculares em tempo real.' }
@@ -46,9 +61,14 @@ const LOCATIONS: LocationData[] = [
   },
   {
     id: 'esportes',
-    name: 'Complexo Poliesportivo',
+    name: 'Complexo Esportivo',
+    shortName: 'Esportes',
     image: esportesImg,
-    description: 'Nossa quadra coberta e quadras externas incentivam a cooperação, saúde física e práticas esportivas integradas.',
+    themeColor: 'text-brand-blue',
+    themeBg: 'bg-brand-blue',
+    themeBorder: 'border-brand-blue/30',
+    themeShadow: 'shadow-brand-blue/30',
+    description: 'Muita energia e movimento em nossas quadras preparadas para saúde física e brincadeiras coletivas.',
     hotspots: [
       { x: 42, y: 62, title: 'Piso Flutuante Antidecíduo', desc: 'Tecnologia de amortecimento de impacto que protege as articulações dos alunos durante treinos de futsal, basquete e vôlei.' },
       { x: 78, y: 35, title: 'Estrutura Sustentável', desc: 'Iluminação zenital translúcida e circulação cruzada de ar, reduzindo o consumo de energia e garantindo temperatura agradável.' }
@@ -56,9 +76,14 @@ const LOCATIONS: LocationData[] = [
   },
   {
     id: 'bosque',
-    name: 'Bosque Pedagógico (Área Verde)',
+    name: 'Bosque Pedagógico',
+    shortName: 'Bosque',
     image: bosqueImg,
-    description: 'Um ecossistema natural de 2.000m² integrado para aulas ao ar livre, relaxamento e conscientização ambiental.',
+    themeColor: 'text-brand-green',
+    themeBg: 'bg-brand-green',
+    themeBorder: 'border-brand-green/30',
+    themeShadow: 'shadow-brand-green/30',
+    description: 'Um enorme ecossistema verde integrado para correr, respirar ar puro e aprender cercado de natureza.',
     hotspots: [
       { x: 22, y: 54, title: 'Salas de Aula ao Ar Livre', desc: 'Arquibancadas circulares de madeira sob a sombra de árvores centenárias, muito utilizadas para debates literários e aulas de filosofia.' },
       { x: 68, y: 48, title: 'Horta & Compostagem', desc: 'Espaço prático onde os alunos do Ensino Fundamental aprendem sobre botânica, cultivo orgânico e ciclo de reciclagem de resíduos.' }
@@ -79,16 +104,14 @@ export default function TourVirtual() {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const currentX = useRef(0);
-  const maxPan = useRef(0); // Limite de pan (viewportWidth - imageWidth)
+  const maxPan = useRef(0); 
 
-  // Recalcula o tamanho da imagem e limites de pan ao mudar de local ou redimensionar a tela
   const updatePanLimits = () => {
     if (viewportRef.current && containerRef.current) {
       const vWidth = viewportRef.current.clientWidth;
       const imgWidth = containerRef.current.scrollWidth;
       maxPan.current = Math.min(0, vWidth - imgWidth);
 
-      // Reseta a posição no meio ao trocar de local
       const startXPos = maxPan.current / 2;
       currentX.current = startXPos;
       gsap.set(containerRef.current, { x: startXPos });
@@ -101,24 +124,18 @@ export default function TourVirtual() {
     return () => window.removeEventListener('resize', updatePanLimits);
   }, [activeLoc]);
 
-  // Efeito Auto-Pan
   useEffect(() => {
-    // Inicia auto-pan sutil e lento
     startAutoPan();
-
-    return () => {
-      stopAutoPan();
-    };
+    return () => stopAutoPan();
   }, [activeLoc]);
 
   const startAutoPan = () => {
     stopAutoPan();
     if (containerRef.current) {
-      // Panora lentamente em direção ao limite esquerdo
-      const targetX = maxPan.current * 0.8; // Não vai até o final extremo
+      const targetX = maxPan.current * 0.8;
       const currentVal = currentX.current;
       const distance = Math.abs(targetX - currentVal);
-      const duration = distance / 15; // Velocidade lenta: 15px por segundo
+      const duration = distance / 15;
 
       autoPanTween.current = gsap.to(containerRef.current, {
         x: targetX,
@@ -128,7 +145,6 @@ export default function TourVirtual() {
         yoyo: true,
         onUpdate: () => {
           if (containerRef.current) {
-            // Sincroniza o valor de currentX com a animação
             currentX.current = gsap.getProperty(containerRef.current, 'x') as number;
           }
         }
@@ -143,25 +159,18 @@ export default function TourVirtual() {
     }
   };
 
-  // --- HANDLERS DE EVENTOS DE DRAG ---
-
   const handleDragStart = (clientX: number) => {
     stopAutoPan();
     isDragging.current = true;
     startX.current = clientX - currentX.current;
-    setActiveHotspot(null); // Fecha hotspot aberto ao arrastar
+    setActiveHotspot(null);
   };
 
   const handleDragMove = (clientX: number) => {
     if (!isDragging.current || !containerRef.current) return;
-
-    // Novo translate X baseado no movimento
     let newX = clientX - startX.current;
-
-    // Bounce suave nas bordas
     if (newX > 0) newX = newX * 0.3;
     if (newX < maxPan.current) newX = maxPan.current + (newX - maxPan.current) * 0.3;
-
     currentX.current = newX;
     gsap.set(containerRef.current, { x: newX });
   };
@@ -169,8 +178,6 @@ export default function TourVirtual() {
   const handleDragEnd = () => {
     if (!isDragging.current) return;
     isDragging.current = false;
-
-    // Ajusta os limites caso tenha passado
     if (containerRef.current) {
       let finalX = currentX.current;
       if (finalX > 0) finalX = 0;
@@ -182,7 +189,6 @@ export default function TourVirtual() {
         duration: 0.6,
         ease: 'power3.out',
         onComplete: () => {
-          // Reinicia o auto-pan após 4 segundos de inatividade
           setTimeout(() => {
             if (!isDragging.current && !autoPanTween.current) {
               startAutoPan();
@@ -193,7 +199,6 @@ export default function TourVirtual() {
     }
   };
 
-  // Suporte a Mouse
   const onMouseDown = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('.hotspot-btn') || (e.target as HTMLElement).closest('.hotspot-card')) return;
     e.preventDefault();
@@ -204,7 +209,6 @@ export default function TourVirtual() {
     handleDragMove(e.clientX);
   };
 
-  // Suporte a Toque Mobile
   const onTouchStart = (e: React.TouchEvent) => {
     if ((e.target as HTMLElement).closest('.hotspot-btn') || (e.target as HTMLElement).closest('.hotspot-card')) return;
     handleDragStart(e.touches[0].clientX);
@@ -214,14 +218,11 @@ export default function TourVirtual() {
     handleDragMove(e.touches[0].clientX);
   };
 
-  // Troca de localização com transição GSAP
   const handleLocChange = (loc: LocationData) => {
     if (loc.id === activeLoc.id) return;
-
     setActiveHotspot(null);
     stopAutoPan();
 
-    // Animação de fade-out do panorama anterior
     gsap.to(viewportRef.current, {
       opacity: 0,
       scale: 0.98,
@@ -229,7 +230,6 @@ export default function TourVirtual() {
       ease: 'power3.inOut',
       onComplete: () => {
         setActiveLoc(loc);
-        // Animação de fade-in do novo
         gsap.to(viewportRef.current, {
           opacity: 1,
           scale: 1,
@@ -244,14 +244,14 @@ export default function TourVirtual() {
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
       stopAutoPan();
-      let newX = currentX.current + 100; // Mover 100px para a esquerda
+      let newX = currentX.current + 100;
       if (newX > 0) newX = 0;
       currentX.current = newX;
       gsap.to(containerRef.current, { x: newX, duration: 0.3, ease: 'power2.out' });
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       stopAutoPan();
-      let newX = currentX.current - 100; // Mover 100px para a direita
+      let newX = currentX.current - 100;
       if (newX < maxPan.current) newX = maxPan.current;
       currentX.current = newX;
       gsap.to(containerRef.current, { x: newX, duration: 0.3, ease: 'power2.out' });
@@ -265,47 +265,39 @@ export default function TourVirtual() {
     <div
       role="region"
       aria-label="Tour Virtual Interativo do Campus"
-      className="w-full flex flex-col gap-8 relative z-10 py-16 border-t border-brand-light-border bg-brand-light-card"
+      className="w-full flex flex-col gap-8 relative z-10 py-24 bg-white overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col gap-6">
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-brand-orange/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col gap-8">
 
         {/* Desenhos Decorativos Flutuantes */}
-        <div className="absolute top-10 right-10 w-16 h-16 text-brand-yellow opacity-60 animate-float-slow pointer-events-none hidden lg:block">
-          {/* Star doodle */}
+        <div className="absolute top-10 left-10 w-16 h-16 text-brand-yellow opacity-60 animate-float-slow pointer-events-none hidden lg:block">
           <svg viewBox="0 0 40 40" fill="currentColor">
             <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" stroke="#d89f00" strokeWidth="1" strokeLinejoin="round" />
           </svg>
         </div>
-        <div className="absolute bottom-20 left-4 w-20 h-20 text-brand-blue-light animate-wiggle pointer-events-none hidden lg:block">
-          {/* Cloud doodle */}
-          <svg viewBox="0 0 60 40" fill="currentColor">
-            <path d="M15,25 C15,15 25,10 35,15 C40,5 55,5 55,20 C60,20 60,35 50,35 L15,35 C5,35 5,25 15,25 Z" stroke="#4ea8de" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
 
-        {/* Cabeçalho */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
-          <div className="flex flex-col gap-2 max-w-xl text-left relative">
-            <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-orange font-bold flex items-center gap-1.5">
-              <Compass size={14} className="animate-spin-slow text-brand-orange-light" weight="duotone" />
-              Tour Virtual Interativo
+        {/* Cabeçalho Lúdico */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 relative z-10">
+          <div className="flex flex-col gap-3 max-w-xl text-left relative">
+            <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-orange font-bold flex items-center gap-1.5 w-max px-4 py-1.5 rounded-full bg-brand-orange/10">
+              <Compass size={14} className="animate-spin-slow text-brand-orange" weight="duotone" />
+              Passeio Virtual 360°
             </span>
-            <h2 className="font-serif text-3xl md:text-4xl text-brand-charcoal relative inline-block">
-              Conheça Nossa Infraestrutura
-              <svg className="absolute -bottom-2 left-0 w-32 h-3 text-brand-green/40" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0,5 Q25,0 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-              </svg>
+            <h2 className="font-doodle text-4xl sm:text-5xl text-brand-charcoal drop-shadow-sm mt-2">
+              Mergulhe no Nosso Espaço
             </h2>
-            <p className="font-sans text-xs text-brand-charcoal-light/75 font-medium leading-relaxed mt-2">
-              Arraste a imagem para navegar lateralmente e clique nos pontos azuis/laranjas piscantes para detalhar nossa estrutura acadêmica de ponta.
+            <p className="font-sans text-sm text-brand-charcoal-light/85 font-medium leading-relaxed">
+              Deslize para os lados para explorar todos os cantinhos mágicos do nosso colégio! Clique nas bolinhas para descobrir curiosidades escondidas.
             </p>
           </div>
 
-          {/* Abas Selecionadoras estilo caderno */}
+          {/* Abas Selecionadoras estilo Bolhas/Bento */}
           <div
             role="tablist"
             aria-label="Locais do campus"
-            className="flex flex-wrap gap-2 md:gap-3 shrink-0 self-start md:self-auto"
+            className="flex flex-wrap gap-3 shrink-0 self-start md:self-auto"
           >
             {LOCATIONS.map(loc => {
               const isActive = activeLoc.id === loc.id;
@@ -318,21 +310,23 @@ export default function TourVirtual() {
                   aria-controls={`panel-${loc.id}`}
                   type="button"
                   onClick={() => handleLocChange(loc)}
-                  className={`px-4 py-2.5 font-sans text-xs font-semibold tracking-wider transition-all duration-300 border-2 border-brand-charcoal rounded-2xl ${isActive
-                      ? 'bg-brand-orange text-white shadow-[2px_4px_0_0_#2d2a26] -translate-y-1'
-                      : 'bg-[#fdfbf7] text-brand-charcoal shadow-[2px_2px_0_0_#2d2a26] hover:bg-brand-orange/10 hover:-translate-y-0.5'
-                    }`}
+                  className={`px-5 py-3 font-sans text-xs font-bold tracking-wider transition-all duration-500 rounded-2xl border-2 ${isActive
+                      ? `${loc.themeBg} ${loc.themeBorder} text-white shadow-lg ${loc.themeShadow} scale-105`
+                      : 'bg-white border-brand-light-border text-brand-charcoal-light/70 hover:-translate-y-1 hover:border-brand-orange/40 hover:text-brand-orange'
+                    } cursor-pointer`}
                 >
-                  {loc.name}
+                  {loc.shortName}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Descritivo do local selecionado com visual lúdico */}
-        <div className="p-5 rounded-3xl bg-[#fffefc] border-2 border-brand-yellow/40 border-dashed text-left font-sans text-xs text-brand-charcoal-light/85 font-semibold flex items-center gap-3 shadow-sm transform rotate-[-0.5deg]">
-          <Info size={20} className="text-brand-yellow-dark shrink-0 animate-wiggle" weight="duotone" />
+        {/* Descritivo do local com bordas suaves */}
+        <div className={`p-6 rounded-3xl bg-white border-2 border-dashed ${activeLoc.themeBorder} shadow-sm text-left font-sans text-sm text-brand-charcoal-light/90 font-medium flex items-center gap-4 animate-fade-in`}>
+          <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center text-white shadow-md ${activeLoc.themeBg} animate-wiggle`}>
+            <Info size={24} weight="duotone" />
+          </div>
           <p>{activeLoc.description}</p>
         </div>
 
@@ -351,8 +345,8 @@ export default function TourVirtual() {
           role="tabpanel"
           id={`panel-${activeLoc.id}`}
           aria-labelledby={`tab-${activeLoc.id}`}
-          aria-label={`Visualização panorâmica da ${activeLoc.name}. Use as setas Esquerda e Direita para navegar pela imagem e ESC para fechar detalhes.`}
-          className="relative w-full h-[380px] sm:h-[460px] md:h-[540px] overflow-hidden rounded-[3rem] border-4 border-brand-charcoal shadow-[6px_6px_0_0_#2d2a26] md:shadow-[10px_10px_0_0_#2d2a26] bg-[#fdfbf7] cursor-grab active:cursor-grabbing select-none focus:outline-none"
+          aria-label={`Visualização panorâmica da ${activeLoc.name}.`}
+          className={`relative w-full h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden rounded-[3rem] sm:rounded-[4rem] border-4 ${activeLoc.themeBorder} shadow-2xl bg-white cursor-grab active:cursor-grabbing select-none focus:outline-none`}
         >
           {/* Container Deslizante */}
           <div
@@ -360,7 +354,7 @@ export default function TourVirtual() {
             className="absolute top-0 left-0 h-full w-[2400px] sm:w-[2800px] md:w-[3200px] flex items-center justify-center pointer-events-auto"
             style={{ willChange: 'transform' }}
           >
-            {/* Imagem de Fundo (Panorâmica) */}
+            {/* Imagem Panorâmica */}
             <img
               src={activeLoc.image}
               alt={`Visualização de 360 graus da ${activeLoc.name}`}
@@ -377,41 +371,36 @@ export default function TourVirtual() {
                   className="absolute pointer-events-auto"
                   style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
                 >
-                  {/* Botão Pulsante do Hotspot */}
                   <button
                     type="button"
                     onClick={() => setActiveHotspot(isOpen ? null : hotspot)}
-                    className="hotspot-btn relative w-8 h-8 flex items-center justify-center focus:outline-none"
+                    className="hotspot-btn relative w-10 h-10 flex items-center justify-center focus:outline-none cursor-pointer"
                     aria-label={`Ver informações sobre ${hotspot.title}`}
                     aria-expanded={isOpen}
                   >
-                    {/* Anéis de Pulsar */}
-                    <span className="absolute w-full h-full rounded-full bg-brand-orange opacity-40 animate-ping"></span>
-                    <span className="absolute w-6 h-6 rounded-full bg-brand-orange opacity-60 animate-pulse"></span>
-                    {/* Círculo Principal */}
-                    <div className={`w-4.5 h-4.5 rounded-full border border-white flex items-center justify-center shadow-lg transition-colors duration-500 ${isOpen ? 'bg-brand-charcoal text-white' : 'bg-brand-orange text-white'
-                      }`}>
-                      <PlayCircle size={8} weight="duotone" />
+                    <span className={`absolute w-full h-full rounded-full ${activeLoc.themeBg} opacity-40 animate-ping`}></span>
+                    <span className={`absolute w-8 h-8 rounded-full ${activeLoc.themeBg} opacity-60 animate-pulse`}></span>
+                    <div className={`w-6 h-6 rounded-full border-2 border-white flex items-center justify-center shadow-lg transition-colors duration-500 ${isOpen ? 'bg-white text-brand-charcoal' : `${activeLoc.themeBg} text-white`}`}>
+                      <PlayCircle size={12} weight="fill" />
                     </div>
                   </button>
 
-                  {/* Popover Card */}
+                  {/* Popover Lúdico */}
                   {isOpen && (
-                    <div className="hotspot-card absolute bottom-10 left-1/2 -translate-x-1/2 w-64 p-5 rounded-2xl bg-brand-charcoal/95 backdrop-blur-md text-brand-light border border-brand-orange/40 shadow-2xl z-30 flex flex-col gap-2 font-sans text-left animate-fade-in">
-                      <div className="flex items-center justify-between gap-3 border-b border-brand-light-border/20 pb-2">
-                        <span className="font-serif text-xs font-semibold text-brand-yellow uppercase tracking-wider">
+                    <div className="hotspot-card absolute bottom-14 left-1/2 -translate-x-1/2 w-72 p-6 rounded-[2rem] bg-white border-[3px] border-brand-light-border shadow-[8px_8px_0_0_rgba(0,0,0,0.05)] z-30 flex flex-col gap-3 font-sans text-left animate-fade-in">
+                      <div className="flex items-center justify-between gap-3 pb-2 border-b-2 border-brand-light-border/40">
+                        <span className={`font-doodle text-xl text-brand-charcoal leading-none`}>
                           {hotspot.title}
                         </span>
                         <button
                           type="button"
                           onClick={() => setActiveHotspot(null)}
-                          aria-label="Fechar detalhes"
-                          className="text-brand-light/50 hover:text-brand-orange transition-colors duration-300 cursor-pointer"
+                          className="text-brand-charcoal/30 hover:text-brand-orange hover:bg-brand-orange/10 p-1.5 rounded-full transition-colors duration-300 cursor-pointer"
                         >
-                          <X size={14} weight="duotone" />
+                          <X size={16} weight="bold" />
                         </button>
                       </div>
-                      <p className="text-[11px] font-medium leading-relaxed text-brand-light/90">
+                      <p className="text-xs font-medium leading-relaxed text-brand-charcoal-light/80">
                         {hotspot.desc}
                       </p>
                     </div>
@@ -421,16 +410,14 @@ export default function TourVirtual() {
             })}
           </div>
 
-          {/* Dica de Controle Overlay (Some após 4s) */}
-          <div className="absolute bottom-6 left-6 z-20 pointer-events-none flex items-center gap-2 bg-brand-charcoal/80 backdrop-blur-md text-brand-light px-4 py-2.5 rounded-full font-sans text-[10px] uppercase tracking-wider border border-white/10 animate-fade-out delay-3000">
-            <ArrowsHorizontal size={14} className="text-brand-orange transition-transform duration-1000 translate-x-1" weight="duotone" />
-            <span>Arraste para explorar</span>
+          <div className="absolute bottom-6 left-6 z-20 pointer-events-none flex items-center gap-2 bg-white/95 backdrop-blur-md text-brand-charcoal px-5 py-3 rounded-full font-sans text-[10px] uppercase tracking-wider shadow-lg animate-fade-out delay-3000 font-bold border-2 border-brand-light-border">
+            <ArrowsHorizontal size={16} className={`${activeLoc.themeColor} transition-transform duration-1000 translate-x-1`} weight="bold" />
+            <span>Deslize a imagem</span>
           </div>
 
-          {/* Botão de feedback visual do centro */}
-          <div className="absolute top-6 right-6 z-20 bg-brand-light/90 backdrop-blur-md text-brand-charcoal px-3 py-1.5 rounded-xl border border-brand-light-border font-sans text-[9px] uppercase tracking-widest font-semibold flex items-center gap-1.5">
-            <CornersOut size={10} className="text-brand-orange" weight="duotone" />
-            <span>Pan 360°</span>
+          <div className="absolute top-6 right-6 z-20 bg-white/95 backdrop-blur-md text-brand-charcoal px-4 py-2 rounded-full border-2 border-brand-light-border shadow-md font-sans text-[9px] uppercase tracking-widest font-bold flex items-center gap-2">
+            <CornersOut size={14} className={activeLoc.themeColor} weight="bold" />
+            <span>Giro 360°</span>
           </div>
 
         </div>

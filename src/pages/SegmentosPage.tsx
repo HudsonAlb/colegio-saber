@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, Info, CaretRight, Question } from '@phosphor-icons/react';
+import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, Info, CaretRight, Question, Backpack, Student, GraduationCap } from '@phosphor-icons/react';
 
 import infantilImg from '../assets/segmento_infantil.png';
 import fund1Img from '../assets/segmento_fund1.png';
@@ -17,6 +17,12 @@ interface Oficina {
 interface Segmento {
   id: string;
   title: string;
+  shortTitle: string;
+  themeColor: string;
+  themeBg: string;
+  themeBorder: string;
+  themeShadow: string;
+  navIcon: React.ReactNode;
   ageRange: string;
   description: string;
   highlight: string;
@@ -33,6 +39,12 @@ const SEGMENTOS: Segmento[] = [
   {
     id: 'infantil',
     title: 'Educação Infantil',
+    shortTitle: 'Infantil',
+    themeColor: 'text-brand-orange',
+    themeBg: 'bg-brand-orange',
+    themeBorder: 'border-brand-orange',
+    themeShadow: 'shadow-brand-orange/30',
+    navIcon: <Baby size={32} weight="duotone" />,
     ageRange: 'Grupo 3 ao Grupo 5 (3 a 5 anos)',
     highlight: 'Desenvolvimento motor, ludicidade e bilinguismo inicial em contato constante com a natureza.',
     description: 'Nesta primeira etapa da vida escolar, acolhemos a criança com afeto e estimulamos sua curiosidade nata. Através de atividades lúdicas, vivências práticas no bosque e projetos de bilinguismo, desenvolvemos a socialização, a psicomotricidade e a linguagem em ambientes especialmente planejados para as necessidades da infância.',
@@ -52,6 +64,12 @@ const SEGMENTOS: Segmento[] = [
   {
     id: 'fundamental1',
     title: 'Ensino Fundamental I',
+    shortTitle: 'Fund. I',
+    themeColor: 'text-brand-green',
+    themeBg: 'bg-brand-green',
+    themeBorder: 'border-brand-green',
+    themeShadow: 'shadow-brand-green/30',
+    navIcon: <Backpack size={32} weight="duotone" />,
     ageRange: '1º ao 5º Ano (6 a 10 anos)',
     highlight: 'Consolidação da alfabetização, pensamento lógico e iniciação científica por meio de projetos práticos.',
     description: 'O Ensino Fundamental I consolida o processo de alfabetização e introduz novas áreas de investigação do conhecimento. Unindo tradição escolar e inovação pedagógica, desenvolvemos a leitura crítica, o raciocínio matemático e a autonomia nos estudos por meio de metodologias maker e cooperação.',
@@ -71,6 +89,12 @@ const SEGMENTOS: Segmento[] = [
   {
     id: 'fundamental2',
     title: 'Ensino Fundamental II',
+    shortTitle: 'Fund. II',
+    themeColor: 'text-brand-blue',
+    themeBg: 'bg-brand-blue',
+    themeBorder: 'border-brand-blue',
+    themeShadow: 'shadow-brand-blue/30',
+    navIcon: <Student size={32} weight="duotone" />,
     ageRange: '6º ao 9º Ano (11 a 14 anos)',
     highlight: 'Pensamento crítico, autonomia acadêmica aprimorada e cidadania digital para os novos tempos.',
     description: 'No Ensino Fundamental II, os estudantes encontram um currículo dinâmico liderado por professores especialistas em cada disciplina. Promovemos a reflexão crítica, a maturidade de hábitos de estudo, a análise de dilemas éticos mundiais e o aprofundamento das ciências experimentais em nossos laboratórios.',
@@ -90,6 +114,12 @@ const SEGMENTOS: Segmento[] = [
   {
     id: 'medio',
     title: 'Ensino Médio',
+    shortTitle: 'Médio',
+    themeColor: 'text-brand-yellow-dark',
+    themeBg: 'bg-brand-yellow',
+    themeBorder: 'border-brand-yellow',
+    themeShadow: 'shadow-brand-yellow/30',
+    navIcon: <GraduationCap size={32} weight="duotone" />,
     ageRange: '1ª a 3ª Série (15 a 17 anos)',
     highlight: 'Alta performance acadêmica, mentoria vocacional contínua e preparação intensiva para o vestibular.',
     description: 'Nossa formação no Ensino Médio é orientada para a excelência acadêmica e o desenvolvimento do projeto de vida de cada jovem. Unimos a excelência teórica e repertório sociocultural a simulados nacionais sistemáticos, mentoria individual de carreira e trilhas de disciplinas eletivas multidisciplinares.',
@@ -109,22 +139,22 @@ const SEGMENTOS: Segmento[] = [
 
 const getIcon = (iconName: string) => {
   switch (iconName) {
-    case 'Baby': return <Baby size={18} weight="duotone" />;
-    case 'MusicNotes': return <MusicNotes size={18} weight="duotone" />;
-    case 'BookOpen': return <BookOpen size={18} weight="duotone" />;
-    case 'Leaf': return <Leaf size={18} weight="duotone" />;
-    case 'Hammer': return <Hammer size={18} weight="duotone" />;
-    case 'Cpu': return <Cpu size={18} weight="duotone" />;
-    case 'PenNib': return <PenNib size={18} weight="duotone" />;
-    case 'Smiley': return <Smiley size={18} weight="duotone" />;
-    case 'Chats': return <Chats size={18} weight="duotone" />;
-    case 'Code': return <Code size={18} weight="duotone" />;
-    case 'Compass': return <Compass size={18} weight="duotone" />;
-    case 'Lightbulb': return <Lightbulb size={18} weight="duotone" />;
-    case 'Medal': return <Medal size={18} weight="duotone" />;
-    case 'Sparkles': return <Sparkle size={18} weight="duotone" />;
-    case 'Target': return <Target size={18} weight="duotone" />;
-    default: return <Question size={18} weight="duotone" />;
+    case 'Baby': return <Baby size={20} weight="duotone" />;
+    case 'MusicNotes': return <MusicNotes size={20} weight="duotone" />;
+    case 'BookOpen': return <BookOpen size={20} weight="duotone" />;
+    case 'Leaf': return <Leaf size={20} weight="duotone" />;
+    case 'Hammer': return <Hammer size={20} weight="duotone" />;
+    case 'Cpu': return <Cpu size={20} weight="duotone" />;
+    case 'PenNib': return <PenNib size={20} weight="duotone" />;
+    case 'Smiley': return <Smiley size={20} weight="duotone" />;
+    case 'Chats': return <Chats size={20} weight="duotone" />;
+    case 'Code': return <Code size={20} weight="duotone" />;
+    case 'Compass': return <Compass size={20} weight="duotone" />;
+    case 'Lightbulb': return <Lightbulb size={20} weight="duotone" />;
+    case 'Medal': return <Medal size={20} weight="duotone" />;
+    case 'Sparkles': return <Sparkle size={20} weight="duotone" />;
+    case 'Target': return <Target size={20} weight="duotone" />;
+    default: return <Question size={20} weight="duotone" />;
   }
 };
 
@@ -135,29 +165,26 @@ export default function SegmentosPage() {
 
   const imageRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const indicatorRef = useRef<HTMLDivElement>(null);
   const modalCloseBtnRef = useRef<HTMLButtonElement>(null);
 
-  const activeIndex = SEGMENTOS.findIndex(s => s.id === activeSegment.id);
-
-  // GSAP: Animação na mudança de segmento
+  // Animação de Entrada na Troca de Segmento
   useEffect(() => {
     if (imageRef.current) {
       gsap.fromTo(imageRef.current,
-        { yPercent: 12, opacity: 0.8 },
-        { yPercent: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+        { scale: 1.05, opacity: 0.8 },
+        { scale: 1, opacity: 1, duration: 0.8, ease: 'power3.out' }
       );
     }
 
     if (contentRef.current) {
       gsap.fromTo(contentRef.current.children,
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: 'power3.out' }
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out' }
       );
     }
   }, [activeSegment]);
 
-  // Tecla Escape para fechar modal e escuta global
+  // Acessibilidade Modal
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -166,7 +193,6 @@ export default function SegmentosPage() {
     };
     if (activeOficina) {
       window.addEventListener('keydown', handleGlobalKeyDown);
-      // Foca no botão de fechar quando o modal abrir
       setTimeout(() => {
         modalCloseBtnRef.current?.focus();
       }, 50);
@@ -174,265 +200,209 @@ export default function SegmentosPage() {
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, [activeOficina]);
 
-  // Navegação por teclado nas abas verticais (ArrowUp / ArrowDown)
-  const handleTabKeyDown = (e: React.KeyboardEvent, index: number) => {
-    let nextIndex = index;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      nextIndex = (index + 1) % SEGMENTOS.length;
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      nextIndex = (index - 1 + SEGMENTOS.length) % SEGMENTOS.length;
-    } else {
-      return;
-    }
-    setActiveSegment(SEGMENTOS[nextIndex]);
-    setTimeout(() => {
-      const btn = document.getElementById(`tab-${SEGMENTOS[nextIndex].id}`);
-      btn?.focus();
-    }, 20);
-  };
-
   return (
-    <div className="pt-32 pb-24 min-h-screen bg-brand-light relative z-10 flex flex-col items-center">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col gap-12">
+    <div className="pt-32 pb-24 min-h-screen bg-[#fdfaf5] relative z-10 flex flex-col items-center overflow-hidden">
+      
+      {/* Background Blobs Lúdicos */}
+      <div className="absolute top-40 -left-20 w-80 h-80 bg-brand-yellow/15 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute top-1/2 -right-20 w-[600px] h-[600px] bg-brand-orange/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-10 left-1/4 w-96 h-96 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        {/* Título & Cabeçalho de Introdução */}
-        <div className="flex flex-col gap-3 text-left max-w-2xl">
-          <span className="font-sans text-[11px] uppercase tracking-[0.3em] text-brand-orange font-semibold">
-            Nossa Proposta Pedagógica
+      <div className="max-w-6xl w-full px-6 flex flex-col gap-12 relative z-10">
+
+        {/* Título & Cabeçalho */}
+        <div className="flex flex-col items-center text-center gap-4 max-w-3xl mx-auto">
+          <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
+            Jornada do Conhecimento
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-charcoal font-medium">
-            Segmentos de Ensino
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-brand-charcoal font-bold mt-2">
+            Nossas Etapas
           </h1>
-          <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium leading-relaxed">
-            Conheça as etapas de desenvolvimento oferecidas pelo Colégio Saber, desenhadas com foco no aprendizado ativo, autonomia intelectual e acolhimento socioemocional.
+          <p className="font-sans text-sm md:text-base text-brand-charcoal-light/80 font-medium leading-relaxed">
+            Descubra como o Colégio Saber acompanha seu filho em cada fase: desde as primeiras brincadeiras até a sonhada vaga na universidade!
           </p>
         </div>
 
-        {/* Layout Grid Separador (Split Screen) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start mt-4">
-
-          {/* PAINEL DA ESQUERDA: Menu de Navegação Vertical (Sticky) */}
-          <div className="md:col-span-4 md:sticky md:top-36 flex flex-col gap-6 self-start z-10">
-            <span className="font-sans text-[9px] uppercase tracking-widest text-brand-charcoal/45 font-bold">
-              Etapas Escolares
-            </span>
-
-            {/* Lista de Abas */}
-            <div
-              role="tablist"
-              aria-label="Segmentos de ensino"
-              className="relative flex flex-col gap-4 pl-6 border-l border-brand-light-border"
-            >
-              {/* Linha indicadora ativa que desliza de cima para baixo */}
-              <div
-                ref={indicatorRef}
-                className="absolute left-[-1px] w-[2px] bg-brand-orange transition-all duration-700 ease-out"
-                style={{
-                  height: '24px',
-                  top: '10px',
-                  transform: `translateY(${activeIndex * 48}px)` // altura de espaçamento entre as abas
-                }}
-              ></div>
-
-              {SEGMENTOS.map((seg, idx) => {
-                const isActive = activeSegment.id === seg.id;
-                return (
-                  <button
-                    key={seg.id}
-                    id={`tab-${seg.id}`}
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls={`panel-${seg.id}`}
-                    type="button"
-                    onClick={() => setActiveSegment(seg)}
-                    onKeyDown={(e) => handleTabKeyDown(e, idx)}
-                    className={`w-full text-left py-2 font-serif text-sm transition-all duration-300 focus:outline-none cursor-pointer ${isActive
-                        ? 'text-brand-orange font-bold text-base scale-x-[1.01] translate-x-1'
-                        : 'text-brand-charcoal-light/70 hover:text-brand-orange hover:translate-x-0.5'
-                      }`}
-                  >
-                    <span className="font-sans text-[10px] opacity-40 font-semibold mr-2">{String(idx + 1).padStart(2, '0')}.</span>
-                    {seg.title}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Banner de Admissão Rápido */}
-            <div className="hidden md:flex flex-col gap-4 p-6 rounded-2xl bg-brand-light-card border border-brand-light-border mt-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-brand-orange/2 rounded-full blur-2xl pointer-events-none"></div>
-              <h4 className="font-serif text-xs font-semibold text-brand-charcoal uppercase tracking-wider">Ingresso 2026/2027</h4>
-              <p className="font-sans text-[10px] text-brand-charcoal-light/75 leading-relaxed font-medium">Garanta a matrícula do seu filho através do nosso processo digital interativo.</p>
+        {/* BENTO TABS de Navegação */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+          {SEGMENTOS.map((seg) => {
+            const isActive = activeSegment.id === seg.id;
+            return (
               <button
+                key={seg.id}
                 type="button"
-                onClick={() => navigate('/admissao')}
-                className="self-start text-[10px] uppercase font-bold text-brand-orange hover:text-brand-orange-dark flex items-center gap-1.5 transition-colors duration-300 focus:outline-none focus:text-brand-orange-dark cursor-pointer"
-                aria-label="Ir para formulário de admissão"
+                onClick={() => setActiveSegment(seg)}
+                className={`group flex flex-col items-center justify-center gap-3 p-6 rounded-3xl border-4 transition-all duration-500 cursor-pointer ${
+                  isActive 
+                  ? `${seg.themeBg} ${seg.themeBorder} shadow-xl ${seg.themeShadow} scale-105 text-brand-light z-10`
+                  : `bg-white border-brand-light-border text-brand-charcoal-light/70 hover:border-brand-light-border/80 hover:-translate-y-1`
+                }`}
               >
-                Matricular agora
-                <ArrowRight size={10} weight="duotone" />
+                <div className={`transition-transform duration-500 ${isActive ? 'scale-110 text-brand-charcoal' : `group-hover:scale-110 ${seg.themeColor}`}`}>
+                  {seg.navIcon}
+                </div>
+                <span className={`font-serif text-sm md:text-base font-bold tracking-wide text-center ${isActive ? (seg.id === 'medio' ? 'text-brand-charcoal' : 'text-white') : 'text-brand-charcoal/80'}`}>
+                  {seg.shortTitle}
+                </span>
               </button>
-            </div>
-          </div>
+            );
+          })}
+        </div>
 
-          {/* PAINEL DA DIREITA: Exibição do Conteúdo do Segmento */}
-          <div
-            id={`panel-${activeSegment.id}`}
-            role="tabpanel"
-            aria-labelledby={`tab-${activeSegment.id}`}
-            className="md:col-span-8 flex flex-col gap-8 w-full"
-          >
-            {/* Bloco de Imagem com Máscara e Animação */}
-            <div className="w-full h-[260px] sm:h-[350px] md:h-[400px] overflow-hidden rounded-3xl border border-brand-light-border bg-brand-light-card relative">
-              <img
-                ref={imageRef}
-                src={activeSegment.image}
-                alt={`Estudantes em atividade do segmento ${activeSegment.title}`}
-                className="w-full h-full object-cover select-none pointer-events-none"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/30 to-transparent pointer-events-none"></div>
-            </div>
-
-            {/* Conteúdo Detalhado (Animado via GSAP Ref) */}
-            <div ref={contentRef} className="flex flex-col gap-6 text-left">
-
-              {/* Idade Indicada e Título */}
-              <div className="flex flex-col gap-2">
-                <span className="self-start px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-sans text-[9px] uppercase tracking-widest font-semibold border border-brand-orange/15">
+        {/* CONTEÚDO ATIVO DO SEGMENTO */}
+        <div className={`p-8 md:p-12 rounded-[3rem] bg-white border-2 border-brand-light-border shadow-2xl shadow-brand-charcoal/5 flex flex-col gap-10 overflow-hidden relative transition-all duration-700`}>
+          
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
+            
+            {/* Texto Descritivo */}
+            <div ref={contentRef} className="flex-1 flex flex-col gap-6 text-left order-2 lg:order-1">
+              <div className="flex flex-col gap-3">
+                <span className={`self-start px-4 py-1.5 rounded-full font-sans text-[10px] uppercase tracking-widest font-bold border ${activeSegment.id === 'medio' ? 'bg-brand-yellow/20 text-brand-yellow-dark border-brand-yellow/30' : `bg-white ${activeSegment.themeColor} ${activeSegment.themeBorder}`}`}>
                   {activeSegment.ageRange}
                 </span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-brand-charcoal font-medium">
+                <h2 className="font-doodle text-4xl sm:text-5xl text-brand-charcoal drop-shadow-sm mt-2">
                   {activeSegment.title}
                 </h2>
               </div>
 
-              {/* Destaque Curricular */}
-              <p className="font-serif text-base sm:text-lg italic text-brand-orange-dark font-medium leading-relaxed border-l-2 border-brand-orange/30 pl-4 py-1">
+              <p className={`font-serif text-lg md:text-xl italic font-medium leading-relaxed border-l-4 pl-5 py-2 ${activeSegment.themeBorder} ${activeSegment.themeColor}`}>
                 "{activeSegment.highlight}"
               </p>
 
-              {/* Descrição Longa */}
-              <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/85 font-medium leading-relaxed">
+              <p className="font-sans text-sm md:text-base text-brand-charcoal-light/85 font-medium leading-relaxed">
                 {activeSegment.description}
               </p>
 
-              {/* Disciplinas Complementares e Oficinas */}
-              <div className="flex flex-col gap-4 mt-4">
-                <div className="flex items-center gap-2 text-brand-charcoal">
-                  <Info size={14} className="text-brand-orange shrink-0" weight="duotone" />
-                  <h3 className="font-serif text-sm font-semibold uppercase tracking-wider">
-                    Diferenciais Curriculares & Oficinas
-                  </h3>
-                </div>
+              {/* Botão Call to Action Integrado */}
+              <button
+                type="button"
+                onClick={() => navigate('/admissao')}
+                className={`self-start mt-4 px-8 py-4 rounded-full ${activeSegment.themeBg} ${activeSegment.id === 'medio' ? 'text-brand-charcoal' : 'text-white'} font-sans text-xs uppercase tracking-wider font-bold transition-all duration-500 shadow-lg ${activeSegment.themeShadow} hover:-translate-y-1 hover:shadow-xl cursor-pointer flex items-center gap-2`}
+              >
+                Matricular no {activeSegment.shortTitle}
+                <ArrowRight size={16} weight="bold" />
+              </button>
+            </div>
 
-                {/* Grid das Oficinas */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {activeSegment.oficinas.map(oficina => (
-                    <button
-                      key={oficina.title}
-                      type="button"
-                      onClick={() => setActiveOficina(oficina)}
-                      className="p-5 rounded-2xl border border-brand-light-border bg-white text-left font-sans flex flex-col justify-between gap-4 hover:border-brand-orange/40 hover:shadow-md transition-all duration-500 group focus:outline-none focus:border-brand-orange cursor-pointer"
-                      aria-haspopup="dialog"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-xl bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-500 shrink-0">
-                          {getIcon(oficina.icon)}
-                        </div>
-                        <span className="text-xs font-semibold text-brand-charcoal group-hover:text-brand-orange transition-colors duration-300">
-                          {oficina.title}
-                        </span>
-                      </div>
-                      <span className="text-[10px] text-brand-orange font-bold uppercase tracking-wider flex items-center gap-1">
-                        Saber mais
-                        <CaretRight size={10} className="group-hover:translate-x-0.5 transition-transform duration-300" weight="duotone" />
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Depoimento do Responsável (Testimonial Card) */}
-              <div className="p-6 sm:p-8 rounded-3xl bg-brand-light-card border border-brand-light-border mt-6 relative overflow-hidden flex flex-col gap-4">
-                <Quotes size={40} className="absolute -right-4 -bottom-4 text-brand-orange/4 opacity-40 transform rotate-12" />
-                <p className="font-sans text-xs italic text-brand-charcoal-light/90 leading-relaxed font-medium relative z-10">
-                  "{activeSegment.testimonial.text}"
-                </p>
-                <div className="flex flex-col text-left relative z-10 border-t border-brand-light-border/40 pt-3.5">
-                  <span className="font-serif text-xs font-semibold text-brand-charcoal">
-                    {activeSegment.testimonial.author}
-                  </span>
-                  <span className="font-sans text-[10px] text-brand-charcoal-light/60">
-                    {activeSegment.testimonial.role}
-                  </span>
-                </div>
-              </div>
-
+            {/* Imagem do Segmento com Bordas Orgânicas */}
+            <div className="w-full lg:w-5/12 h-[300px] md:h-[450px] overflow-hidden rounded-[3rem] border-4 border-brand-light-card shadow-lg relative order-1 lg:order-2">
+              <img
+                ref={imageRef}
+                src={activeSegment.image}
+                alt={`Atividade do ${activeSegment.title}`}
+                className="w-full h-full object-cover select-none pointer-events-none"
+              />
+              <div className={`absolute inset-0 border-[8px] rounded-[3rem] pointer-events-none opacity-20 ${activeSegment.themeBorder}`}></div>
             </div>
 
           </div>
 
+          <hr className="border-brand-light-border/60" />
+
+          {/* Destaques (Oficinas & Depoimento) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Bloco Oficinas */}
+            <div className="lg:col-span-8 flex flex-col gap-6">
+              <div className="flex items-center gap-3 text-brand-charcoal">
+                <Sparkle size={24} className={activeSegment.themeColor} weight="duotone" />
+                <h3 className="font-serif text-2xl font-bold">Experiências Práticas</h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {activeSegment.oficinas.map(oficina => (
+                  <button
+                    key={oficina.title}
+                    type="button"
+                    onClick={() => setActiveOficina(oficina)}
+                    className="p-5 rounded-3xl border-2 border-brand-light-border bg-[#fdfaf5] text-left flex flex-col gap-3 transition-all duration-500 group focus:outline-none cursor-pointer hover:border-brand-orange/40 hover:-translate-y-1 hover:shadow-md"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2.5 rounded-2xl bg-white border border-brand-light-border shadow-sm group-hover:scale-110 transition-transform duration-300 ${activeSegment.themeColor}`}>
+                        {getIcon(oficina.icon)}
+                      </div>
+                      <span className="font-serif text-base font-bold text-brand-charcoal group-hover:text-brand-orange transition-colors duration-300">
+                        {oficina.title}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-brand-orange font-bold uppercase tracking-wider flex items-center gap-1 mt-auto">
+                      Saber mais <CaretRight size={10} className="group-hover:translate-x-1 transition-transform duration-300" weight="bold" />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Depoimento Card */}
+            <div className="lg:col-span-4 flex flex-col gap-6">
+              <div className="flex items-center gap-3 text-brand-charcoal">
+                <Chats size={24} className={activeSegment.themeColor} weight="duotone" />
+                <h3 className="font-serif text-2xl font-bold">O que dizem</h3>
+              </div>
+              <div className={`p-8 rounded-[2.5rem] bg-white border-2 border-brand-light-border shadow-lg relative flex flex-col gap-5 overflow-hidden group hover:border-brand-orange/30 transition-colors duration-500`}>
+                <Quotes size={64} className={`absolute -right-4 -bottom-4 opacity-10 transform rotate-12 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-12 ${activeSegment.themeColor}`} weight="fill" />
+                <p className="font-sans text-sm md:text-base italic text-brand-charcoal-light/90 leading-relaxed font-medium relative z-10">
+                  "{activeSegment.testimonial.text}"
+                </p>
+                <div className="flex flex-col text-left relative z-10 pt-4">
+                  <span className="font-serif text-sm font-bold text-brand-charcoal">
+                    {activeSegment.testimonial.author}
+                  </span>
+                  <span className="font-sans text-[11px] font-bold text-brand-orange">
+                    {activeSegment.testimonial.role}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>
 
-      {/* DIALOG/MODAL DE DETALHES DA OFICINA (Glassmorphism Premium) */}
+      {/* DIALOG/MODAL DE DETALHES DA OFICINA */}
       {activeOficina && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-brand-charcoal/40 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-brand-charcoal/40 backdrop-blur-sm animate-fade-in"
           onClick={() => setActiveOficina(null)}
           role="dialog"
           aria-modal="true"
-          aria-labelledby="modal-title"
-          aria-describedby="modal-description"
         >
           <div
-            className="bg-white border border-brand-light-border rounded-3xl max-w-md w-full p-8 relative shadow-2xl flex flex-col gap-6 text-left"
-            onClick={(e) => e.stopPropagation()} // impede fechamento ao clicar no card
+            className={`bg-white border-4 rounded-[3rem] max-w-sm w-full p-8 relative shadow-2xl flex flex-col gap-6 text-center ${activeSegment.themeBorder}`}
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Botão de Fechar */}
             <button
               ref={modalCloseBtnRef}
               type="button"
               onClick={() => setActiveOficina(null)}
-              className="absolute top-6 right-6 p-1.5 rounded-lg hover:bg-brand-light-card text-brand-charcoal-light/50 hover:text-brand-orange transition-colors duration-300 focus:outline-none focus:text-brand-orange cursor-pointer"
-              aria-label="Fechar informações da oficina"
+              className="absolute top-6 right-6 p-2 rounded-full hover:bg-brand-light-card text-brand-charcoal-light/50 hover:text-brand-orange transition-colors duration-300 focus:outline-none cursor-pointer"
             >
-              <X size={16} weight="duotone" />
+              <X size={20} weight="bold" />
             </button>
 
-            {/* Ícone & Categoria */}
-            <div className="flex items-center gap-3 mt-2">
-              <div className="p-3 rounded-2xl bg-brand-orange/10 text-brand-orange shrink-0">
+            <div className="flex flex-col items-center gap-4 mt-2">
+              <div className={`p-4 rounded-3xl bg-white border-2 shadow-md ${activeSegment.themeBorder} ${activeSegment.themeColor} animate-wiggle`}>
                 {getIcon(activeOficina.icon)}
               </div>
               <div className="flex flex-col">
-                <span className="font-sans text-[9px] uppercase tracking-widest text-brand-orange font-bold">Oficina Curricular</span>
-                <h4 id="modal-title" className="font-serif text-sm font-semibold text-brand-charcoal uppercase tracking-wider">
+                <span className={`font-sans text-[9px] uppercase tracking-widest font-bold ${activeSegment.themeColor}`}>Oficina de Ensino</span>
+                <h4 className="font-doodle text-2xl text-brand-charcoal mt-1">
                   {activeOficina.title}
                 </h4>
               </div>
             </div>
 
-            {/* Descritivo */}
-            <p id="modal-description" className="font-sans text-xs text-brand-charcoal-light/85 leading-relaxed font-medium">
+            <p className="font-sans text-sm text-brand-charcoal-light/80 leading-relaxed font-medium px-2">
               {activeOficina.description}
             </p>
 
-            {/* Rodapé do Modal */}
-            <div className="border-t border-brand-light-border pt-5 flex items-center justify-between mt-2">
-              <span className="font-sans text-[9px] uppercase tracking-wider text-brand-charcoal/40 font-semibold">Colégio Saber</span>
-              <button
-                type="button"
-                onClick={() => { setActiveOficina(null); navigate('/admissao'); }}
-                className="px-5 py-2.5 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-white font-sans text-[10px] font-bold uppercase tracking-wider transition-colors duration-500 focus:outline-none focus:bg-brand-orange-dark cursor-pointer"
-              >
-                Agendar Visita
-              </button>
-            </div>
-
+            <button
+              type="button"
+              onClick={() => { setActiveOficina(null); navigate('/admissao'); }}
+              className={`w-full py-4 mt-4 rounded-full ${activeSegment.themeBg} ${activeSegment.id === 'medio' ? 'text-brand-charcoal' : 'text-white'} font-sans text-xs font-bold uppercase tracking-wider transition-all duration-500 shadow-md ${activeSegment.themeShadow} hover:-translate-y-1 cursor-pointer`}
+            >
+              Gostei! Matricular Agora
+            </button>
           </div>
         </div>
       )}

@@ -46,10 +46,10 @@ export default function HomePage() {
       <TestimonialsSection />
 
       {/* Quick Access Block for Parents */}
-      <section ref={quickAccessRef} className="py-24 bg-brand-light relative z-10">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <section ref={quickAccessRef} className="py-[var(--spacing-fluid-section)] bg-brand-light relative z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-[var(--spacing-fluid-md)]">
           {/* Decorative Section Header */}
-          <div className="text-center mb-16 max-w-2xl mx-auto">
+          <div className="text-center mb-[var(--spacing-fluid-lg)] max-w-2xl mx-auto">
             <span className="font-sans text-xs uppercase tracking-[0.25em] text-brand-orange-dark font-black block mb-3">
               Acesso Rápido
             </span>
@@ -58,7 +58,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-[var(--spacing-fluid-md)]">
             {[
               {
                 tag: 'Sobre Nós',
@@ -69,7 +69,8 @@ export default function HomePage() {
                 bg: 'bg-[#fff5ee]',
                 border: 'border-[#fcd2af]/60',
                 tagColor: 'text-[#d94a00]',
-                icon: <BookOpen size={40} weight="duotone" className="text-[#d94a00]" />
+                icon: <BookOpen size={40} weight="duotone" className="text-[#d94a00]" />,
+                colSpan: 'md:col-span-5 lg:col-span-4' // Asymmetric: smaller card
               },
               {
                 tag: 'Ensino',
@@ -80,7 +81,8 @@ export default function HomePage() {
                 bg: 'bg-[#f0f8fc]',
                 border: 'border-[#b9dcf4]/80',
                 tagColor: 'text-[#0284c7]',
-                icon: <GraduationCap size={40} weight="duotone" className="text-[#0284c7]" />
+                icon: <GraduationCap size={40} weight="duotone" className="text-[#0284c7]" />,
+                colSpan: 'md:col-span-7 lg:col-span-8' // Asymmetric: wider card for rhythm
               },
               {
                 tag: 'Admissões',
@@ -91,12 +93,13 @@ export default function HomePage() {
                 bg: 'bg-[#fefce8]',
                 border: 'border-[#fae69e]',
                 tagColor: 'text-[#d89f00]',
-                icon: <PenNib size={40} weight="duotone" className="text-[#d89f00]" />
+                icon: <PenNib size={40} weight="duotone" className="text-[#d89f00]" />,
+                colSpan: 'md:col-span-12 lg:col-span-12' // Full width hero-like card
               }
             ].map((card, idx) => (
               <div
                 key={idx}
-                className={`quick-access-card p-8 rounded-[2.5rem] border-4 ${card.bg} ${card.border} hover:shadow-[0_20px_40px_rgba(67,56,50,0.06)] transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between h-full min-h-[18rem]`}
+                className={`quick-access-card p-[var(--spacing-fluid-md)] rounded-[2.5rem] border-4 ${card.bg} ${card.border} bento-hover-lift flex flex-col justify-between h-full min-h-[18rem] ${card.colSpan}`}
               >
                 <div className="flex flex-col gap-6">
                   <div className="flex items-center justify-between">

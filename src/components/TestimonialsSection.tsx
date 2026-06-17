@@ -201,9 +201,9 @@ export default function TestimonialsSection() {
             <span className="font-sans text-xs uppercase tracking-[0.25em] text-brand-orange font-bold block mb-3">
               Comunidade Saber
             </span>
-            <h2 id="testimonials-heading" className="font-serif text-3xl md:text-4xl lg:text-5xl text-brand-charcoal leading-tight relative inline-block">
+            <h2 id="testimonials-heading" className="font-serif text-3xl md:text-4xl lg:text-5xl text-brand-charcoal leading-tight relative z-10">
               A voz de quem vivencia nossa excelência diariamente
-              <svg className="absolute -bottom-2 left-0 w-48 h-4 text-brand-yellow/50" viewBox="0 0 100 10" preserveAspectRatio="none">
+              <svg className="absolute -bottom-2 left-0 w-32 md:w-48 h-4 text-brand-yellow/50 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                 <path d="M0,5 Q25,8 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
               </svg>
             </h2>

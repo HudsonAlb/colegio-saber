@@ -414,7 +414,10 @@ export default function AdmissaoPage() {
   const HORARIOS = ['08:30', '10:00', '13:30', '15:00'];
 
   return (
-    <div className="pt-32 pb-24 min-h-screen bg-brand-light flex flex-col justify-center items-center">
+    <div className="pt-32 pb-24 min-h-screen bg-[#fdfaf5] flex flex-col justify-center items-center relative overflow-hidden">
+      {/* Blobs Coloridos no Fundo */}
+      <div className="absolute top-20 right-10 w-96 h-96 bg-brand-orange/15 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-10 left-10 w-80 h-80 bg-brand-yellow/20 rounded-full blur-[80px] pointer-events-none"></div>
 
       {/* Toast Notification */}
       {toastMessage && (
@@ -431,7 +434,7 @@ export default function AdmissaoPage() {
           <span className="font-sans text-[11px] uppercase tracking-[0.3em] text-brand-orange font-semibold">
             Processo de Admissão 2026 / 2027
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-charcoal font-medium">
+          <h1 className="font-doodle text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
             Formulário de Ingresso
           </h1>
           <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium max-w-lg mx-auto">
@@ -486,7 +489,7 @@ export default function AdmissaoPage() {
         </div>
 
         {/* Formulário Principal */}
-        <div className="bg-brand-light-card border border-brand-light-border rounded-3xl p-8 sm:p-12 shadow-sm relative overflow-hidden">
+        <div className="mt-8 bg-white border-[3px] border-brand-orange/30 rounded-[3rem] p-6 sm:p-10 shadow-[8px_8px_0_0_rgba(255,126,27,0.15)] relative overflow-hidden z-10">
 
           {/* Fundo decorativo sutil */}
           <div className="absolute -top-32 -right-32 w-64 h-full min-h-[16rem] rounded-full bg-brand-orange/2 blur-[80px] pointer-events-none"></div>
@@ -663,7 +666,7 @@ export default function AdmissaoPage() {
               {step === 2 && (
                 <div className="flex flex-col gap-6">
                   <div>
-                    <h3 className="font-serif text-xl text-brand-charcoal mb-1">Agendamento de Avaliação</h3>
+                    <h2 className="font-doodle text-3xl text-brand-charcoal mb-8 flex items-center gap-3">Agendamento de Avaliação</h2>
                     <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium">Selecione uma data para o Teste Diagnóstico do aluno e uma data para a Visita Guiada dos pais.</p>
                   </div>
 
@@ -677,7 +680,7 @@ export default function AdmissaoPage() {
                       </div>
 
                       <div className="flex flex-col gap-1.5" aria-describedby={errors.dataTeste ? "dataTeste-error" : undefined}>
-                        <label className="font-sans text-[10px] uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha a Data</label>
+                        <label className="font-sans text-xs uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha a Data</label>
                         <div className="grid grid-cols-3 gap-2" role="group" aria-label="Datas disponíveis para Teste Diagnóstico">
                           {nextDays.slice(0, 6).map(date => {
                             const dateString = date.toISOString().split('T')[0];
@@ -690,7 +693,7 @@ export default function AdmissaoPage() {
                                 onClick={() => setFormData(p => ({ ...p, dataTeste: dateString }))}
                                 aria-pressed={isSelected}
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
-                                className={`py-2 rounded-full border text-center font-sans text-[10px] transition-all duration-300 ${isSelected
+                                className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange ${isSelected
                                     ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md'
                                     : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
                                   }`}
@@ -711,46 +714,48 @@ export default function AdmissaoPage() {
                         )}
                       </div>
 
-                      <div className="flex flex-col gap-1.5 mt-2" aria-describedby={errors.horarioTeste ? "horarioTeste-error" : undefined}>
-                        <label className="font-sans text-[10px] uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha o Horário</label>
-                        <div className="grid grid-cols-4 gap-2" role="group" aria-label="Horários disponíveis para Teste Diagnóstico">
-                          {HORARIOS.map(time => {
-                            const isSelected = formData.horarioTeste === time;
-                            return (
-                              <button
-                                key={time}
-                                type="button"
-                                onClick={() => setFormData(p => ({ ...p, horarioTeste: time }))}
-                                aria-pressed={isSelected}
-                                aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
-                                className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 ${isSelected
-                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md'
-                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
-                                  }`}
-                              >
-                                {time}
-                              </button>
-                            );
-                          })}
+                      {formData.dataTeste && (
+                        <div className="flex flex-col gap-1.5 mt-2 animate-fade-in" aria-describedby={errors.horarioTeste ? "horarioTeste-error" : undefined}>
+                          <label className="font-sans text-xs uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha o Horário</label>
+                          <div className="grid grid-cols-4 gap-2" role="group" aria-label="Horários disponíveis para Teste Diagnóstico">
+                            {HORARIOS.map(time => {
+                              const isSelected = formData.horarioTeste === time;
+                              return (
+                                <button
+                                  key={time}
+                                  type="button"
+                                  onClick={() => setFormData(p => ({ ...p, horarioTeste: time }))}
+                                  aria-pressed={isSelected}
+                                  aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
+                                  className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange ${isSelected
+                                      ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md'
+                                      : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
+                                    }`}
+                                >
+                                  {time}
+                                </button>
+                              );
+                            })}
+                          </div>
+                          {errors.horarioTeste && (
+                            <span id="horarioTeste-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
+                              <WarningCircle size={10} weight="duotone" />
+                              {errors.horarioTeste}
+                            </span>
+                          )}
                         </div>
-                        {errors.horarioTeste && (
-                          <span id="horarioTeste-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
-                            <WarningCircle size={10} weight="duotone" />
-                            {errors.horarioTeste}
-                          </span>
-                        )}
-                      </div>
+                      )}
                     </div>
 
                     {/* Agendamento da Visita */}
                     <div className="flex flex-col gap-4 p-5 rounded-2xl border border-brand-light-border bg-white">
-                      <div className="flex items-center gap-2 text-brand-orange">
+                      <div className="flex items-center gap-2 text-brand-blue">
                         <Calendar size={16} weight="duotone" />
                         <h4 className="font-serif text-sm font-semibold uppercase tracking-wider">2. Visita ao Campus</h4>
                       </div>
 
                       <div className="flex flex-col gap-1.5" aria-describedby={errors.dataVisita ? "dataVisita-error" : undefined}>
-                        <label className="font-sans text-[10px] uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha a Data</label>
+                        <label className="font-sans text-xs uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha a Data</label>
                         <div className="grid grid-cols-3 gap-2" role="group" aria-label="Datas disponíveis para Visita ao Campus">
                           {nextDays.slice(6, 12).map(date => {
                             const dateString = date.toISOString().split('T')[0];
@@ -763,7 +768,7 @@ export default function AdmissaoPage() {
                                 onClick={() => setFormData(p => ({ ...p, dataVisita: dateString }))}
                                 aria-pressed={isSelected}
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
-                                className={`py-2 rounded-full border text-center font-sans text-[10px] transition-all duration-300 ${isSelected
+                                className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue ${isSelected
                                     ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md'
                                     : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
                                   }`}
@@ -784,35 +789,37 @@ export default function AdmissaoPage() {
                         )}
                       </div>
 
-                      <div className="flex flex-col gap-1.5 mt-2" aria-describedby={errors.horarioVisita ? "horarioVisita-error" : undefined}>
-                        <label className="font-sans text-[10px] uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha o Horário</label>
-                        <div className="grid grid-cols-4 gap-2" role="group" aria-label="Horários disponíveis para Visita ao Campus">
-                          {HORARIOS.map(time => {
-                            const isSelected = formData.horarioVisita === time;
-                            return (
-                              <button
-                                key={time}
-                                type="button"
-                                onClick={() => setFormData(p => ({ ...p, horarioVisita: time }))}
-                                aria-pressed={isSelected}
-                                aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
-                                className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 ${isSelected
-                                    ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md'
-                                    : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
-                                  }`}
-                              >
-                                {time}
-                              </button>
-                            );
-                          })}
+                      {formData.dataVisita && (
+                        <div className="flex flex-col gap-1.5 mt-2 animate-fade-in" aria-describedby={errors.horarioVisita ? "horarioVisita-error" : undefined}>
+                          <label className="font-sans text-xs uppercase tracking-wider font-semibold text-brand-charcoal/70">Escolha o Horário</label>
+                          <div className="grid grid-cols-4 gap-2" role="group" aria-label="Horários disponíveis para Visita ao Campus">
+                            {HORARIOS.map(time => {
+                              const isSelected = formData.horarioVisita === time;
+                              return (
+                                <button
+                                  key={time}
+                                  type="button"
+                                  onClick={() => setFormData(p => ({ ...p, horarioVisita: time }))}
+                                  aria-pressed={isSelected}
+                                  aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
+                                  className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue ${isSelected
+                                      ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md'
+                                      : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
+                                    }`}
+                                >
+                                  {time}
+                                </button>
+                              );
+                            })}
+                          </div>
+                          {errors.horarioVisita && (
+                            <span id="horarioVisita-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
+                              <WarningCircle size={10} weight="duotone" />
+                              {errors.horarioVisita}
+                            </span>
+                          )}
                         </div>
-                        {errors.horarioVisita && (
-                          <span id="horarioVisita-error" role="alert" className="text-[10px] text-red-500 font-medium flex items-center gap-1 mt-1">
-                            <WarningCircle size={10} weight="duotone" />
-                            {errors.horarioVisita}
-                          </span>
-                        )}
-                      </div>
+                      )}
                     </div>
 
                   </div>
