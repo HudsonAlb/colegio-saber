@@ -3,8 +3,8 @@ import { Star, Trophy, UsersThree } from '@phosphor-icons/react';
 
 export default function InfraestruturaPage() {
   return (
-    <div className="pt-32 pb-0 bg-[#fdfaf5]">
-      <section className="w-full relative overflow-hidden">
+    <div className="pt-32 pb-0 bg-transparent">
+      <section className="w-full relative overflow-x-clip">
         
         {/* Blobs Coloridos no Fundo */}
         <div className="absolute top-0 right-10 w-[400px] h-[400px] bg-brand-yellow/15 rounded-full blur-[100px] pointer-events-none"></div>

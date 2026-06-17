@@ -200,7 +200,7 @@ export default function CalendarioPage() {
   };
 
   return (
-    <div className="pt-32 pb-24 min-h-screen bg-[#fdfaf5] flex flex-col items-center relative z-10 overflow-hidden">
+    <div className="pt-32 pb-24 min-h-screen bg-transparent flex flex-col items-center relative z-10 overflow-x-clip">
       
       {/* Elementos Decorativos de Fundo */}
       <div className="absolute top-40 left-10 w-64 h-64 bg-brand-yellow/20 rounded-full blur-[80px] pointer-events-none"></div>

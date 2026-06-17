@@ -201,7 +201,7 @@ export default function SegmentosPage() {
   }, [activeOficina]);
 
   return (
-    <div className="pt-32 pb-24 min-h-screen bg-[#fdfaf5] relative z-10 flex flex-col items-center overflow-hidden">
+    <div className="pt-32 pb-24 min-h-screen bg-transparent relative z-10 flex flex-col items-center overflow-x-clip">
       
       {/* Background Blobs Lúdicos */}
       <div className="absolute top-40 -left-20 w-80 h-80 bg-brand-yellow/15 rounded-full blur-[100px] pointer-events-none"></div>

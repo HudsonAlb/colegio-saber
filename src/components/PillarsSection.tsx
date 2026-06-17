@@ -36,7 +36,7 @@ export default function PillarsSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full py-24 md:py-32 bg-[#fdfaf5] flex flex-col gap-16 overflow-hidden">
+    <section ref={containerRef} className="relative w-full py-24 md:py-32 bg-transparent flex flex-col gap-16 overflow-x-clip">
 
       {/* Blobs Coloridos Decorativos no Fundo */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-brand-orange/15 rounded-full blur-[80px] pointer-events-none"></div>

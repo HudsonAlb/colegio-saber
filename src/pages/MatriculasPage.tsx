@@ -48,10 +48,10 @@ export default function MatriculasPage() {
   }, []);
 
   return (
-    <div ref={containerRef} className="pt-24 pb-0 bg-[#fdfaf5]">
+    <div ref={containerRef} className="pt-24 pb-0 bg-transparent">
       
       {/* HEADER SECTION LÚDICA */}
-      <section className="relative w-full py-20 px-6 flex flex-col items-center text-center overflow-hidden z-10">
+      <section className="relative w-full py-20 px-6 flex flex-col items-center text-center overflow-x-clip z-10">
         <div className="absolute top-10 left-10 w-64 h-64 bg-brand-orange/15 rounded-full blur-[80px] pointer-events-none"></div>
         <div className="absolute top-0 right-20 w-80 h-80 bg-brand-yellow/20 rounded-full blur-[100px] pointer-events-none"></div>
 
@@ -59,7 +59,7 @@ export default function MatriculasPage() {
           <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
             Junte-se à Família
           </span>
-          <h1 className="font-doodle text-5xl sm:text-6xl md:text-7xl text-brand-charcoal drop-shadow-sm mt-2">
+          <h1 className="font-doodle text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
             Como ser um aluno Saber?
           </h1>
           <p className="font-sans text-sm md:text-base font-medium text-brand-charcoal-light/80 max-w-2xl mx-auto leading-relaxed">

@@ -414,7 +414,7 @@ export default function AdmissaoPage() {
   const HORARIOS = ['08:30', '10:00', '13:30', '15:00'];
 
   return (
-    <div className="pt-32 pb-24 min-h-screen bg-[#fdfaf5] flex flex-col justify-center items-center relative overflow-hidden">
+    <div className="pt-32 pb-24 min-h-screen bg-transparent flex flex-col justify-center items-center relative overflow-x-clip">
       {/* Blobs Coloridos no Fundo */}
       <div className="absolute top-20 right-10 w-96 h-96 bg-brand-orange/15 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-brand-yellow/20 rounded-full blur-[80px] pointer-events-none"></div>
@@ -666,7 +666,7 @@ export default function AdmissaoPage() {
               {step === 2 && (
                 <div className="flex flex-col gap-6">
                   <div>
-                    <h2 className="font-doodle text-3xl text-brand-charcoal mb-8 flex items-center gap-3">Agendamento de Avaliação</h2>
+                    <h3 className="font-serif text-xl text-brand-charcoal mb-1">Agendamento de Avaliação</h3>
                     <p className="font-sans text-xs text-brand-charcoal-light/70 font-medium">Selecione uma data para o Teste Diagnóstico do aluno e uma data para a Visita Guiada dos pais.</p>
                   </div>
 

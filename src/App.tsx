@@ -412,8 +412,8 @@ function App() {
             </svg>
           </div>
 
-          {/* INNER WHITE-CREME CANVAS FOR THE MAIN CONTENT */}
-          <div className="mx-auto max-w-7xl bg-[#fffcf7] border-4 border-brand-charcoal/10 rounded-[32px] md:rounded-[48px] shadow-[0_24px_50px_rgba(67,56,50,0.12)] relative z-10 overflow-hidden flex flex-col justify-between min-h-[calc(100vh-4rem)]">
+          {/* INNER WHITE CANVAS FOR THE MAIN CONTENT */}
+          <div className="mx-auto max-w-7xl bg-brand-light border-4 border-brand-charcoal/10 rounded-[32px] md:rounded-[48px] shadow-[0_24px_50px_rgba(67,56,50,0.12)] relative z-10 overflow-hidden flex flex-col justify-between min-h-[calc(100vh-4rem)]">
             
             {/* STICKY CAPSULE HEADER WRAPPER */}
             <div className="fixed top-6 sm:top-8 md:top-10 left-0 right-0 mx-auto w-full max-w-7xl z-40 px-4 md:px-6 pointer-events-none">
