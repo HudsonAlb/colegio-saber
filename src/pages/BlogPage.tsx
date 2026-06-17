@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { MagnifyingGlass, X, Calendar, User, Tag, ArrowRight, BookOpen, Image, Sparkle, PlayCircle } from '@phosphor-icons/react';
+import { MagnifyingGlass, X, Calendar, User, Tag, ArrowRight, BookOpen, Image, PlayCircle } from '@phosphor-icons/react';
 import gsap from 'gsap';
 
 interface BlogPost {

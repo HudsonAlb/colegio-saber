@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, Info, CaretRight, Question, Backpack, Student, GraduationCap } from '@phosphor-icons/react';
+import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, CaretRight, Question, Backpack, Student, GraduationCap } from '@phosphor-icons/react';
 
 import infantilImg from '../assets/segmento_infantil.png';
 import fund1Img from '../assets/segmento_fund1.png';

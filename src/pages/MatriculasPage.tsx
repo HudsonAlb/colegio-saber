@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, MapPin, MagnifyingGlass, FileText, Checks, Sparkle } from '@phosphor-icons/react';
+import { ArrowRight, MapPin, MagnifyingGlass, FileText, Sparkle } from '@phosphor-icons/react';
 import FaqSection from '../components/FaqSection';
 
 gsap.registerPlugin(ScrollTrigger);

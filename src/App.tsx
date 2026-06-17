@@ -17,7 +17,7 @@ const InfraestruturaPage = lazy(() => import('./pages/InfraestruturaPage'));
 const MatriculasPage = lazy(() => import('./pages/MatriculasPage'));
 const CalendarioPage = lazy(() => import('./pages/CalendarioPage'));
 const SegmentosPage = lazy(() => import('./pages/SegmentosPage'));
-const BlogPage = lazy(() => import('./pages/BlogPage'));
+
 
 gsap.registerPlugin(ScrollTrigger);
 

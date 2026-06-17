@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CalendarBlank, ArrowRight, Sun, Leaf, Confetti, MapPin } from '@phosphor-icons/react';
+import { CalendarBlank, ArrowRight, Sun, Leaf, Confetti } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -108,7 +108,7 @@ export default function CalendarioSection() {
 
         {/* Right: Upcoming Holidays Cards */}
         <div className="w-full md:w-7/12 flex flex-col gap-4">
-          {upcomingHolidays.map((holiday, idx) => {
+          {upcomingHolidays.map((holiday) => {
             const Icon = holiday.icon;
             return (
               <div
