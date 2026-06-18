@@ -112,7 +112,7 @@ function Header() {
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu-container"
         >
-          {isMenuOpen ? <X size={24} weight="duotone" /> : <List size={24} weight="duotone" />}
+          {isMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
         </button>
       </header>
 
