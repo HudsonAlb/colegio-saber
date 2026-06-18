@@ -260,7 +260,7 @@ export default function SegmentosPage() {
                 <span className={`self-start px-4 py-1.5 rounded-full font-sans text-[10px] uppercase tracking-widest font-bold border ${activeSegment.id === 'medio' ? 'bg-brand-yellow/20 text-brand-yellow-dark border-brand-yellow/30' : `bg-white ${activeSegment.themeColor} ${activeSegment.themeBorder}`}`}>
                   {activeSegment.ageRange}
                 </span>
-                <h2 className="font-doodle text-4xl sm:text-5xl text-brand-charcoal drop-shadow-sm mt-2">
+                <h2 className="font-serif font-bold text-4xl sm:text-5xl text-brand-charcoal drop-shadow-sm mt-2">
                   {activeSegment.title}
                 </h2>
               </div>
@@ -386,7 +386,7 @@ export default function SegmentosPage() {
               </div>
               <div className="flex flex-col">
                 <span className={`font-sans text-[9px] uppercase tracking-widest font-bold ${activeSegment.themeColor}`}>Oficina de Ensino</span>
-                <h4 className="font-doodle text-2xl text-brand-charcoal mt-1">
+                <h4 className="font-serif font-bold text-2xl text-brand-charcoal mt-1">
                   {activeOficina.title}
                 </h4>
               </div>

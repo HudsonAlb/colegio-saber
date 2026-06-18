@@ -434,7 +434,7 @@ export default function AdmissaoPage() {
           <span className="font-sans text-[11px] uppercase tracking-[0.3em] text-brand-orange font-semibold">
             Processo de Admissão 2026 / 2027
           </span>
-          <h1 className="font-doodle text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
+          <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
             Formulário de Ingresso
           </h1>
           <p className="font-sans text-xs sm:text-sm text-brand-charcoal-light/75 font-medium max-w-lg mx-auto">

@@ -271,7 +271,7 @@ export default function CalendarioPage() {
                   {/* Etiqueta do Mês */}
                   <div className="md:w-32 flex-shrink-0 flex md:justify-end items-start pt-2 relative">
                     <div className="hidden md:flex absolute right-[-2.5rem] top-4 w-5 h-5 bg-white border-4 border-brand-orange rounded-full z-10 shadow-sm"></div>
-                    <h2 className="font-doodle text-3xl text-brand-orange drop-shadow-sm rotate-[-3deg] px-4 md:px-0 bg-[#fdfaf5] md:bg-transparent z-10">
+                    <h2 className="font-serif font-bold text-3xl text-brand-orange drop-shadow-sm rotate-[-3deg] px-4 md:px-0 bg-[#fdfaf5] md:bg-transparent z-10">
                       {monthName}
                     </h2>
                   </div>

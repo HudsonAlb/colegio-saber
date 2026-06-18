@@ -16,7 +16,7 @@ export default function InfraestruturaPage() {
             <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
               Um Mundo de Possibilidades
             </span>
-            <h1 className="font-doodle text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
+            <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
               Nossa Infraestrutura
             </h1>
             <p className="font-sans text-sm md:text-base text-brand-charcoal-light/80 font-medium leading-relaxed">
@@ -30,7 +30,7 @@ export default function InfraestruturaPage() {
               <div className="absolute -top-6 w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center text-white shadow-lg transform -rotate-12 group-hover:rotate-0 transition-transform duration-300">
                 <Star size={32} weight="fill" />
               </div>
-              <span className="font-doodle text-6xl text-brand-orange mt-4">
+              <span className="font-serif font-bold text-6xl text-brand-orange mt-4">
                 85+
               </span>
               <div className="w-12 h-1.5 bg-brand-orange/20 rounded-full"></div>
@@ -47,7 +47,7 @@ export default function InfraestruturaPage() {
               <div className="absolute -top-6 w-16 h-16 bg-brand-green rounded-full flex items-center justify-center text-white shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-300">
                 <Trophy size={32} weight="fill" />
               </div>
-              <span className="font-doodle text-6xl text-brand-green mt-4">
+              <span className="font-serif font-bold text-6xl text-brand-green mt-4">
                 100%
               </span>
               <div className="w-12 h-1.5 bg-brand-green/20 rounded-full"></div>
@@ -64,7 +64,7 @@ export default function InfraestruturaPage() {
               <div className="absolute -top-6 w-16 h-16 bg-brand-blue rounded-full flex items-center justify-center text-white shadow-lg transform -rotate-12 group-hover:rotate-0 transition-transform duration-300">
                 <UsersThree size={32} weight="fill" />
               </div>
-              <span className="font-doodle text-6xl text-brand-blue mt-4">
+              <span className="font-serif font-bold text-6xl text-brand-blue mt-4">
                 12k+
               </span>
               <div className="w-12 h-1.5 bg-brand-blue/20 rounded-full"></div>
