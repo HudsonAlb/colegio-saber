@@ -215,8 +215,8 @@ export default function TestimonialsSection() {
               onClick={() => scrollTo('left')}
               disabled={!canScrollLeft}
               className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${canScrollLeft
-                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer'
-                  : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
+                ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer'
+                : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
                 }`}
               aria-label="Depoimento anterior"
             >
@@ -226,8 +226,8 @@ export default function TestimonialsSection() {
               onClick={() => scrollTo('right')}
               disabled={!canScrollRight}
               className={`w-12 h-12 rounded-[1rem] border-2 flex items-center justify-center transition-all duration-300 ${canScrollRight
-                  ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer'
-                  : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
+                ? 'border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-brand-light shadow-[2px_4px_0_0_#ff7e1b] hover:-translate-y-1 cursor-pointer'
+                : 'border-brand-light-border text-brand-charcoal/20 cursor-not-allowed bg-brand-light'
                 }`}
               aria-label="Próximo depoimento"
             >
@@ -305,8 +305,8 @@ export default function TestimonialsSection() {
               key={idx}
               onClick={() => scrollToIdx(idx)}
               className={`h-2 rounded-full transition-all duration-500 ${idx === activeIndex
-                  ? 'w-8 bg-brand-orange'
-                  : 'w-2 bg-brand-light-border hover:bg-brand-charcoal/20'
+                ? 'w-8 bg-brand-orange'
+                : 'w-2 bg-brand-light-border hover:bg-brand-charcoal/20'
                 }`}
               aria-label={`Ir para depoimento ${idx + 1}`}
               aria-current={idx === activeIndex ? 'true' : 'false'}

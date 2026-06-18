@@ -470,10 +470,10 @@ export default function AdmissaoPage() {
                     onClick={() => s.num < step && !isSuccess && setStep(s.num)}
                     disabled={s.num >= step || isSuccess}
                     className={`w-9 h-9 rounded-full flex items-center justify-center font-sans text-xs font-semibold border transition-all duration-700 ${isCurrent
-                        ? s.activeClass
-                        : isPast
-                          ? s.completedClass
-                          : 'bg-white text-brand-charcoal/50 border-brand-light-border'
+                      ? s.activeClass
+                      : isPast
+                        ? s.completedClass
+                        : 'bg-white text-brand-charcoal/50 border-brand-light-border'
                       }`}
                   >
                     {isPast ? <Check size={14} weight="duotone" /> : s.num}
@@ -694,8 +694,8 @@ export default function AdmissaoPage() {
                                 aria-pressed={isSelected}
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
                                 className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange ${isSelected
-                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md'
-                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
+                                  ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md'
+                                  : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
                                   }`}
                               >
                                 {date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}
@@ -728,8 +728,8 @@ export default function AdmissaoPage() {
                                   aria-pressed={isSelected}
                                   aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
                                   className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange ${isSelected
-                                      ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md'
-                                      : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
+                                    ? 'bg-brand-orange text-white border-brand-orange font-semibold shadow-md'
+                                    : 'border-brand-light-border hover:border-brand-orange/50 text-brand-charcoal bg-white'
                                     }`}
                                 >
                                   {time}
@@ -769,8 +769,8 @@ export default function AdmissaoPage() {
                                 aria-pressed={isSelected}
                                 aria-label={`${fullDateStr}${isSelected ? ', selecionada' : ''}`}
                                 className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue ${isSelected
-                                    ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md'
-                                    : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
+                                  ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md'
+                                  : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
                                   }`}
                               >
                                 {date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}
@@ -803,8 +803,8 @@ export default function AdmissaoPage() {
                                   aria-pressed={isSelected}
                                   aria-label={`${time}${isSelected ? ', selecionado' : ''}`}
                                   className={`py-2 rounded-full border text-center font-sans text-xs transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue ${isSelected
-                                      ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md'
-                                      : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
+                                    ? 'bg-brand-blue text-white border-brand-blue font-semibold shadow-md'
+                                    : 'border-brand-light-border hover:border-brand-blue/50 text-brand-charcoal bg-white'
                                     }`}
                                 >
                                   {time}
@@ -844,8 +844,8 @@ export default function AdmissaoPage() {
                             aria-pressed={isChecked}
                             aria-label={`${opt.label}${isChecked ? ', selecionado' : ''}`}
                             className={`p-3.5 px-5 rounded-full border text-left font-sans text-xs flex items-center justify-between transition-all duration-300 cursor-pointer ${isChecked
-                                ? 'bg-brand-orange/10 border-brand-orange text-brand-charcoal font-semibold'
-                                : 'border-brand-light-border hover:border-brand-orange/30 text-brand-charcoal-light bg-white'
+                              ? 'bg-brand-orange/10 border-brand-orange text-brand-charcoal font-semibold'
+                              : 'border-brand-light-border hover:border-brand-orange/30 text-brand-charcoal-light bg-white'
                               }`}
                           >
                             <span>{opt.label}</span>
@@ -886,8 +886,8 @@ export default function AdmissaoPage() {
                       }
                     }}
                     className={`w-full py-12 border-2 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-500 outline-none focus:border-brand-orange ${isDragging
-                        ? 'border-brand-orange bg-[#fffcf7] scale-[1.01]'
-                        : 'border-brand-light-border hover:border-brand-orange/50 bg-[#fffcf7]'
+                      ? 'border-brand-orange bg-[#fffcf7] scale-[1.01]'
+                      : 'border-brand-light-border hover:border-brand-orange/50 bg-[#fffcf7]'
                       }`}
                   >
                     <input

@@ -104,7 +104,7 @@ export default function TourVirtual() {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const currentX = useRef(0);
-  const maxPan = useRef(0); 
+  const maxPan = useRef(0);
 
   const updatePanLimits = () => {
     if (viewportRef.current && containerRef.current) {
@@ -311,8 +311,8 @@ export default function TourVirtual() {
                   type="button"
                   onClick={() => handleLocChange(loc)}
                   className={`px-5 py-3 font-sans text-xs font-bold tracking-wider transition-all duration-500 rounded-2xl border-2 ${isActive
-                      ? `${loc.themeBg} ${loc.themeBorder} text-white shadow-lg ${loc.themeShadow} scale-105`
-                      : 'bg-white border-brand-light-border text-brand-charcoal-light/70 hover:-translate-y-1 hover:border-brand-orange/40 hover:text-brand-orange'
+                    ? `${loc.themeBg} ${loc.themeBorder} text-white shadow-lg ${loc.themeShadow} scale-105`
+                    : 'bg-white border-brand-light-border text-brand-charcoal-light/70 hover:-translate-y-1 hover:border-brand-orange/40 hover:text-brand-orange'
                     } cursor-pointer`}
                 >
                   {loc.shortName}

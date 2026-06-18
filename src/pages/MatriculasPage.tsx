@@ -28,7 +28,7 @@ export default function MatriculasPage() {
           }
         }
       );
-      
+
       // Anima a linha pontilhada
       gsap.fromTo('.dashed-line',
         { height: 0 },
@@ -49,7 +49,7 @@ export default function MatriculasPage() {
 
   return (
     <div ref={containerRef} className="pt-24 pb-0 bg-transparent">
-      
+
       {/* HEADER SECTION LÚDICA */}
       <section className="relative w-full py-20 px-6 flex flex-col items-center text-center overflow-x-clip z-10">
         <div className="absolute top-10 left-10 w-64 h-64 bg-brand-orange/15 rounded-full blur-[80px] pointer-events-none"></div>
@@ -71,7 +71,7 @@ export default function MatriculasPage() {
       {/* CAMINHO DE PEDRAS (STEPS) */}
       <section className="relative w-full py-16 px-6 z-10">
         <div className="max-w-4xl mx-auto steps-container relative">
-          
+
           {/* Linha Pontilhada Central (Desktop) */}
           <div className="hidden md:block absolute left-1/2 top-10 bottom-10 w-1 border-l-4 border-dashed border-brand-orange/30 -translate-x-1/2 z-0 dashed-line"></div>
 
@@ -153,14 +153,14 @@ export default function MatriculasPage() {
       {/* CALL TO ACTION */}
       <section className="relative w-full py-16 px-6 flex flex-col items-center justify-center text-center z-10">
         <div className="mt-4 flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <Link 
+          <Link
             to="/admissao"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-white font-sans text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-[4px_4px_0_0_rgba(0,0,0,0.1)] hover:shadow-[6px_6px_0_0_rgba(0,0,0,0.15)] hover:-translate-y-1 group"
           >
-            Iniciar Passo a Passo Agora 
+            Iniciar Passo a Passo Agora
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" weight="bold" />
           </Link>
-          <a 
+          <a
             href="tel:551134567890"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-brand-charcoal hover:bg-brand-charcoal hover:text-white text-brand-charcoal font-sans text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300"
           >

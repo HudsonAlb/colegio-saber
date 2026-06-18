@@ -202,7 +202,7 @@ export default function SegmentosPage() {
 
   return (
     <div className="pt-32 pb-24 min-h-screen bg-transparent relative z-10 flex flex-col items-center overflow-x-clip">
-      
+
       {/* Background Blobs Lúdicos */}
       <div className="absolute top-40 -left-20 w-80 h-80 bg-brand-yellow/15 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute top-1/2 -right-20 w-[600px] h-[600px] bg-brand-orange/10 rounded-full blur-[120px] pointer-events-none"></div>
@@ -232,11 +232,10 @@ export default function SegmentosPage() {
                 key={seg.id}
                 type="button"
                 onClick={() => setActiveSegment(seg)}
-                className={`group flex flex-col items-center justify-center gap-3 p-6 rounded-3xl border-4 transition-all duration-500 cursor-pointer ${
-                  isActive 
-                  ? `${seg.themeBg} ${seg.themeBorder} shadow-xl ${seg.themeShadow} scale-105 text-brand-light z-10`
-                  : `bg-white border-brand-light-border text-brand-charcoal-light/70 hover:border-brand-light-border/80 hover:-translate-y-1`
-                }`}
+                className={`group flex flex-col items-center justify-center gap-3 p-6 rounded-3xl border-4 transition-all duration-500 cursor-pointer ${isActive
+                    ? `${seg.themeBg} ${seg.themeBorder} shadow-xl ${seg.themeShadow} scale-105 text-brand-light z-10`
+                    : `bg-white border-brand-light-border text-brand-charcoal-light/70 hover:border-brand-light-border/80 hover:-translate-y-1`
+                  }`}
               >
                 <div className={`transition-transform duration-500 ${isActive ? 'scale-110 text-brand-charcoal' : `group-hover:scale-110 ${seg.themeColor}`}`}>
                   {seg.navIcon}
@@ -251,9 +250,9 @@ export default function SegmentosPage() {
 
         {/* CONTEÚDO ATIVO DO SEGMENTO */}
         <div className={`p-8 md:p-12 rounded-[3rem] bg-white border-2 border-brand-light-border shadow-2xl shadow-brand-charcoal/5 flex flex-col gap-10 overflow-hidden relative transition-all duration-700`}>
-          
+
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
-            
+
             {/* Texto Descritivo */}
             <div ref={contentRef} className="flex-1 flex flex-col gap-6 text-left order-2 lg:order-1">
               <div className="flex flex-col gap-3">
@@ -301,7 +300,7 @@ export default function SegmentosPage() {
 
           {/* Destaques (Oficinas & Depoimento) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
+
             {/* Bloco Oficinas */}
             <div className="lg:col-span-8 flex flex-col gap-6">
               <div className="flex items-center gap-3 text-brand-charcoal">

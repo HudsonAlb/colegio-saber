@@ -51,15 +51,15 @@ function Header() {
 
   return (
     <>
-      <header 
+      <header
         role="banner"
         className="w-full relative z-40 transition-all duration-500 bg-white/95 backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
       >
         {/* Logo */}
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center group shrink-0 cursor-pointer" 
+          className="flex items-center group shrink-0 cursor-pointer"
           aria-label="Colégio Saber - Início"
         >
           <img src={logoSaber} alt="Colégio Saber Logo" className="h-10 md:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300" />
@@ -78,15 +78,14 @@ function Header() {
           ].map((item, idx) => {
             const isActive = location.pathname === item.path;
             return (
-              <Link 
-                key={idx} 
+              <Link
+                key={idx}
                 to={item.path}
                 aria-current={isActive ? 'page' : undefined}
-                className={`font-serif text-[13px] xl:text-[15px] py-1.5 px-4 rounded-full transition-all duration-300 whitespace-nowrap ${
-                  isActive 
+                className={`font-serif text-[13px] xl:text-[15px] py-1.5 px-4 rounded-full transition-all duration-300 whitespace-nowrap ${isActive
                     ? 'bg-brand-orange/15 text-brand-orange-dark font-bold shadow-sm'
                     : 'text-brand-charcoal font-semibold hover:text-brand-orange hover:bg-brand-orange/5'
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
@@ -96,8 +95,8 @@ function Header() {
 
         {/* CTA Desktop */}
         <div className="hidden lg:block shrink-0">
-          <Link 
-            to="/admissao" 
+          <Link
+            to="/admissao"
             className="font-serif relative inline-flex items-center justify-center px-6 py-2.5 rounded-full overflow-hidden bg-brand-yellow text-brand-charcoal hover:bg-brand-yellow-light hover:-translate-y-1 transition-all duration-300 text-xs xl:text-sm font-bold tracking-wide whitespace-nowrap shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-2 border-brand-charcoal"
           >
             Matrículas Abertas
@@ -105,7 +104,7 @@ function Header() {
         </div>
 
         {/* Hamburger Button */}
-        <button 
+        <button
           className="block lg:hidden text-brand-charcoal hover:text-brand-orange transition-colors duration-300 focus:outline-none shrink-0"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
@@ -117,13 +116,12 @@ function Header() {
       </header>
 
       {/* MOBILE MENU */}
-      <div 
+      <div
         id="mobile-menu-container"
         role="navigation"
         aria-label="Menu de Navegação Mobile"
-        className={`fixed inset-0 z-30 bg-[#fdfbf7] flex flex-col justify-start px-8 pt-32 pb-8 overflow-y-auto transition-all duration-700 ease-in-out ${
-          isMenuOpen 
-            ? 'opacity-100 translate-y-0 pointer-events-auto' 
+        className={`fixed inset-0 z-30 bg-[#fdfbf7] flex flex-col justify-start px-8 pt-32 pb-8 overflow-y-auto transition-all duration-700 ease-in-out ${isMenuOpen
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
             : 'opacity-0 -translate-y-10 pointer-events-none'
           }`}
       >
@@ -136,8 +134,8 @@ function Header() {
             { label: 'Calendário', path: '/calendario' },
             { label: 'Contato', path: '/admissao' }
           ].map((item, idx) => (
-            <Link 
-              key={idx} 
+            <Link
+              key={idx}
               to={item.path}
               onClick={() => setIsMenuOpen(false)}
               className="font-serif text-2xl tracking-wide text-brand-charcoal hover:text-brand-orange transition-colors duration-300 font-bold"
@@ -146,9 +144,9 @@ function Header() {
             </Link>
           ))}
         </nav>
-        
+
         <div className="mt-12 pt-6 border-t border-brand-light-border flex flex-col gap-4">
-          <Link 
+          <Link
             to="/admissao"
             onClick={() => setIsMenuOpen(false)}
             className="font-serif w-full py-3 text-center rounded-full bg-brand-yellow text-brand-charcoal text-base font-bold shadow-[4px_4px_0_0_#2d2a26] border-2 border-brand-charcoal hover:-translate-y-1 transition-transform hover:shadow-[6px_6px_0_0_#2d2a26]"
@@ -172,11 +170,11 @@ function Footer() {
       {/* Decorative Wave at the Top */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-0">
         <svg className="relative block w-[calc(100%+1.3px)] h-[30px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#fdfbf7" stroke="#e8e1d7" strokeWidth="2"></path>
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#fdfbf7" stroke="#e8e1d7" strokeWidth="2"></path>
         </svg>
       </div>
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
-        
+
         {/* Col 1: Brand */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3">
@@ -257,18 +255,18 @@ function Footer() {
           <p className="font-sans text-xs font-semibold text-brand-charcoal/75 leading-relaxed">
             Assine nossa newsletter informativa mensal para se manter informado.
           </p>
-          <form 
+          <form
             className="flex rounded-full overflow-hidden border-[3px] border-brand-charcoal bg-white p-1.5 focus-within:border-[#ff7e1b] transition-colors duration-500 shadow-[4px_4px_0_0_#2d2a26]"
             onSubmit={(e) => e.preventDefault()}
             aria-label="Assinar nossa newsletter mensal"
           >
-            <input 
-              type="email" 
-              placeholder="Seu email" 
+            <input
+              type="email"
+              placeholder="Seu email"
               aria-label="Seu endereço de e-mail para receber novidades"
               className="bg-transparent border-none text-sm px-4 py-1.5 text-brand-charcoal placeholder-brand-charcoal/40 outline-none w-full font-serif font-semibold"
             />
-            <button 
+            <button
               type="submit"
               aria-label="Enviar cadastro da newsletter"
               className="bg-[#ff7e1b] hover:bg-[#e78b53] text-brand-light text-xs uppercase px-5 py-2 rounded-full font-bold transition-colors duration-500 cursor-pointer"
@@ -330,7 +328,7 @@ function PromoBannerModal() {
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2d2a26]/40 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
@@ -383,25 +381,25 @@ function App() {
       <SmoothScroll>
         {/* OUTER WRAPPER WITH PLAYFUL PASTEL BACKGROUND AND DECORATIVE WAVES */}
         <div className="relative w-full max-w-full min-h-screen bg-[#f7fdfb] overflow-x-hidden font-sans text-brand-charcoal selection:bg-brand-orange selection:text-white p-0 sm:p-4 md:p-6 lg:p-8">
-          
+
           {/* WAVY PASTEL CORNER GRAPHICS */}
           <div className="absolute top-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#ffa15c]/30 rounded-br-[160px] pointer-events-none -z-10"></div>
           <div className="absolute top-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#66cc33]/20 rounded-bl-[160px] pointer-events-none -z-10"></div>
           <div className="absolute bottom-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#ffe574]/35 rounded-tr-[160px] pointer-events-none -z-10"></div>
           <div className="absolute bottom-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-[#66cc33]/15 rounded-tl-[160px] pointer-events-none -z-10"></div>
-          
+
           {/* FLOATING DECORATIONS IN THE BACKGROUND (OUTSIDE CANVAS) */}
           <div className="absolute top-10 left-10 w-24 h-24 text-white opacity-40 pointer-events-none hidden lg:block">
             {/* Cloud SVG */}
-            <svg viewBox="0 0 100 100" fill="currentColor"><path d="M20,60 C20,50 30,40 40,40 C45,30 60,30 70,40 C80,40 90,50 90,60 C90,70 80,80 70,80 L20,80 C10,80 10,70 20,60 Z"/></svg>
+            <svg viewBox="0 0 100 100" fill="currentColor"><path d="M20,60 C20,50 30,40 40,40 C45,30 60,30 70,40 C80,40 90,50 90,60 C90,70 80,80 70,80 L20,80 C10,80 10,70 20,60 Z" /></svg>
           </div>
           <div className="absolute top-40 right-12 w-16 h-16 text-[#ffcb1e] opacity-40 pointer-events-none hidden lg:block animate-pulse">
             {/* Star SVG */}
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
           </div>
           <div className="absolute bottom-20 left-8 w-20 h-20 text-[#ffa15c] opacity-30 pointer-events-none hidden lg:block">
             {/* Flower SVG */}
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4M6,12A2,2 0 0,1 8,10A2,2 0 0,1 10,12A2,2 0 0,1 8,14A2,2 0 0,1 6,12M12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20M18,12A2,2 0 0,1 16,14A2,2 0 0,1 14,12A2,2 0 0,1 16,10A2,2 0 0,1 18,12Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4M6,12A2,2 0 0,1 8,10A2,2 0 0,1 10,12A2,2 0 0,1 8,14A2,2 0 0,1 6,12M12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20M18,12A2,2 0 0,1 16,14A2,2 0 0,1 14,12A2,2 0 0,1 16,10A2,2 0 0,1 18,12Z" /></svg>
           </div>
           <div className="absolute bottom-40 right-10 w-28 h-28 opacity-25 pointer-events-none hidden lg:block">
             {/* Rainbow SVG */}
@@ -414,7 +412,7 @@ function App() {
 
           {/* INNER WHITE CANVAS FOR THE MAIN CONTENT */}
           <div className="mx-auto max-w-7xl bg-brand-light border-4 border-brand-charcoal/10 rounded-[32px] md:rounded-[48px] shadow-[0_24px_50px_rgba(67,56,50,0.12)] relative z-10 overflow-hidden flex flex-col justify-between min-h-[calc(100vh-4rem)]">
-            
+
             {/* STICKY CAPSULE HEADER WRAPPER */}
             <div className="fixed top-6 sm:top-8 md:top-10 left-0 right-0 mx-auto w-full max-w-7xl z-40 px-4 md:px-6 pointer-events-none">
               <Header />

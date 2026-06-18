@@ -201,7 +201,7 @@ export default function CalendarioPage() {
 
   return (
     <div className="pt-32 pb-24 min-h-screen bg-transparent flex flex-col items-center relative z-10 overflow-x-clip">
-      
+
       {/* Elementos Decorativos de Fundo */}
       <div className="absolute top-40 left-10 w-64 h-64 bg-brand-yellow/20 rounded-full blur-[80px] pointer-events-none"></div>
       <div className="absolute bottom-40 right-10 w-96 h-96 bg-brand-orange/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -231,11 +231,10 @@ export default function CalendarioPage() {
                 key={cat.id}
                 type="button"
                 onClick={() => toggleFilter(cat.id)}
-                className={`group flex flex-col items-center justify-center gap-3 p-5 rounded-3xl border-2 transition-all duration-500 cursor-pointer hover:-translate-y-1 ${
-                  isActive 
-                  ? `${cat.bgClass} ${cat.borderClass} shadow-lg shadow-${cat.id}/20 scale-[1.02]`
-                  : 'bg-white border-brand-light-border text-brand-charcoal-light hover:border-brand-orange/30'
-                }`}
+                className={`group flex flex-col items-center justify-center gap-3 p-5 rounded-3xl border-2 transition-all duration-500 cursor-pointer hover:-translate-y-1 ${isActive
+                    ? `${cat.bgClass} ${cat.borderClass} shadow-lg shadow-${cat.id}/20 scale-[1.02]`
+                    : 'bg-white border-brand-light-border text-brand-charcoal-light hover:border-brand-orange/30'
+                  }`}
               >
                 <div className={`transition-transform duration-500 ${isActive ? 'scale-110' : 'group-hover:scale-110 group-hover:text-brand-orange'}`}>
                   {cat.icon}
@@ -250,7 +249,7 @@ export default function CalendarioPage() {
 
         {/* Timeline Interativa */}
         <div className="flex flex-col gap-16 mt-8 relative">
-          
+
           {/* Linha Central da Timeline (Escondida no mobile, visível no md+) */}
           <div className="hidden md:block absolute left-8 top-0 bottom-0 w-1 bg-brand-light-border rounded-full transform -translate-x-1/2"></div>
 
@@ -267,7 +266,7 @@ export default function CalendarioPage() {
               const monthName = MONTH_NAMES[parseInt(monthIdx)];
               return (
                 <div key={monthIdx} className="flex flex-col md:flex-row gap-6 md:gap-12 relative animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                  
+
                   {/* Etiqueta do Mês */}
                   <div className="md:w-32 flex-shrink-0 flex md:justify-end items-start pt-2 relative">
                     <div className="hidden md:flex absolute right-[-2.5rem] top-4 w-5 h-5 bg-white border-4 border-brand-orange rounded-full z-10 shadow-sm"></div>
@@ -281,15 +280,15 @@ export default function CalendarioPage() {
                     {events.map((evt) => {
                       const catConfig = CATEGORIES[evt.category];
                       const day = new Date(evt.date + 'T00:00:00').getDate();
-                      
+
                       return (
-                        <div 
-                          key={evt.id} 
+                        <div
+                          key={evt.id}
                           className="bg-white p-6 md:p-8 rounded-[2rem] border-2 border-brand-light-border shadow-sm hover:shadow-xl hover:border-brand-orange/30 transition-all duration-500 flex flex-col sm:flex-row gap-6 group"
                         >
                           {/* Data e Ícone */}
                           <div className="flex flex-col items-center justify-center bg-brand-light-card rounded-2xl p-4 min-w-[100px] border border-brand-light-border group-hover:bg-brand-orange/5 transition-colors duration-500">
-                            <span className="font-sans text-xs font-bold text-brand-charcoal/50 uppercase tracking-widest mb-1">{monthName.substring(0,3)}</span>
+                            <span className="font-sans text-xs font-bold text-brand-charcoal/50 uppercase tracking-widest mb-1">{monthName.substring(0, 3)}</span>
                             <span className="font-serif text-4xl font-bold text-brand-charcoal">{String(day).padStart(2, '0')}</span>
                             <div className="mt-2 text-brand-charcoal/30 group-hover:text-brand-orange transition-colors duration-500">
                               {catConfig.icon}
@@ -306,7 +305,7 @@ export default function CalendarioPage() {
                                 {evt.title}
                               </h3>
                             </div>
-                            
+
                             <p className="font-sans text-sm text-brand-charcoal-light/80 font-medium leading-relaxed">
                               {evt.description}
                             </p>
@@ -335,7 +334,7 @@ export default function CalendarioPage() {
 
         {/* Bento Card de Sincronização e Download */}
         <div className="mt-12 bg-white rounded-[3rem] p-8 md:p-12 border-2 border-brand-orange/20 shadow-xl shadow-brand-orange/5 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-          
+
           <div className="absolute right-0 top-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-[60px] pointer-events-none"></div>
 
           <div className="flex flex-col gap-4 max-w-xl relative z-10 text-center md:text-left">

@@ -5,13 +5,13 @@ export default function InfraestruturaPage() {
   return (
     <div className="pt-32 pb-0 bg-transparent">
       <section className="w-full relative overflow-x-clip">
-        
+
         {/* Blobs Coloridos no Fundo */}
         <div className="absolute top-0 right-10 w-[400px] h-[400px] bg-brand-yellow/15 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-10 left-10 w-[300px] h-[300px] bg-brand-green/10 rounded-full blur-[80px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center flex flex-col gap-16 relative z-10">
-          
+
           <div className="max-w-3xl mx-auto flex flex-col items-center gap-4">
             <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
               Um Mundo de Possibilidades
