@@ -17,6 +17,7 @@ const InfraestruturaPage = lazy(() => import('./pages/InfraestruturaPage'));
 const MatriculasPage = lazy(() => import('./pages/MatriculasPage'));
 const CalendarioPage = lazy(() => import('./pages/CalendarioPage'));
 const SegmentosPage = lazy(() => import('./pages/SegmentosPage'));
+const MatriculaRapidaPage = lazy(() => import('./pages/MatriculaRapidaPage'));
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -301,7 +302,7 @@ function PromoBannerModal() {
 
   useEffect(() => {
     // Show banner after 1.5s if not closed in this session
-    const isClosed = sessionStorage.getItem('saber_banner_closed');
+    const isClosed = sessionStorage.getItem('saber_midyear_campaign_closed');
     if (!isClosed) {
       const timer = setTimeout(() => {
         setIsOpen(true);
@@ -312,7 +313,7 @@ function PromoBannerModal() {
 
   const handleClose = () => {
     setIsOpen(false);
-    sessionStorage.setItem('saber_banner_closed', 'true');
+    sessionStorage.setItem('saber_midyear_campaign_closed', 'true');
   };
 
   useEffect(() => {
@@ -331,46 +332,54 @@ function PromoBannerModal() {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2d2a26]/40 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2d2a26]/40 backdrop-blur-sm animate-fade-in"
       role="dialog"
       aria-modal="true"
       aria-labelledby="banner-modal-title"
     >
-      <div className="bg-[#fffcf7] border-4 border-brand-charcoal/10 rounded-[2.5rem] max-w-md w-full p-8 md:p-10 shadow-[0_24px_50px_rgba(67,56,50,0.2)] relative animate-fade-in flex flex-col items-center text-center">
+      <div className="bg-[#fffcf7] border-4 border-brand-charcoal/10 rounded-[2.5rem] max-w-lg w-full overflow-hidden shadow-[0_24px_50px_rgba(67,56,50,0.2)] relative flex flex-col items-center">
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-[#2d2a26]/60 hover:text-brand-orange transition-colors duration-300 w-8 h-8 rounded-full bg-brand-charcoal/5 flex items-center justify-center font-bold text-lg cursor-pointer"
+          className="absolute top-4 right-4 z-10 text-[#2d2a26]/60 hover:text-brand-orange transition-colors duration-300 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm border border-brand-charcoal/10 flex items-center justify-center font-bold text-lg cursor-pointer"
           aria-label="Fechar banner promocional"
         >
           &times;
         </button>
 
-        {/* Playful Icon */}
-        <div className="w-16 h-16 bg-[#ffe574] text-[#ff7e1b] rounded-full flex items-center justify-center mb-6 shadow-sm">
-          <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-          </svg>
+        {/* Campaign Child-Themed Image */}
+        <div className="w-full relative overflow-hidden h-52 sm:h-60 bg-brand-orange/5 border-b-4 border-brand-charcoal/10">
+          <img 
+            src="/campanha_matricula_infantil.png" 
+            alt="Campanha de Matrículas de Meio de Ano - Colégio Saber" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute top-4 left-4 bg-brand-yellow text-brand-charcoal font-serif font-bold text-xs px-3.5 py-1.5 rounded-full border-2 border-brand-charcoal shadow-[2px_2px_0_0_#2d2a26]">
+            Vagas Abertas! 🎒
+          </div>
         </div>
 
-        {/* Title */}
-        <h3 id="banner-modal-title" className="font-serif text-3xl font-bold text-[#2d2a26] mb-4">
-          Matrículas Abertas!
-        </h3>
+        {/* Modal Content */}
+        <div className="p-8 md:p-10 flex flex-col items-center text-center">
+          {/* Title */}
+          <h3 id="banner-modal-title" className="font-serif text-2xl md:text-3xl font-bold text-brand-charcoal mb-4">
+            Matrículas de Meio de Ano!
+          </h3>
 
-        {/* Text */}
-        <p className="font-sans text-sm md:text-base text-[#524f4b] font-semibold mb-8 leading-relaxed">
-          Venha conhecer o nosso espaço inovador, afetuoso e seguro projetado para o brincar e o aprendizado completo.
-        </p>
+          {/* Text */}
+          <p className="font-sans text-xs md:text-sm text-brand-charcoal-light font-semibold mb-6 leading-relaxed">
+            Garanta a vaga do seu filho para o segundo semestre de 2026. Venha fazer parte do nosso espaço lúdico, afetuoso e seguro voltado para o desenvolvimento completo!
+          </p>
 
-        {/* CTA */}
-        <Link
-          to="/admissao"
-          onClick={handleClose}
-          className="w-full py-3.5 rounded-full bg-brand-orange text-white hover:bg-brand-orange-dark transition-all duration-300 text-sm font-bold shadow-md tracking-wide text-center"
-        >
-          Iniciar Inscrição
-        </Link>
+          {/* CTA */}
+          <Link
+            to="/matricula-rapida"
+            onClick={handleClose}
+            className="font-serif w-full py-3.5 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-bold shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-2 border-brand-charcoal text-center"
+          >
+            Fazer Inscrição Rápida
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -438,6 +447,7 @@ function App() {
                     <Route path="/calendario" element={<CalendarioPage />} />
                     <Route path="/matriculas" element={<MatriculasPage />} />
                     <Route path="/admissao" element={<AdmissaoPage />} />
+                    <Route path="/matricula-rapida" element={<MatriculaRapidaPage />} />
                   </Routes>
                 </Suspense>
               </PageTransition>
