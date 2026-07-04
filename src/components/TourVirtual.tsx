@@ -104,7 +104,7 @@ export default function TourVirtual() {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const currentX = useRef(0);
-  const maxPan = useRef(0); 
+  const maxPan = useRef(0);
 
   const updatePanLimits = () => {
     if (viewportRef.current && containerRef.current) {
@@ -285,7 +285,7 @@ export default function TourVirtual() {
               <Compass size={14} className="animate-spin-slow text-brand-orange" weight="duotone" />
               Passeio Virtual 360°
             </span>
-            <h2 className="font-doodle text-4xl sm:text-5xl text-brand-charcoal drop-shadow-sm mt-2">
+            <h2 className="font-serif font-bold text-4xl sm:text-5xl text-brand-charcoal drop-shadow-sm mt-2">
               Mergulhe no Nosso Espaço
             </h2>
             <p className="font-sans text-sm text-brand-charcoal-light/85 font-medium leading-relaxed">
@@ -311,8 +311,8 @@ export default function TourVirtual() {
                   type="button"
                   onClick={() => handleLocChange(loc)}
                   className={`px-5 py-3 font-sans text-xs font-bold tracking-wider transition-all duration-500 rounded-2xl border-2 ${isActive
-                      ? `${loc.themeBg} ${loc.themeBorder} text-white shadow-lg ${loc.themeShadow} scale-105`
-                      : 'bg-white border-brand-light-border text-brand-charcoal-light/70 hover:-translate-y-1 hover:border-brand-orange/40 hover:text-brand-orange'
+                    ? `${loc.themeBg} ${loc.themeBorder} text-white shadow-lg ${loc.themeShadow} scale-105`
+                    : 'bg-white border-brand-light-border text-brand-charcoal-light/70 hover:-translate-y-1 hover:border-brand-orange/40 hover:text-brand-orange'
                     } cursor-pointer`}
                 >
                   {loc.shortName}
@@ -389,7 +389,7 @@ export default function TourVirtual() {
                   {isOpen && (
                     <div className="hotspot-card absolute bottom-14 left-1/2 -translate-x-1/2 w-72 p-6 rounded-[2rem] bg-white border-[3px] border-brand-light-border shadow-[8px_8px_0_0_rgba(0,0,0,0.05)] z-30 flex flex-col gap-3 font-sans text-left animate-fade-in">
                       <div className="flex items-center justify-between gap-3 pb-2 border-b-2 border-brand-light-border/40">
-                        <span className={`font-doodle text-xl text-brand-charcoal leading-none`}>
+                        <span className={`font-serif font-bold text-xl text-brand-charcoal leading-none`}>
                           {hotspot.title}
                         </span>
                         <button

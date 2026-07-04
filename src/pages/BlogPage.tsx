@@ -203,8 +203,8 @@ export default function BlogPage() {
               aria-selected={selectedCategory === cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-500 ${selectedCategory === cat.id
-                  ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/20 scale-105'
-                  : 'bg-white border border-brand-light-border text-brand-charcoal-light hover:border-brand-orange hover:text-brand-orange-dark'
+                ? 'bg-brand-orange text-white shadow-md shadow-brand-orange/20 scale-105'
+                : 'bg-white border border-brand-light-border text-brand-charcoal-light hover:border-brand-orange hover:text-brand-orange-dark'
                 }`}
             >
               {cat.label}

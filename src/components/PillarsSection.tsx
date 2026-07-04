@@ -48,7 +48,7 @@ export default function PillarsSection() {
         <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
           Proposta Pedagógica
         </span>
-        <h2 className="font-doodle text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
+        <h2 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
           Os Três Pilares do Saber
         </h2>
         <p className="font-sans text-sm md:text-base text-brand-charcoal-light/80 font-medium leading-relaxed max-w-2xl mt-4">
@@ -69,7 +69,7 @@ export default function PillarsSection() {
           </div>
           <div className="p-8 flex flex-col gap-4 flex-grow bg-gradient-to-b from-white to-brand-orange/5">
             <span className="font-sans text-[10px] font-bold text-brand-orange uppercase tracking-wider">01 • Tradição</span>
-            <h3 className="font-doodle text-3xl text-brand-charcoal">Excelência Acadêmica</h3>
+            <h3 className="font-serif font-bold text-3xl text-brand-charcoal">Excelência Acadêmica</h3>
             <p className="font-sans text-sm text-brand-charcoal-light/80 font-medium leading-relaxed flex-grow">
               Rigor intelectual, leitura crítica e redação analítica. Uma base sólida para mentes pensantes e livres.
             </p>
@@ -89,7 +89,7 @@ export default function PillarsSection() {
           </div>
           <div className="p-8 flex flex-col gap-4 flex-grow bg-gradient-to-b from-white to-brand-yellow/5">
             <span className="font-sans text-[10px] font-bold text-brand-yellow-dark uppercase tracking-wider">02 • Inovação</span>
-            <h3 className="font-doodle text-3xl text-brand-charcoal">Ciência e Tecnologia</h3>
+            <h3 className="font-serif font-bold text-3xl text-brand-charcoal">Ciência e Tecnologia</h3>
             <p className="font-sans text-sm text-brand-charcoal-light/80 font-medium leading-relaxed flex-grow">
               Programação, robótica e laboratórios práticos. Preparando estudantes para os desafios do século XXI.
             </p>
@@ -109,7 +109,7 @@ export default function PillarsSection() {
           </div>
           <div className="p-8 flex flex-col gap-4 flex-grow bg-gradient-to-b from-white to-brand-blue/5">
             <span className="font-sans text-[10px] font-bold text-brand-blue-dark uppercase tracking-wider">03 • Humanismo</span>
-            <h3 className="font-doodle text-3xl text-brand-charcoal">Formação de Valores</h3>
+            <h3 className="font-serif font-bold text-3xl text-brand-charcoal">Formação de Valores</h3>
             <p className="font-sans text-sm text-brand-charcoal-light/80 font-medium leading-relaxed flex-grow">
               Inteligência emocional, solidariedade e empatia. Cidadãos compassivos prontos para liderar.
             </p>
