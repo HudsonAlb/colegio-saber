@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, CaretRight, Question, Backpack, Student, GraduationCap } from '@phosphor-icons/react';
 
-import infantilImg from '../assets/segmento_infantil.png';
-import fund1Img from '../assets/segmento_fund1.png';
-import fund2Img from '../assets/segmento_fund2.png';
-import medioImg from '../assets/segmento_medio.png';
+import infantilImg from '../assets/segmento_infantil.webp';
+import fund1Img from '../assets/segmento_fund1.webp';
+import fund2Img from '../assets/segmento_fund2.webp';
+import medioImg from '../assets/segmento_medio.webp';
 
 interface Oficina {
   title: string;

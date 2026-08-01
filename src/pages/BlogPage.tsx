@@ -29,10 +29,10 @@ const mockPosts: BlogPost[] = [
     category: 'Projetos dos Alunos',
     tags: ['Ensino Médio', 'Sustentabilidade', 'Robótica', 'Biologia'],
     date: '18 Mai 2026',
-    imageUrl: '/eco_saber_hydroponics.png',
+    imageUrl: '/eco_saber_hydroponics.webp',
     gallery: [
-      '/eco_saber_hydroponics.png',
-      '/robotics_class.png'
+      '/eco_saber_hydroponics.webp',
+      '/robotics_class.webp'
     ],
     learningObjectives: [
       'Compreender os ciclos biológicos das plantas e as reações químicas em meio aquoso.',
@@ -52,7 +52,7 @@ const mockPosts: BlogPost[] = [
     role: 'Diretora Pedagógica',
     date: '10 Mai 2026',
     readTime: '5 min de leitura',
-    imageUrl: '/robotics_class.png'
+    imageUrl: '/robotics_class.webp'
   },
   {
     id: 'robotica-educacional-amanha',
@@ -63,10 +63,10 @@ const mockPosts: BlogPost[] = [
     category: 'Projetos dos Alunos',
     tags: ['Ensino Fundamental', 'Robótica', 'Tecnologia', 'Inclusão'],
     date: '02 Mai 2026',
-    imageUrl: '/robotics_class.png',
+    imageUrl: '/robotics_class.webp',
     gallery: [
-      '/robotics_class.png',
-      '/eco_saber_hydroponics.png'
+      '/robotics_class.webp',
+      '/eco_saber_hydroponics.webp'
     ],
     learningObjectives: [
       'Aplicar raciocínio lógico e conceitos geométricos na programação de motores.',
@@ -86,7 +86,7 @@ const mockPosts: BlogPost[] = [
     role: 'Coordenadora de Línguas Estrangeiras',
     date: '24 Abr 2026',
     readTime: '4 min de leitura',
-    imageUrl: '/early_childhood_insects.png'
+    imageUrl: '/early_childhood_insects.webp'
   },
   {
     id: 'mini-mundo-insetos',
@@ -97,10 +97,10 @@ const mockPosts: BlogPost[] = [
     category: 'Projetos dos Alunos',
     tags: ['Educação Infantil', 'Ciências', 'Artes', 'Natureza'],
     date: '15 Abr 2026',
-    imageUrl: '/early_childhood_insects.png',
+    imageUrl: '/early_childhood_insects.webp',
     gallery: [
-      '/early_childhood_insects.png',
-      '/robotics_class.png'
+      '/early_childhood_insects.webp',
+      '/robotics_class.webp'
     ],
     learningObjectives: [
       'Estimular a observação detalhada, a curiosidade científica e o respeito à biodiversidade.',

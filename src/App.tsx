@@ -348,8 +348,10 @@ function PromoBannerModal() {
         {/* Campaign Child-Themed Image */}
         <div className="w-full relative overflow-hidden h-52 sm:h-60 bg-brand-orange/5 border-b-4 border-brand-charcoal/10">
           <img 
-            src="/campanha_matricula_infantil.png" 
+            src="/campanha_matricula_infantil.webp" 
             alt="Campanha de Matrículas de Meio de Ano - Colégio Saber" 
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           <div className="absolute top-4 left-4 bg-brand-yellow text-brand-charcoal font-serif font-bold text-xs px-3.5 py-1.5 rounded-full border-2 border-brand-charcoal shadow-[2px_2px_0_0_#2d2a26]">

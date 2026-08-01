@@ -112,8 +112,10 @@ ${formData.mensagem ? `- *Mensagem adicional:* ${formData.mensagem}` : ''}`;
 
           <div className="mt-8 relative z-10 rounded-2xl overflow-hidden border-2 border-brand-charcoal/10 bg-white p-2">
             <img 
-              src="/campanha_matricula.png" 
+              src="/campanha_matricula.webp" 
               alt="Ilustração da campanha de matrículas do Colégio Saber" 
+              loading="lazy"
+              decoding="async"
               className="w-full h-auto object-cover rounded-xl"
             />
           </div>

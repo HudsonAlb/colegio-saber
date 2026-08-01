@@ -3,10 +3,10 @@ import gsap from 'gsap';
 import { Info, CornersOut, ArrowsHorizontal, X, Compass, PlayCircle } from '@phosphor-icons/react';
 
 // Import de imagens panorâmicas geradas
-import bibliotecaImg from '../assets/tour_biblioteca.png';
-import laboratorioImg from '../assets/tour_laboratorio.png';
-import esportesImg from '../assets/tour_esportes.png';
-import bosqueImg from '../assets/tour_bosque.png';
+import bibliotecaImg from '../assets/tour_biblioteca.webp';
+import laboratorioImg from '../assets/tour_laboratorio.webp';
+import esportesImg from '../assets/tour_esportes.webp';
+import bosqueImg from '../assets/tour_bosque.webp';
 
 interface Hotspot {
   x: number; // Porcentagem horizontal (0 a 100)

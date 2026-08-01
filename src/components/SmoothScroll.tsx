@@ -39,17 +39,14 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     gsap.ticker.add(tickHandler);
     gsap.ticker.lagSmoothing(0);
 
-    // 4. Correção para animação pulando no mobile (Mobile Jump Fix)
+    // 4. Configuração otimizada para dispositivos móveis
     const isMobile = window.matchMedia('(max-width: 1024px)').matches;
     
     if (isMobile) {
       ScrollTrigger.config({
         ignoreMobileResize: true,
       });
-      
-      ScrollTrigger.normalizeScroll({
-        allowNestedScroll: true,
-      });
+      // Permite o scroll touch nativo sem interceptação forçada por javascript
     }
 
     // Guardar lenis no escopo global/ref para acesso em mudanças de rota

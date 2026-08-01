@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import heroImg from '../assets/hero.png';
+import heroImg from '../assets/hero.webp';
 
 export default function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -161,6 +161,10 @@ export default function Hero() {
               <img
                 src={heroImg}
                 alt="Estudante na sala de aula do Colégio Saber"
+                width={480}
+                height={480}
+                decoding="async"
+                fetchPriority="high"
                 className="w-full h-full object-cover"
               />
             </div>

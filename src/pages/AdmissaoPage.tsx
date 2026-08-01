@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { User, Envelope, Phone, Calendar, CloudArrowUp, CheckCircle, FileText, ArrowLeft, ArrowRight, File, Trash, Spinner, PaperPlaneRight, Download, Check, WarningCircle } from '@phosphor-icons/react';
-import { jsPDF } from 'jspdf';
 
 // Tipos para os dados do formulário
 interface FormData {
@@ -253,7 +252,8 @@ export default function AdmissaoPage() {
   };
 
   // --- GERAR PDF (Passo 4) ---
-  const generatePDF = () => {
+  const generatePDF = async () => {
+    const { jsPDF } = await import('jspdf');
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',

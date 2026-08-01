@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CaretRight, BookOpen, Lightbulb, Heart } from '@phosphor-icons/react';
-import tradicaoImg from '../assets/tradicao.png';
-import inovacaoImg from '../assets/inovacao.png';
-import humanismoImg from '../assets/humanismo.png';
+import tradicaoImg from '../assets/tradicao.webp';
+import inovacaoImg from '../assets/inovacao.webp';
+import humanismoImg from '../assets/humanismo.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
