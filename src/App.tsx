@@ -18,6 +18,7 @@ const MatriculasPage = lazy(() => import('./pages/MatriculasPage'));
 const CalendarioPage = lazy(() => import('./pages/CalendarioPage'));
 const SegmentosPage = lazy(() => import('./pages/SegmentosPage'));
 const MatriculaRapidaPage = lazy(() => import('./pages/MatriculaRapidaPage'));
+const AlbumPage = lazy(() => import('./pages/AlbumPage'));
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -220,6 +221,7 @@ function Footer() {
             <Link to="/pilares" className="hover:text-[#ff7e1b] transition-colors duration-300">Pilares Pedagógicos</Link>
             <Link to="/segmentos" className="hover:text-[#ff7e1b] transition-colors duration-300">Segmentos de Ensino</Link>
             <Link to="/infraestrutura" className="hover:text-[#ff7e1b] transition-colors duration-300">Infraestrutura</Link>
+            <Link to="/album" className="hover:text-[#ff7e1b] transition-colors duration-300">Galeria</Link>
             <Link to="/matriculas" className="hover:text-[#ff7e1b] transition-colors duration-300">Processo de Admissão</Link>
             <Link to="/admissao" className="hover:text-[#ff7e1b] transition-colors duration-300">Matrícula Interativa</Link>
             {/* <Link to="/calendario" className="hover:text-[#ff7e1b] transition-colors duration-300">Calendário Escolar</Link> */}
@@ -448,6 +450,7 @@ function App() {
                     <Route path="/matriculas" element={<MatriculasPage />} />
                     <Route path="/admissao" element={<AdmissaoPage />} />
                     <Route path="/matricula-rapida" element={<MatriculaRapidaPage />} />
+                    <Route path="/album" element={<AlbumPage />} />
                   </Routes>
                 </Suspense>
               </PageTransition>
