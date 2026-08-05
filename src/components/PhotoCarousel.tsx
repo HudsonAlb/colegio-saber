@@ -50,7 +50,6 @@ const PhotoCarousel = ({ photos }: PhotoCarouselProps) => {
 
   // Lightbox Handlers
   const openLightbox = (index: number) => {
-    if (emblaApi && !emblaApi.clickAllowed()) return;
     setSelectedPhotoIndex(index);
   };
 
