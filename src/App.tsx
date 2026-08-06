@@ -76,6 +76,7 @@ function Header() {
             { label: 'Educação Infantil', path: '/segmentos' },
             { label: 'Infraestrutura', path: '/infraestrutura' },
             { label: 'Calendário', path: '/calendario' },
+            { label: 'Álbum', path: '/album' },
             { label: 'Contato', path: '/admissao' }
           ].map((item, idx) => {
             const isActive = location.pathname === item.path;
@@ -134,6 +135,7 @@ function Header() {
             { label: 'Educação Infantil', path: '/segmentos' },
             { label: 'Infraestrutura', path: '/infraestrutura' },
             { label: 'Calendário', path: '/calendario' },
+            { label: 'Álbum', path: '/album' },
             { label: 'Contato', path: '/admissao' }
           ].map((item, idx) => (
             <Link
