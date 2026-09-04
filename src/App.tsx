@@ -247,7 +247,7 @@ function Footer() {
             </div>
             <div className="flex items-center gap-2">
               <Envelope size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
-              <span>admissoes@colegiosaber.com.br</span>
+              <a href="mailto:colegiosaberescada@gmail.com" className="hover:underline">colegiosaberescada@gmail.com</a>
             </div>
           </div>
         </div>
