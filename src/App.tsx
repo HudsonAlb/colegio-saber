@@ -2,11 +2,12 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { List, X, Student, MapPin, Phone, Envelope } from '@phosphor-icons/react';
+import { List, X, Student, MapPin, Phone, Envelope, CalendarBlank } from '@phosphor-icons/react';
 import SmoothScroll from './components/SmoothScroll';
 import PageTransition from './components/PageTransition';
 import WhatsappButton from './components/WhatsappButton';
 import logoSaber from './assets/LOGO-SABER.svg';
+import seteDeSetembroImg from './assets/7desetembro.webp';
 
 // Lazy loaded page components to improve initial page load speed and decouple app layout
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -303,19 +304,19 @@ function PromoBannerModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Show banner after 1.5s if not closed in this session
-    const isClosed = sessionStorage.getItem('saber_midyear_campaign_closed');
+    // Show banner after 1.2s if not closed in this session
+    const isClosed = sessionStorage.getItem('saber_7setembro_modal_closed');
     if (!isClosed) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 1500);
+      }, 1200);
       return () => clearTimeout(timer);
     }
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    sessionStorage.setItem('saber_midyear_campaign_closed', 'true');
+    sessionStorage.setItem('saber_7setembro_modal_closed', 'true');
   };
 
   useEffect(() => {
@@ -334,55 +335,73 @@ function PromoBannerModal() {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2d2a26]/40 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2d2a26]/50 backdrop-blur-sm animate-fade-in"
       role="dialog"
       aria-modal="true"
       aria-labelledby="banner-modal-title"
     >
-      <div className="bg-[#fffcf7] border-4 border-brand-charcoal/10 rounded-[2.5rem] max-w-lg w-full overflow-hidden shadow-[0_24px_50px_rgba(67,56,50,0.2)] relative flex flex-col items-center">
+      {/* Click outside to close */}
+      <div className="absolute inset-0" onClick={handleClose} />
+
+      <div className="bg-[#fffcf7] border-4 border-brand-charcoal/15 rounded-[2.5rem] max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-[0_24px_50px_rgba(67,56,50,0.25)] relative z-10 flex flex-col items-center">
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 z-10 text-[#2d2a26]/60 hover:text-brand-orange transition-colors duration-300 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm border border-brand-charcoal/10 flex items-center justify-center font-bold text-lg cursor-pointer"
+          className="absolute top-3.5 right-3.5 z-20 text-brand-charcoal hover:text-brand-orange transition-colors duration-300 w-9 h-9 rounded-full bg-white/95 hover:bg-white backdrop-blur-md border-2 border-brand-charcoal/20 shadow-md flex items-center justify-center cursor-pointer"
           aria-label="Fechar banner promocional"
         >
-          &times;
+          <X size={18} weight="bold" />
         </button>
 
-        {/* Campaign Child-Themed Image */}
-        <div className="w-full relative overflow-hidden h-52 sm:h-60 bg-brand-orange/5 border-b-4 border-brand-charcoal/10">
+        {/* 7 de Setembro Themed Image - Framed with native 16:9 aspect ratio */}
+        <div className="w-full relative overflow-hidden aspect-[16/9] bg-[#53bde5] border-b-4 border-brand-charcoal/10 flex items-center justify-center">
           <img 
-            src="/campanha_matricula_infantil.webp" 
-            alt="Campanha de Matrículas de Meio de Ano - Colégio Saber" 
-            loading="lazy"
+            src={seteDeSetembroImg} 
+            alt="7 de Setembro - Independência do Brasil - Colégio Saber" 
+            loading="eager"
             decoding="async"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center select-none pointer-events-none"
           />
-          <div className="absolute top-4 left-4 bg-brand-yellow text-brand-charcoal font-serif font-bold text-xs px-3.5 py-1.5 rounded-full border-2 border-brand-charcoal shadow-[2px_2px_0_0_#2d2a26]">
-            Vagas Abertas! 🎒
-          </div>
         </div>
 
         {/* Modal Content */}
-        <div className="p-8 md:p-10 flex flex-col items-center text-center">
+        <div className="p-6 sm:p-8 flex flex-col items-center text-center w-full">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-1.5 bg-[#ffe574] text-brand-charcoal font-sans font-bold text-xs sm:text-[13px] px-4 py-1.5 rounded-full border-2 border-brand-charcoal shadow-[2px_2px_0_0_#2d2a26] mb-3">
+            <span>🇧🇷</span>
+            <span>Semana da Pátria • Independência do Brasil</span>
+          </div>
+
           {/* Title */}
-          <h3 id="banner-modal-title" className="font-serif text-2xl md:text-3xl font-bold text-brand-charcoal mb-4">
-            Matrículas de Meio de Ano!
+          <h3 id="banner-modal-title" className="font-serif text-2xl sm:text-3xl font-extrabold text-brand-charcoal mb-3 tracking-tight">
+            7 de Setembro no Colégio Saber!
           </h3>
 
           {/* Text */}
-          <p className="font-sans text-xs md:text-sm text-brand-charcoal-light font-semibold mb-6 leading-relaxed">
-            Garanta a vaga do seu filho para o segundo semestre de 2026. Venha fazer parte do nosso espaço lúdico, afetuoso e seguro voltado para o desenvolvimento completo!
+          <p className="font-sans text-xs sm:text-[14px] text-brand-charcoal/90 font-semibold mb-6 leading-relaxed max-w-md">
+            Celebramos a história, a união e os valores que transformam o amanhã. Convidamos toda a nossa comunidade escolar a celebrar esta data com orgulho, cidadania e amor pelo conhecimento!
           </p>
 
-          {/* CTA */}
-          <Link
-            to="/matricula-rapida"
-            onClick={handleClose}
-            className="font-serif w-full py-3.5 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-bold shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-2 border-brand-charcoal text-center"
-          >
-            Fazer Inscrição Rápida
-          </Link>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3.5 w-full max-w-md">
+            <Link
+              to="/calendario"
+              onClick={handleClose}
+              className="font-sans flex-1 py-3.5 px-5 rounded-full bg-[#15803d] hover:bg-[#166534] text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-extrabold tracking-wide shadow-[3px_3px_0_0_#2d2a26] hover:shadow-[5px_5px_0_0_#2d2a26] border-2 border-brand-charcoal text-center flex items-center justify-center gap-2"
+            >
+              <CalendarBlank size={19} weight="bold" className="shrink-0 text-white" />
+              <span>Calendário Escolar</span>
+            </Link>
+
+            <Link
+              to="/matricula-rapida"
+              onClick={handleClose}
+              className="font-sans flex-1 py-3.5 px-5 rounded-full bg-[#e05300] hover:bg-[#b93800] text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-extrabold tracking-wide shadow-[3px_3px_0_0_#2d2a26] hover:shadow-[5px_5px_0_0_#2d2a26] border-2 border-brand-charcoal text-center flex items-center justify-center gap-2"
+            >
+              <Student size={19} weight="bold" className="shrink-0 text-white" />
+              <span>Matrículas Abertas</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

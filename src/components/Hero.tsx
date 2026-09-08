@@ -43,7 +43,7 @@ export default function Hero() {
       {/* BACKGROUND CORNER FLOWERS & MARGIN DECORATIONS */}
 
       {/* Left Leaf/Stem Drawing */}
-      <div className="absolute top-1/3 left-6 w-10 h-20 text-[#8acbbb] opacity-60 pointer-events-none hidden lg:block">
+      <div className="absolute top-1/3 left-6 w-10 h-20 text-[#00b894] opacity-80 pointer-events-none hidden lg:block">
         <svg viewBox="0 0 40 80" fill="currentColor">
           <path d="M20,10 C25,25 35,30 35,45 C35,60 20,70 20,70" stroke="#433832" strokeWidth="2" fill="none" />
           <circle cx="20" cy="10" r="4" />
@@ -53,7 +53,7 @@ export default function Hero() {
       </div>
 
       {/* Left Dotted Trail */}
-      <div className="absolute top-[20%] left-12 w-36 h-24 opacity-30 pointer-events-none hidden md:block">
+      <div className="absolute top-[20%] left-12 w-36 h-24 opacity-40 pointer-events-none hidden md:block">
         <svg viewBox="0 0 150 100" fill="none" stroke="#433832" strokeWidth="2.5" strokeDasharray="6 6">
           <path d="M10,80 Q45,20 80,60 T140,20" strokeLinecap="round" />
         </svg>
@@ -67,14 +67,14 @@ export default function Hero() {
       </div>
 
       {/* Right Flower in Hero Margin */}
-      <div className="absolute right-4 top-1/3 w-12 h-12 text-[#f28f8f] opacity-80 pointer-events-none hidden xl:block">
+      <div className="absolute right-4 top-1/3 w-12 h-12 text-[#ff3355] opacity-90 pointer-events-none hidden xl:block">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2a4 4 0 0 0-4 4 4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4-4zm0 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
         </svg>
       </div>
 
       {/* Right Cute Bear Outline */}
-      <div className="absolute right-6 top-[22%] w-12 h-12 text-[#433832]/35 pointer-events-none hidden xl:block">
+      <div className="absolute right-6 top-[22%] w-12 h-12 text-[#433832]/40 pointer-events-none hidden xl:block">
         <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="2.5">
           <circle cx="20" cy="22" r="12" />
           <circle cx="11" cy="12" r="4" />
@@ -86,7 +86,7 @@ export default function Hero() {
       </div>
 
       {/* Right Star */}
-      <div className="absolute right-12 bottom-[25%] w-10 h-10 text-[#fae69e] opacity-70 pointer-events-none hidden md:block">
+      <div className="absolute right-12 bottom-[25%] w-10 h-10 text-[#ffcb1e] opacity-90 pointer-events-none hidden md:block">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
         </svg>
@@ -105,7 +105,15 @@ export default function Hero() {
             {/* Colégio */}
             <span className="inline-flex flex-nowrap mr-4 sm:mr-6">
               {["C", "o", "l", "é", "g", "i", "o"].map((char, i) => {
-                const colors = ["text-[#e87c7c]", "text-[#f0925a]", "text-[#7fb3d8]", "text-[#8acbbb]", "text-[#e87c7c]", "text-[#7fb3d8]", "text-[#fdbf5c]"];
+                const colors = [
+                  "text-[#ff3355]", // C - Vermelho/Coral Intenso
+                  "text-[#ff7300]", // o - Laranja Vibrante
+                  "text-[#1588e6]", // l - Azul Celeste Intenso
+                  "text-[#00b894]", // é - Verde Água/Teal Vibrante
+                  "text-[#1588e6]", // g - Azul Celeste Intenso
+                  "text-[#ff3355]", // i - Coral/Rosa Intenso
+                  "text-[#f59e0b]"  // o - Amarelo Ouro Vivo
+                ];
                 return (
                   <span key={i} className={`playful-char inline-block ${colors[i % colors.length]}`}>
                     {char}
@@ -115,16 +123,22 @@ export default function Hero() {
               {/* Playful Colored Dashes next to Colégio */}
               <span className="playful-dashes inline-flex ml-2 self-start pt-3">
                 <svg className="w-8 h-8" viewBox="0 0 30 30" fill="none">
-                  <line x1="6" y1="22" x2="12" y2="6" stroke="#f28f8f" strokeWidth="4.5" strokeLinecap="round" />
-                  <line x1="14" y1="24" x2="20" y2="8" stroke="#e78b53" strokeWidth="4.5" strokeLinecap="round" />
-                  <line x1="22" y1="26" x2="28" y2="10" stroke="#8acbbb" strokeWidth="4.5" strokeLinecap="round" />
+                  <line x1="6" y1="22" x2="12" y2="6" stroke="#ff3355" strokeWidth="4.5" strokeLinecap="round" />
+                  <line x1="14" y1="24" x2="20" y2="8" stroke="#ff7300" strokeWidth="4.5" strokeLinecap="round" />
+                  <line x1="22" y1="26" x2="28" y2="10" stroke="#00b894" strokeWidth="4.5" strokeLinecap="round" />
                 </svg>
               </span>
             </span>
             {/* Saber */}
             <span className="inline-flex flex-nowrap">
               {["S", "a", "b", "e", "r"].map((char, i) => {
-                const colors = ["text-[#e78b53]", "text-[#fdbf5c]", "text-[#8acbbb]", "text-[#7fb3d8]", "text-[#a5d6a7]"];
+                const colors = [
+                  "text-[#ff7300]", // S - Laranja Vibrante
+                  "text-[#f59e0b]", // a - Amarelo Ouro Vivo
+                  "text-[#00b894]", // b - Verde Água/Teal Vibrante
+                  "text-[#1588e6]", // e - Azul Celeste Intenso
+                  "text-[#38b000]"  // r - Verde Folha Intenso
+                ];
                 return (
                   <span key={i} className={`playful-char inline-block ${colors[i % colors.length]}`}>
                     {char}

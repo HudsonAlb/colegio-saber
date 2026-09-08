@@ -12,18 +12,15 @@ import {
   UsersThree,
   Confetti,
   SunHorizon,
-  CalendarPlus
+  CalendarPlus,
+  Sparkle
 } from '@phosphor-icons/react';
-
-interface SchoolEvent {
-  id: string;
-  title: string;
-  description: string;
-  date: string; // YYYY-MM-DD
-  time: string; // HH:MM
-  location: string;
-  category: 'exames' | 'reunioes' | 'eventos' | 'feriados';
-}
+import {
+  getAllEventsForYear,
+  MONTH_NAMES,
+  type CalendarEvent,
+  fetchBrasilApiHolidays
+} from '../services/calendarService';
 
 const CATEGORIES = {
   exames: {
@@ -60,36 +57,28 @@ const CATEGORIES = {
   }
 };
 
-const EVENTS_DATA: SchoolEvent[] = [
-  { id: '1', title: 'Confraternização Universal', description: 'Feriado Nacional. Início de ano e recesso geral.', date: '2026-01-01', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '2', title: 'Carnaval (Recesso)', description: 'Recesso escolar de Carnaval.', date: '2026-02-16', time: 'Dia Todo', location: 'Campus', category: 'feriados' },
-  { id: '3', title: 'Carnaval (Feriado)', description: 'Feriado Nacional de Carnaval.', date: '2026-02-17', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '4', title: 'Quarta-feira de Cinzas', description: 'Recesso no período da manhã. Aulas apenas no contraturno.', date: '2026-02-18', time: 'Dia Todo', location: 'Campus', category: 'feriados' },
-  { id: '15', title: 'Reunião de Pais e Mestres', description: 'Primeiro encontro do ano para alinhar as expectativas e plano de ensino.', date: '2026-02-25', time: '19:00', location: 'Auditório Principal', category: 'reunioes' },
-  { id: '16', title: 'Simulado Diagnóstico', description: 'Avaliação para nivelamento das turmas do Ensino Médio.', date: '2026-03-10', time: '08:00', location: 'Salas de Aula', category: 'exames' },
-  { id: '5', title: 'Paixão de Cristo', description: 'Feriado Nacional (Sexta-feira Santa).', date: '2026-04-03', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '6', title: 'Páscoa', description: 'Domingo de Páscoa.', date: '2026-04-05', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '17', title: 'Festa da Família', description: 'Evento lúdico com gincanas e apresentações artísticas.', date: '2026-04-18', time: '10:00', location: 'Quadra Poliesportiva', category: 'eventos' },
-  { id: '7', title: 'Tiradentes', description: 'Feriado Nacional. Homenagem ao inconfidente Joaquim José da Silva Xavier.', date: '2026-04-21', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '8', title: 'Dia do Trabalhador', description: 'Feriado Nacional.', date: '2026-05-01', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '18', title: 'Semana de Provas - 1º Trimestre', description: 'Avaliações somativas de todas as disciplinas.', date: '2026-05-15', time: '07:30', location: 'Salas de Aula', category: 'exames' },
-  { id: '9', title: 'Corpus Christi', description: 'Feriado Nacional Religioso. Recesso escolar.', date: '2026-06-04', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '19', title: 'Festa Junina do Saber', description: 'Comidas típicas, quadrilha e muita diversão para todas as idades!', date: '2026-06-20', time: '15:00', location: 'Pátio Externo', category: 'eventos' },
-  { id: '10', title: 'Independência do Brasil', description: 'Feriado Nacional.', date: '2026-09-07', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '11', title: 'Nossa Sra. Aparecida (Dia das Crianças)', description: 'Feriado Nacional da Padroeira do Brasil.', date: '2026-10-12', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '12', title: 'Finados', description: 'Feriado Nacional.', date: '2026-11-02', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '13', title: 'Proclamação da República', description: 'Feriado Nacional.', date: '2026-11-15', time: 'Dia Todo', location: 'Brasil', category: 'feriados' },
-  { id: '20', title: 'Mostra de Ciências e Artes', description: 'Exposição dos trabalhos anuais dos alunos do Fundamental.', date: '2026-11-20', time: '09:00', location: 'Ginásio e Laboratórios', category: 'eventos' },
-  { id: '14', title: 'Natal', description: 'Feriado Nacional. Celebração do Natal.', date: '2026-12-25', time: 'Dia Todo', location: 'Brasil', category: 'feriados' }
-];
-
-const MONTH_NAMES = [
-  'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-];
-
 export default function CalendarioPage() {
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [events, setEvents] = useState<CalendarEvent[]>(() => getAllEventsForYear(currentYear));
   const [activeFilters, setActiveFilters] = useState<string[]>(['exames', 'reunioes', 'eventos', 'feriados']);
+
+  const handleSelectYear = (year: number) => {
+    setSelectedYear(year);
+    setEvents(getAllEventsForYear(year));
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchBrasilApiHolidays(selectedYear).then(() => {
+      if (isMounted) {
+        setEvents(getAllEventsForYear(selectedYear));
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedYear]);
 
   // Estado da Sincronização Google Calendar
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
@@ -107,16 +96,18 @@ export default function CalendarioPage() {
     );
   };
 
+  const todayStr = new Date().toISOString().split('T')[0];
+
   // Filtragem e Agrupamento por Mês
-  const filteredEvents = EVENTS_DATA.filter(evt => activeFilters.includes(evt.category))
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const filteredEvents = events.filter(evt => activeFilters.includes(evt.category))
+    .sort((a, b) => a.date.localeCompare(b.date));
 
   const groupedByMonth = filteredEvents.reduce((acc, evt) => {
-    const monthIdx = new Date(evt.date + 'T00:00:00').getMonth();
+    const monthIdx = parseInt(evt.date.split('-')[1], 10) - 1;
     if (!acc[monthIdx]) acc[monthIdx] = [];
     acc[monthIdx].push(evt);
     return acc;
-  }, {} as Record<number, SchoolEvent[]>);
+  }, {} as Record<number, CalendarEvent[]>);
 
   // --- GERADOR DE ARQUIVO ICS FUNCIONAL (iCalendar) ---
   const handleExportICS = () => {
@@ -125,7 +116,7 @@ export default function CalendarioPage() {
     let icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Colegio Saber//Calendario Escolar//PT',
+      `PRODID:-//Colegio Saber//Calendario Escolar ${selectedYear}//PT`,
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH'
     ].join('\r\n') + '\r\n';
@@ -156,7 +147,7 @@ export default function CalendarioPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'Calendario_Escolar_Colegio_Saber.ics');
+    link.setAttribute('download', `Calendario_Escolar_Colegio_Saber_${selectedYear}.ics`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -173,7 +164,7 @@ export default function CalendarioPage() {
   };
 
   useEffect(() => {
-    let interval: any;
+    let interval: ReturnType<typeof setInterval> | undefined;
     if (syncState === 'syncing') {
       interval = setInterval(() => {
         setSyncProgress(prev => {
@@ -215,11 +206,32 @@ export default function CalendarioPage() {
             <Calendar size={48} weight="duotone" />
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-brand-charcoal font-bold mt-2">
-            Mural Escolar
+            Mural Escolar {selectedYear}
           </h1>
           <p className="font-sans text-sm sm:text-base text-brand-charcoal-light/80 font-medium max-w-xl mx-auto leading-relaxed">
             Fique por dentro de tudo que rola no Colégio Saber! Filtre pelo que mais importa pra você e adicione as datas na sua agenda pessoal com um clique.
           </p>
+
+          {/* Seletor Dinâmico de Ano Letivo */}
+          <div className="flex items-center gap-3 mt-4 bg-brand-light-card p-1.5 rounded-full border-2 border-brand-light-border shadow-inner">
+            {[currentYear, currentYear + 1].map((year) => {
+              const isSelected = selectedYear === year;
+              return (
+                <button
+                  key={year}
+                  type="button"
+                  onClick={() => handleSelectYear(year)}
+                  className={`px-6 py-2 rounded-full font-serif text-sm font-bold transition-all duration-300 cursor-pointer ${
+                    isSelected
+                      ? 'bg-brand-charcoal text-white shadow-[3px_3px_0_0_#ff7e1b] -translate-y-0.5'
+                      : 'text-brand-charcoal-light/70 hover:text-brand-orange hover:bg-white'
+                  }`}
+                >
+                  Ano Letivo {year}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Filtros Bento (Humanizados) */}
@@ -279,12 +291,20 @@ export default function CalendarioPage() {
                   <div className="flex flex-col gap-6 w-full relative z-10 pl-4 md:pl-0 border-l-4 border-brand-light-border/50 md:border-none ml-4 md:ml-0">
                     {events.map((evt) => {
                       const catConfig = CATEGORIES[evt.category];
-                      const day = new Date(evt.date + 'T00:00:00').getDate();
+                      const day = parseInt(evt.date.split('-')[2], 10);
+                      const isPast = evt.date < todayStr;
+                      const isToday = evt.date === todayStr;
 
                       return (
                         <div
                           key={evt.id}
-                          className="bg-white p-6 md:p-8 rounded-[2rem] border-2 border-brand-light-border shadow-sm hover:shadow-xl hover:border-brand-orange/30 transition-all duration-500 flex flex-col sm:flex-row gap-6 group"
+                          className={`bg-white p-6 md:p-8 rounded-[2rem] border-2 transition-all duration-500 flex flex-col sm:flex-row gap-6 group ${
+                            isPast
+                              ? 'border-brand-light-border/70 opacity-80 hover:opacity-100 hover:border-brand-orange/30'
+                              : isToday
+                                ? 'border-brand-orange shadow-lg shadow-brand-orange/10 ring-2 ring-brand-orange/20'
+                                : 'border-brand-light-border shadow-sm hover:shadow-xl hover:border-brand-orange/30'
+                          }`}
                         >
                           {/* Data e Ícone */}
                           <div className="flex flex-col items-center justify-center bg-brand-light-card rounded-2xl p-4 min-w-[100px] border border-brand-light-border group-hover:bg-brand-orange/5 transition-colors duration-500">
@@ -298,9 +318,21 @@ export default function CalendarioPage() {
                           {/* Conteúdo do Evento */}
                           <div className="flex flex-col justify-center flex-1 gap-3">
                             <div>
-                              <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2 ${catConfig.bgClass}`}>
-                                {catConfig.label}
-                              </span>
+                              <div className="flex items-center gap-2 flex-wrap mb-2">
+                                <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${catConfig.bgClass}`}>
+                                  {catConfig.label}
+                                </span>
+                                {isToday && (
+                                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-orange text-white animate-pulse">
+                                    <Sparkle size={12} weight="fill" /> Hoje!
+                                  </span>
+                                )}
+                                {isPast && (
+                                  <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-charcoal/5 text-brand-charcoal/50">
+                                    Concluído
+                                  </span>
+                                )}
+                              </div>
                               <h3 className="font-serif text-xl sm:text-2xl font-bold text-brand-charcoal leading-tight">
                                 {evt.title}
                               </h3>
