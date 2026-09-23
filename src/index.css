@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&family=Kalam:wght@300;400;700&display=swap');
+@import "@fontsource-variable/fredoka/wght.css";
+@import "@fontsource-variable/quicksand/wght.css";
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Fredoka", sans-serif;
-  --font-sans: "Quicksand", sans-serif;
-  --font-doodle: "Kalam", cursive;
+  --font-serif: "Fredoka Variable", "Fredoka", sans-serif;
+  --font-sans: "Quicksand Variable", "Quicksand", sans-serif;
 
   --color-brand-orange: #ff7e1b;
   --color-brand-orange-light: #ffa15c;
@@ -221,4 +221,24 @@ html.high-contrast [tabindex="0"]:focus,
 html.high-contrast [role="button"]:focus {
   outline: 3px solid #ffff00 !important;
   outline-offset: 2px !important;
+}
+/* Acessibilidade: respeita "reduzir movimento" do sistema operacional.
+   Animações e transições CSS terminam instantaneamente; o GSAP é tratado em src/lib/motion.ts */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* O HTML pré-renderizado já traz o texto do hero; com JS ativo ele começa oculto
+   para a animação de entrada (Hero.tsx) não "piscar" o conteúdo antes de animar */
+.js .hero-text-content,
+.js .playful-char,
+.js .playful-dashes {
+  opacity: 0;
 }

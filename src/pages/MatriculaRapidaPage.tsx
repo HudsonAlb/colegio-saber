@@ -114,6 +114,8 @@ ${formData.mensagem ? `- *Mensagem adicional:* ${formData.mensagem}` : ''}`;
             <img 
               src="/campanha_matricula.webp" 
               alt="Ilustração da campanha de matrículas do Colégio Saber" 
+              width={1024}
+              height={1024}
               loading="lazy"
               decoding="async"
               className="w-full h-auto object-cover rounded-xl"

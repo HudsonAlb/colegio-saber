@@ -1,40 +1,51 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '../lib/motion';
 import heroImg from '../assets/hero.webp';
+import heroImg480 from '../assets/hero-480.webp';
+import heroImg768 from '../assets/hero-768.webp';
 
 export default function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const elementsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const tl = gsap.timeline();
+  // useLayoutEffect aplica o estado inicial antes da primeira pintura (sem "piscar" o conteúdo)
+  useLayoutEffect(() => {
+    // Contexto escopado ao hero: os tweens infinitos são revertidos ao sair da página
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
 
-    // Smooth reveal animation
-    if (titleRef.current) {
-      tl.fromTo(titleRef.current.querySelectorAll('.playful-char, .playful-dashes'),
-        { opacity: 0, y: 30, scale: 0.8 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.04, ease: 'back.out(1.5)' }
+      // Smooth reveal animation
+      if (titleRef.current) {
+        tl.fromTo(titleRef.current.querySelectorAll('.playful-char, .playful-dashes'),
+          { opacity: 0, y: 30, scale: 0.8 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.04, ease: 'expo.out' }
+        );
+      }
+
+      tl.fromTo('.hero-text-content',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
+        '-=0.4'
       );
-    }
 
-    tl.fromTo('.hero-text-content',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
-      '-=0.4'
-    );
+      // Imagem do hero (LCP) anima só transform: fica visível desde a primeira pintura
+      tl.fromTo('.hero-image-container',
+        { scale: 0.92, rotate: -2 },
+        { scale: 1, rotate: 0, duration: 1.2, ease: 'expo.out' },
+        0
+      );
 
-    tl.fromTo('.hero-image-container',
-      { opacity: 0, scale: 0.9, rotate: -2 },
-      { opacity: 1, scale: 1, rotate: 0, duration: 1.2, ease: 'elastic.out(1, 0.75)' },
-      '-=0.8'
-    );
+      // Floating animations for overlapping decorative items (desligadas com "reduzir movimento")
+      if (prefersReducedMotion()) return;
+      gsap.to('.float-sun-overlap', { y: -6, duration: 3, repeat: -1, yoyo: true, ease: 'power3.inOut' });
+      gsap.to('.float-cloud-blue', { x: 8, duration: 4, repeat: -1, yoyo: true, ease: 'power3.inOut' });
+      gsap.to('.float-cloud-white', { x: -6, duration: 5, repeat: -1, yoyo: true, ease: 'power3.inOut' });
+      gsap.to('.float-rainbow-overlap', { y: 4, rotate: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'power3.inOut' });
+    }, elementsRef);
 
-    // Floating animations for overlapping decorative items
-    gsap.to('.float-sun-overlap', { y: -6, duration: 3, repeat: -1, yoyo: true, ease: 'power1.inOut' });
-    gsap.to('.float-cloud-blue', { x: 8, duration: 4, repeat: -1, yoyo: true, ease: 'power1.inOut' });
-    gsap.to('.float-cloud-white', { x: -6, duration: 5, repeat: -1, yoyo: true, ease: 'power1.inOut' });
-    gsap.to('.float-rainbow-overlap', { y: 4, rotate: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -102,8 +113,10 @@ export default function Hero() {
             ref={titleRef}
             className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-bold leading-[1.05] tracking-tight text-brand-charcoal mb-6 flex flex-wrap items-center select-none"
           >
+            {/* Texto real do título para buscadores e leitores de tela (as letras abaixo são só visuais) */}
+            <span className="sr-only">Colégio Saber — Escola em Escada-PE</span>
             {/* Colégio */}
-            <span className="inline-flex flex-nowrap mr-4 sm:mr-6">
+            <span aria-hidden="true" className="inline-flex flex-nowrap mr-4 sm:mr-6">
               {["C", "o", "l", "é", "g", "i", "o"].map((char, i) => {
                 const colors = ["text-[#e87c7c]", "text-[#f0925a]", "text-[#7fb3d8]", "text-[#8acbbb]", "text-[#e87c7c]", "text-[#7fb3d8]", "text-[#fdbf5c]"];
                 return (
@@ -122,7 +135,7 @@ export default function Hero() {
               </span>
             </span>
             {/* Saber */}
-            <span className="inline-flex flex-nowrap">
+            <span aria-hidden="true" className="inline-flex flex-nowrap">
               {["S", "a", "b", "e", "r"].map((char, i) => {
                 const colors = ["text-[#e78b53]", "text-[#fdbf5c]", "text-[#8acbbb]", "text-[#7fb3d8]", "text-[#a5d6a7]"];
                 return (
@@ -160,7 +173,9 @@ export default function Hero() {
             <div className="hero-image-container relative z-10 w-60 h-60 min-[375px]:w-72 min-[375px]:h-72 sm:w-[400px] sm:h-[400px] lg:w-[480px] lg:h-[480px] rounded-full overflow-hidden border-8 border-white shadow-[0_16px_35px_rgba(67,56,50,0.1)] bg-white">
               <img
                 src={heroImg}
-                alt="Estudante na sala de aula do Colégio Saber"
+                srcSet={`${heroImg480} 480w, ${heroImg768} 768w, ${heroImg} 1024w`}
+                sizes="(min-width: 1024px) 480px, (min-width: 640px) 400px, 288px"
+                alt="Menina escrevendo no caderno durante a aula"
                 width={480}
                 height={480}
                 decoding="async"

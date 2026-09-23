@@ -75,7 +75,7 @@ export default function StatsSection() {
         gsap.to(obj, {
           val: stat.value,
           duration: 2.2,
-          ease: 'power2.out',
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 75%',
