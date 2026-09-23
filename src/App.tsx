@@ -59,7 +59,7 @@ function Header() {
     <>
       <header
         role="banner"
-        className="w-full relative z-40 transition-all duration-500 bg-white/95 backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
+        className="w-full relative z-40 transition-all duration-500 bg-white lg:bg-white/95 lg:backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
       >
         {/* Logo */}
         <Link

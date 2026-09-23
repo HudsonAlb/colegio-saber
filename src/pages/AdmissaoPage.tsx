@@ -402,7 +402,7 @@ export default function AdmissaoPage() {
   const getNextDays = (count: number) => {
     const dates = [];
     const today = new Date();
-    let current = new Date(today);
+    const current = new Date(today);
 
     while (dates.length < count) {
       current.setDate(current.getDate() + 1);

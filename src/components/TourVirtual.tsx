@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../lib/motion';
 import { Info, CornersOut, ArrowsHorizontal, X, Compass, PlayCircle } from '@phosphor-icons/react';
@@ -125,12 +125,14 @@ export default function TourVirtual() {
     return () => window.removeEventListener('resize', updatePanLimits);
   }, [activeLoc]);
 
-  useEffect(() => {
-    startAutoPan();
-    return () => stopAutoPan();
-  }, [activeLoc]);
+  const stopAutoPan = useCallback(() => {
+    if (autoPanTween.current) {
+      autoPanTween.current.kill();
+      autoPanTween.current = null;
+    }
+  }, []);
 
-  const startAutoPan = () => {
+  const startAutoPan = useCallback(() => {
     stopAutoPan();
     // Pan automático infinito não roda com "reduzir movimento" ativo
     if (prefersReducedMotion()) return;
@@ -138,7 +140,8 @@ export default function TourVirtual() {
       const targetX = maxPan.current * 0.8;
       const currentVal = currentX.current;
       const distance = Math.abs(targetX - currentVal);
-      const duration = distance / 15;
+      // power3.inOut acelera devagar: duração menor que no pan linear para o movimento ser perceptível
+      const duration = distance / 30;
 
       autoPanTween.current = gsap.to(containerRef.current, {
         x: targetX,
@@ -153,14 +156,12 @@ export default function TourVirtual() {
         }
       });
     }
-  };
+  }, [stopAutoPan]);
 
-  const stopAutoPan = () => {
-    if (autoPanTween.current) {
-      autoPanTween.current.kill();
-      autoPanTween.current = null;
-    }
-  };
+  useEffect(() => {
+    startAutoPan();
+    return () => stopAutoPan();
+  }, [activeLoc, startAutoPan, stopAutoPan]);
 
   const handleDragStart = (clientX: number) => {
     stopAutoPan();

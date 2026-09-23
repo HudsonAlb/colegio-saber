@@ -14,36 +14,37 @@ interface StatItem {
   icon: React.ElementType;
 }
 
+// Dados estáticos fora do componente: não são recriados a cada render
+const stats: StatItem[] = [
+  {
+    id: 'tradicao',
+    value: 30,
+    suffix: '+',
+    label: 'Anos de Tradição',
+    description: 'Aliando solidez pedagógica à evolução constante de nossa metodologia.',
+    icon: Star
+  },
+  {
+    id: 'aprovacao',
+    value: 100,
+    suffix: '%',
+    label: 'Aprovação Nacional',
+    description: 'Estudantes preparados para ingressar nas universidades mais concorridas.',
+    icon: Target
+  },
+  {
+    id: 'lideres',
+    value: 12,
+    suffix: 'k+',
+    label: 'Líderes Formados',
+    description: 'Cidadãos atuantes, preparados para impactar positivamente a sociedade.',
+    icon: Users
+  }
+];
+
 export default function StatsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const elementsRef = useRef<(HTMLSpanElement | null)[]>([]);
-
-  const stats: StatItem[] = [
-    {
-      id: 'tradicao',
-      value: 30,
-      suffix: '+',
-      label: 'Anos de Tradição',
-      description: 'Aliando solidez pedagógica à evolução constante de nossa metodologia.',
-      icon: Star
-    },
-    {
-      id: 'aprovacao',
-      value: 100,
-      suffix: '%',
-      label: 'Aprovação Nacional',
-      description: 'Estudantes preparados para ingressar nas universidades mais concorridas.',
-      icon: Target
-    },
-    {
-      id: 'lideres',
-      value: 12,
-      suffix: 'k+',
-      label: 'Líderes Formados',
-      description: 'Cidadãos atuantes, preparados para impactar positivamente a sociedade.',
-      icon: Users
-    }
-  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {

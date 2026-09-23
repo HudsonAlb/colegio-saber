@@ -174,7 +174,7 @@ export default function CalendarioPage() {
   };
 
   useEffect(() => {
-    let interval: any;
+    let interval: ReturnType<typeof setInterval> | undefined;
     if (syncState === 'syncing') {
       interval = setInterval(() => {
         setSyncProgress(prev => {

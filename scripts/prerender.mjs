@@ -60,6 +60,18 @@ for (const [routePath, meta] of Object.entries(ROUTE_META)) {
   console.log(`  pré-renderizado ${routePath.padEnd(20)} → ${path.relative(root, outFile)}`);
 }
 
+// sitemap.xml gerado a partir das mesmas rotas (nunca fica dessincronizado); lastmod = data do build
+const lastmod = new Date().toISOString().slice(0, 10);
+const sitemapUrls = Object.entries(ROUTE_META)
+  .filter(([, meta]) => !meta.noindex)
+  .map(([routePath]) => `  <url>\n    <loc>${SITE_URL}${routePath}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`)
+  .join('\n');
+fs.writeFileSync(
+  path.join(distDir, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`,
+);
+console.log('  gerado sitemap.xml');
+
 // 404.html: servido pela hospedagem (com status 404) para qualquer URL desconhecida
 fs.writeFileSync(path.join(distDir, '404.html'), await renderPage('/404', NOT_FOUND_META));
 console.log('  pré-renderizado 404                  → dist/404.html');
