@@ -1,47 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CalendarBlank, ArrowRight, Sun, Leaf, Confetti } from '@phosphor-icons/react';
+import { CalendarBlank, ArrowRight, Sun, Sparkle } from '@phosphor-icons/react';
+import { getUpcomingEvents, type UpcomingHolidayCard } from '../services/calendarService';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function CalendarioSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const currentYear = new Date().getFullYear();
 
-  // Exibindo apenas os 3 próximos feriados para a HomePage (Fevereiro a Abril de 2026)
-  const upcomingHolidays = [
-    {
-      id: '1',
-      date: '17',
-      month: 'FEV',
-      title: 'Carnaval (Feriado)',
-      description: 'Feriado Nacional de Carnaval. Recesso.',
-      icon: Confetti,
-      color: 'bg-brand-pink',
-      shadow: 'shadow-[4px_4px_0_0_#d44c82]'
-    },
-    {
-      id: '2',
-      date: '03',
-      month: 'ABR',
-      title: 'Paixão de Cristo',
-      description: 'Sexta-feira Santa. Feriado Religioso.',
-      icon: Leaf,
-      color: 'bg-brand-green',
-      shadow: 'shadow-[4px_4px_0_0_#3f882b]'
-    },
-    {
-      id: '3',
-      date: '21',
-      month: 'ABR',
-      title: 'Tiradentes',
-      description: 'Feriado Nacional. Homenagem a Tiradentes.',
-      icon: Sun,
-      color: 'bg-brand-yellow',
-      shadow: 'shadow-[4px_4px_0_0_#d89f00]'
-    }
-  ];
+  // Próximos eventos calculados automaticamente a partir da data atual
+  const [upcomingEvents] = useState<UpcomingHolidayCard[]>(() => getUpcomingEvents(3));
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -64,7 +35,7 @@ export default function CalendarioSection() {
       );
     }, containerRef);
     return () => ctx.revert();
-  }, []);
+  }, [upcomingEvents]);
 
   return (
     <section ref={containerRef} className="py-24 bg-[#fff8f3] border-t-4 border-dashed border-brand-orange/20 relative z-10 overflow-hidden">
@@ -89,7 +60,7 @@ export default function CalendarioSection() {
             </span>
           </div>
           <h2 className="font-serif text-4xl md:text-5xl text-brand-charcoal font-medium">
-            Calendário <span className="text-brand-orange">Escolar 2026</span>
+            Calendário <span className="text-brand-orange">Escolar {currentYear}</span>
           </h2>
           <p className="font-sans text-sm text-brand-charcoal-light/80 font-medium leading-relaxed">
             Consulte as datas dos feriados nacionais, recessos e principais eventos pedagógicos do ano para planejar sua rotina familiar com tranquilidade.
@@ -106,28 +77,40 @@ export default function CalendarioSection() {
           </Link>
         </div>
 
-        {/* Right: Upcoming Holidays Cards */}
+        {/* Right: Upcoming Events Cards */}
         <div className="w-full md:w-7/12 flex flex-col gap-4">
-          {upcomingHolidays.map((holiday) => {
-            const Icon = holiday.icon;
+          {upcomingEvents.map((item) => {
+            const Icon = item.icon || Sun;
             return (
               <div
-                key={holiday.id}
-                className="cal-card flex items-center gap-6 p-4 md:p-5 rounded-2xl bg-white border-2 border-brand-charcoal shadow-[4px_4px_0_0_#2d2a26] hover:-translate-y-1 transition-transform duration-300"
+                key={item.id}
+                className="cal-card flex items-center gap-6 p-4 md:p-5 rounded-2xl bg-white border-2 border-brand-charcoal shadow-[4px_4px_0_0_#2d2a26] hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden"
               >
                 {/* Date Badge */}
-                <div className={`w-16 h-16 rounded-xl flex flex-col items-center justify-center shrink-0 border-2 border-brand-charcoal ${holiday.color} text-white ${holiday.shadow} -rotate-3`}>
-                  <span className="font-serif text-xl font-bold leading-none">{holiday.date}</span>
-                  <span className="font-sans text-[10px] uppercase tracking-widest font-semibold mt-1">{holiday.month}</span>
+                <div className={`w-16 h-16 rounded-xl flex flex-col items-center justify-center shrink-0 border-2 border-brand-charcoal ${item.color} text-white ${item.shadow} -rotate-3`}>
+                  <span className="font-serif text-xl font-bold leading-none">{item.date}</span>
+                  <span className="font-sans text-[10px] uppercase tracking-widest font-semibold mt-1">{item.month}</span>
                 </div>
 
                 {/* Info */}
                 <div className="flex flex-col gap-1 w-full">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-serif text-lg font-bold text-brand-charcoal">{holiday.title}</h3>
-                    <Icon size={24} className="text-brand-charcoal/20" weight="duotone" />
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-serif text-lg font-bold text-brand-charcoal">{item.title}</h3>
+                      {item.isToday && (
+                        <span className="bg-brand-orange text-white text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                          <Sparkle size={10} weight="fill" /> Hoje
+                        </span>
+                      )}
+                      {item.daysRemaining !== undefined && item.daysRemaining > 0 && item.daysRemaining <= 7 && (
+                        <span className="bg-brand-yellow/30 text-brand-charcoal text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full">
+                          Em {item.daysRemaining} {item.daysRemaining === 1 ? 'dia' : 'dias'}
+                        </span>
+                      )}
+                    </div>
+                    <Icon size={24} className="text-brand-charcoal/20 shrink-0" weight="duotone" />
                   </div>
-                  <p className="font-sans text-[11px] font-semibold text-brand-charcoal-light/70">{holiday.description}</p>
+                  <p className="font-sans text-[11px] font-semibold text-brand-charcoal-light/70">{item.description}</p>
                 </div>
               </div>
             );

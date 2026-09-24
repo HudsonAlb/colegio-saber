@@ -6,10 +6,72 @@ import Hero from '../components/Hero';
 import HighlightsSection from '../components/HighlightsSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import CalendarioSection from '../components/CalendarioSection';
-import { BookOpen, GraduationCap, PenNib } from '@phosphor-icons/react';
+import { BookOpen, GraduationCap, PenNib, Images } from '@phosphor-icons/react';
+import PhotoCarousel from '../components/PhotoCarousel';
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient, urlFor } from '../lib/sanity';
+import tourBiblioteca from '../assets/tour_biblioteca.webp';
+import tourBosque from '../assets/tour_bosque.webp';
+import tourEsportes from '../assets/tour_esportes.webp';
+import tourLaboratorio from '../assets/tour_laboratorio.webp';
+
+const defaultPhotos = [
+  { src: tourBiblioteca, alt: "Biblioteca do Colégio Saber com amplo acervo e espaço para estudos.", label: "Biblioteca Interativa", category: "Infraestrutura" },
+  { src: tourBosque, alt: "Área verde e bosque para atividades ao ar livre e contato com a natureza.", label: "Bosque e Área Verde", category: "Meio Ambiente" },
+  { src: tourEsportes, alt: "Quadra poliesportiva coberta para práticas esportivas e eventos.", label: "Complexo Esportivo", category: "Esportes" },
+  { src: tourLaboratorio, alt: "Laboratório de ciências moderno e equipado para aulas práticas.", label: "Laboratório de Ciências", category: "Educação" },
+  { src: "/robotics_class.webp", alt: "Alunos na aula de robótica e inovação tecnológica.", label: "Aula de Robótica", category: "Inovação" },
+];
+
+const fetchRecentPhotos = async () => {
+  try {
+    const query = `*[_type == "galleryImage"] | order(_createdAt desc)[0...8] {
+      title, altText, image, album->{ title }
+    }`;
+    const galleryImages = await sanityClient.fetch(query) || [];
+    
+    let allPhotos = galleryImages
+      .filter((img: any) => img.image)
+      .map((img: any) => ({
+        src: urlFor(img.image).url(),
+        alt: img.altText || "",
+        label: img.title || img.album?.title || "Galeria"
+      }));
+
+    if (allPhotos.length < 8) {
+      const albumQuery = `*[_type == "album"] | order(_createdAt desc)[0...4] { title, photos[0...6] }`;
+      const albums = await sanityClient.fetch(albumQuery) || [];
+      albums.forEach((alb: any) => {
+        if (alb.photos) {
+          alb.photos.forEach((photo: any) => {
+            if (photo.asset) {
+              allPhotos.push({
+                src: urlFor(photo).url(),
+                alt: alb.title || "Nossos Momentos",
+                label: alb.title || "Nossos Momentos"
+              });
+            }
+          });
+        }
+      });
+    }
+
+    return allPhotos.slice(0, 8);
+  } catch (error) {
+    console.error("Erro ao buscar fotos do Sanity:", error);
+    return [];
+  }
+};
 
 export default function HomePage() {
   const quickAccessRef = useRef<HTMLDivElement>(null);
+
+  const { data: homePhotos = [], isLoading } = useQuery({
+    queryKey: ['recentPhotosHome'],
+    queryFn: fetchRecentPhotos,
+  });
+
+  const carouselPhotos = homePhotos.length > 0 ? homePhotos : defaultPhotos;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -44,6 +106,11 @@ export default function HomePage() {
       <HighlightsSection />
       <CalendarioSection />
       <TestimonialsSection />
+
+      {/* Photo Carousel Section */}
+      {!isLoading && (
+        <PhotoCarousel photos={carouselPhotos} />
+      )}
 
       {/* Quick Access Block for Parents */}
       <section ref={quickAccessRef} className="py-[var(--spacing-fluid-section)] bg-brand-light relative z-10">
@@ -94,7 +161,19 @@ export default function HomePage() {
                 border: 'border-[#fae69e]',
                 tagColor: 'text-[#d89f00]',
                 icon: <PenNib size={40} weight="duotone" className="text-[#d89f00]" />,
-                colSpan: 'md:col-span-12 lg:col-span-12' // Full width hero-like card
+                colSpan: 'md:col-span-6 lg:col-span-6' // Changed to 6 for balance
+              },
+              {
+                tag: 'Galeria',
+                title: 'Nossos Momentos',
+                desc: 'Veja as fotos e vídeos dos eventos e do dia a dia no Colégio.',
+                link: '/album',
+                btnText: 'Ver Galeria',
+                bg: 'bg-[#f4f0ff]',
+                border: 'border-[#e0d4ff]',
+                tagColor: 'text-[#6b21a8]',
+                icon: <Images size={40} weight="duotone" className="text-[#6b21a8]" />,
+                colSpan: 'md:col-span-6 lg:col-span-6' // Added Gallery card
               }
             ].map((card, idx) => (
               <div

@@ -76,7 +76,7 @@ ${formData.mensagem ? `- *Mensagem adicional:* ${formData.mensagem}` : ''}`;
 
     const subject = encodeURIComponent('Interesse em Matrícula de Meio de Ano - Colégio Saber');
     const body = encodeURIComponent(buildMessage().replace(/\*/g, '')); // Remove negritos do whatsapp para email
-    window.location.href = `mailto:admissoes@colegiosaber.com.br?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:colegiosaberescada@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (

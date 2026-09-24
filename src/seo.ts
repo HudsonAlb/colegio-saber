@@ -36,6 +36,11 @@ export const ROUTE_META: Record<string, RouteMeta> = {
     description:
       'Acompanhe o mural escolar do Colégio Saber: eventos, reuniões e datas importantes, com opção de adicionar direto à sua agenda.',
   },
+  '/album': {
+    title: 'Álbum de Fotos: Nossos Momentos | Colégio Saber',
+    description:
+      'Veja as fotos dos eventos, projetos e atividades da comunidade escolar do Colégio Saber em Escada-PE, organizadas por álbum.',
+  },
   '/historia': {
     title: 'Nossa História desde 1995 | Colégio Saber — Escada-PE',
     description:
