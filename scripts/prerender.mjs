@@ -72,6 +72,10 @@ fs.writeFileSync(
 );
 console.log('  gerado sitemap.xml');
 
+// robots.txt também gerado aqui, para apontar para o sitemap no mesmo domínio (VITE_SITE_URL)
+fs.writeFileSync(path.join(distDir, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+console.log('  gerado robots.txt');
+
 // 404.html: servido pela hospedagem (com status 404) para qualquer URL desconhecida
 fs.writeFileSync(path.join(distDir, '404.html'), await renderPage('/404', NOT_FOUND_META));
 console.log('  pré-renderizado 404                  → dist/404.html');
