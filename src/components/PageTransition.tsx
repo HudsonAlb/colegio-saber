@@ -40,7 +40,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
         setDisplayChildren(children);
         
         // Garante que o scroll vá para o topo instantaneamente
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       }
     });
 
@@ -55,7 +55,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
       }
     );
 
-  }, [location.pathname]); // Monitora apenas o caminho da rota para evitar triggers redundantes
+    // Monitora apenas o caminho da rota: incluir children dispararia a transição a cada re-render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   return (
     <div ref={containerRef} className="w-full">

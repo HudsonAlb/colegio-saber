@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { prefersReducedMotion } from '../lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +16,13 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   const location = useLocation();
 
   useEffect(() => {
+    // Com "reduzir movimento" ativo, mantém o scroll nativo do navegador (sem Lenis)
+    if (prefersReducedMotion()) {
+      window.lenisInstance = null;
+      ScrollTrigger.refresh();
+      return;
+    }
+
     // 1. Initialize Lenis Smooth Scroll
     const lenis = new Lenis({
       duration: 1.0, // Snappier scroll duration for parent usability
@@ -50,7 +58,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     }
 
     // Guardar lenis no escopo global/ref para acesso em mudanças de rota
-    (window as any).lenisInstance = lenis;
+    window.lenisInstance = lenis;
 
     // Refresh ScrollTrigger positions after initialization
     ScrollTrigger.refresh();
@@ -59,14 +67,14 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     return () => {
       gsap.ticker.remove(tickHandler);
       lenis.destroy();
-      (window as any).lenisInstance = null;
+      window.lenisInstance = null;
       ScrollTrigger.clearMatchMedia();
     };
   }, []);
 
   // Monitora mudança de rota para reiniciar o scroll e recalcular ScrollTrigger
   useEffect(() => {
-    const lenis = (window as any).lenisInstance;
+    const lenis = window.lenisInstance;
     
     if (lenis) {
       // Força o Lenis a resetar a posição de rolagem para o topo imediatamente

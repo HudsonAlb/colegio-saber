@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '../lib/motion';
 import { Info, CornersOut, ArrowsHorizontal, X, Compass, PlayCircle } from '@phosphor-icons/react';
 
 // Import de imagens panorâmicas geradas
@@ -124,23 +125,28 @@ export default function TourVirtual() {
     return () => window.removeEventListener('resize', updatePanLimits);
   }, [activeLoc]);
 
-  useEffect(() => {
-    startAutoPan();
-    return () => stopAutoPan();
-  }, [activeLoc]);
+  const stopAutoPan = useCallback(() => {
+    if (autoPanTween.current) {
+      autoPanTween.current.kill();
+      autoPanTween.current = null;
+    }
+  }, []);
 
-  const startAutoPan = () => {
+  const startAutoPan = useCallback(() => {
     stopAutoPan();
+    // Pan automático infinito não roda com "reduzir movimento" ativo
+    if (prefersReducedMotion()) return;
     if (containerRef.current) {
       const targetX = maxPan.current * 0.8;
       const currentVal = currentX.current;
       const distance = Math.abs(targetX - currentVal);
-      const duration = distance / 15;
+      // power3.inOut acelera devagar: duração menor que no pan linear para o movimento ser perceptível
+      const duration = distance / 30;
 
       autoPanTween.current = gsap.to(containerRef.current, {
         x: targetX,
         duration: duration,
-        ease: 'none',
+        ease: 'power3.inOut',
         repeat: -1,
         yoyo: true,
         onUpdate: () => {
@@ -150,14 +156,12 @@ export default function TourVirtual() {
         }
       });
     }
-  };
+  }, [stopAutoPan]);
 
-  const stopAutoPan = () => {
-    if (autoPanTween.current) {
-      autoPanTween.current.kill();
-      autoPanTween.current = null;
-    }
-  };
+  useEffect(() => {
+    startAutoPan();
+    return () => stopAutoPan();
+  }, [activeLoc, startAutoPan, stopAutoPan]);
 
   const handleDragStart = (clientX: number) => {
     stopAutoPan();
@@ -226,7 +230,7 @@ export default function TourVirtual() {
     gsap.to(viewportRef.current, {
       opacity: 0,
       scale: 0.98,
-      duration: 0.4,
+      duration: 0.6,
       ease: 'power3.inOut',
       onComplete: () => {
         setActiveLoc(loc);
@@ -247,14 +251,14 @@ export default function TourVirtual() {
       let newX = currentX.current + 100;
       if (newX > 0) newX = 0;
       currentX.current = newX;
-      gsap.to(containerRef.current, { x: newX, duration: 0.3, ease: 'power2.out' });
+      gsap.to(containerRef.current, { x: newX, duration: 0.6, ease: 'power3.out' });
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       stopAutoPan();
       let newX = currentX.current - 100;
       if (newX < maxPan.current) newX = maxPan.current;
       currentX.current = newX;
-      gsap.to(containerRef.current, { x: newX, duration: 0.3, ease: 'power2.out' });
+      gsap.to(containerRef.current, { x: newX, duration: 0.6, ease: 'power3.out' });
     } else if (e.key === 'Escape') {
       e.preventDefault();
       setActiveHotspot(null);
@@ -358,6 +362,8 @@ export default function TourVirtual() {
             <img
               src={activeLoc.image}
               alt={`Visualização de 360 graus da ${activeLoc.name}`}
+              width={1024}
+              height={1024}
               draggable="false"
               className="w-full h-full object-cover select-none pointer-events-none"
             />

@@ -135,7 +135,6 @@ export default function FaqSection() {
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' }
       );
     }
-    setOpenIdx(null); // Reseta acordeão aberto ao mudar de aba
   }, [activeCat]);
 
   const activeCategory = FAQ_DATA.find(cat => cat.id === activeCat) || FAQ_DATA[0];
@@ -184,7 +183,10 @@ export default function FaqSection() {
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setActiveCat(cat.id)}
+                onClick={() => {
+                  setActiveCat(cat.id);
+                  setOpenIdx(null); // Reseta acordeão aberto ao mudar de aba
+                }}
                 className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-sans text-xs font-bold uppercase tracking-wider transition-all duration-300 border-2 ${isActive
                   ? 'bg-brand-orange border-brand-orange-dark text-white shadow-[2px_4px_0_0_#e05300] -translate-y-1'
                   : 'bg-white border-brand-light-border text-brand-charcoal-light hover:border-brand-orange/50 hover:bg-brand-orange/5 hover:-translate-y-0.5'

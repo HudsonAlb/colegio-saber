@@ -5,6 +5,10 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // Build de pré-render (entry-server): empacota as dependências para rodar direto no Node
+  ssr: {
+    noExternal: true,
+  },
   build: {
     target: 'es2020',
     cssCodeSplit: true,

@@ -25,7 +25,7 @@ export default function CalendarioSection() {
           rotation: 0,
           duration: 1,
           stagger: 0.15,
-          ease: 'back.out(1.2)',
+          ease: 'expo.out',
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 80%',

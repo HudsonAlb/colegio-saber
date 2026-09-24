@@ -48,9 +48,9 @@ export default function PillarsSection() {
         <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
           Proposta Pedagógica
         </span>
-        <h2 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
+        <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
           Os Três Pilares do Saber
-        </h2>
+        </h1>
         <p className="font-sans text-sm md:text-base text-brand-charcoal-light/80 font-medium leading-relaxed max-w-2xl mt-4">
           Nossa metodologia une a solidez do ensino clássico à inovação das novas tecnologias, com foco no desenvolvimento ético e emocional dos estudantes.
         </p>
@@ -62,7 +62,7 @@ export default function PillarsSection() {
         {/* PILLAR 1: TRADIÇÃO */}
         <div className="bento-card group flex flex-col rounded-[3rem] bg-white border-2 border-brand-orange/30 shadow-[6px_6px_0_0_rgba(255,126,27,0.15)] hover:shadow-[12px_12px_0_0_rgba(255,126,27,0.25)] overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-default">
           <div className="h-64 relative overflow-hidden border-b-2 border-brand-orange/20">
-            <img src={tradicaoImg} alt="Tradição" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img src={tradicaoImg} alt="Menino lendo um livro em uma biblioteca clássica" width={1024} height={1024} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-orange shadow-md transform -rotate-6 group-hover:rotate-0 transition-all duration-300">
               <BookOpen size={28} weight="duotone" />
             </div>
@@ -82,7 +82,7 @@ export default function PillarsSection() {
         {/* PILLAR 2: INOVAÇÃO */}
         <div className="bento-card group flex flex-col rounded-[3rem] bg-white border-2 border-brand-yellow/40 shadow-[6px_6px_0_0_rgba(255,203,30,0.15)] hover:shadow-[12px_12px_0_0_rgba(255,203,30,0.3)] overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-default">
           <div className="h-64 relative overflow-hidden border-b-2 border-brand-yellow/30">
-            <img src={inovacaoImg} alt="Inovação" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img src={inovacaoImg} alt="Estudante montando um robô em um laboratório de ciência e tecnologia" width={1024} height={1024} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-yellow-dark shadow-md transform -rotate-6 group-hover:rotate-0 transition-all duration-300">
               <Lightbulb size={28} weight="duotone" />
             </div>
@@ -102,7 +102,7 @@ export default function PillarsSection() {
         {/* PILLAR 3: HUMANISMO */}
         <div className="bento-card group flex flex-col rounded-[3rem] bg-white border-2 border-brand-blue/30 shadow-[6px_6px_0_0_rgba(78,168,222,0.15)] hover:shadow-[12px_12px_0_0_rgba(78,168,222,0.25)] overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-default md:col-span-2 lg:col-span-1">
           <div className="h-64 relative overflow-hidden border-b-2 border-brand-blue/20">
-            <img src={humanismoImg} alt="Humanismo" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img src={humanismoImg} alt="Dois alunos sorrindo enquanto fazem uma atividade em grupo na sala de aula" width={1024} height={1024} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-blue-dark shadow-md transform -rotate-6 group-hover:rotate-0 transition-all duration-300">
               <Heart size={28} weight="duotone" />
             </div>

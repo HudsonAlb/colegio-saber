@@ -6,11 +6,15 @@ import { List, X, Student, MapPin, Phone, Envelope, CalendarBlank } from '@phosp
 import SmoothScroll from './components/SmoothScroll';
 import PageTransition from './components/PageTransition';
 import WhatsappButton from './components/WhatsappButton';
-import logoSaber from './assets/LOGO-SABER.svg';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import RouteSeo from './components/RouteSeo';
+import logoSaber from './assets/logo-saber.webp';
+// Home carregada de forma síncrona: é a principal página de entrada e o hero é o LCP
+import HomePage from './pages/HomePage';
 import seteDeSetembroImg from './assets/7desetembro.webp';
 
 // Lazy loaded page components to improve initial page load speed and decouple app layout
-const HomePage = lazy(() => import('./pages/HomePage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const HistoriaPage = lazy(() => import('./pages/HistoriaPage'));
 const PilaresPage = lazy(() => import('./pages/PilaresPage'));
 const AdmissaoPage = lazy(() => import('./pages/AdmissaoPage'));
@@ -31,14 +35,16 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  // Fecha o menu mobile quando a rota muda
-  useEffect(() => {
+  // Fecha o menu mobile quando a rota muda (ajuste de estado durante o render, sem efeito em cascata)
+  const [menuPath, setMenuPath] = useState(location.pathname);
+  if (menuPath !== location.pathname) {
+    setMenuPath(location.pathname);
     setIsMenuOpen(false);
-  }, [location.pathname]);
+  }
 
   // Controla o scroll do body e o Lenis para evitar travamento no mobile
   useEffect(() => {
-    const lenis = (window as any).lenisInstance;
+    const lenis = window.lenisInstance;
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
       if (lenis) lenis.stop();
@@ -56,7 +62,7 @@ function Header() {
     <>
       <header
         role="banner"
-        className="w-full relative z-40 transition-all duration-500 bg-white/95 backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
+        className="w-full relative z-40 transition-all duration-500 bg-white lg:bg-white/95 lg:backdrop-blur-md rounded-full border border-brand-light-border shadow-[0_12px_24px_rgba(67,56,50,0.05)] py-2.5 px-5 md:px-8 flex items-center justify-between pointer-events-auto"
       >
         {/* Logo */}
         <Link
@@ -65,7 +71,7 @@ function Header() {
           className="flex items-center group shrink-0 cursor-pointer"
           aria-label="Colégio Saber - Início"
         >
-          <img src={logoSaber} alt="Colégio Saber Logo" className="h-10 md:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300" />
+          <img src={logoSaber} alt="Colégio Saber" width={171} height={48} decoding="async" className="h-10 md:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -216,9 +222,9 @@ function Footer() {
 
         {/* Col 2: Navigation links */}
         <div className="flex flex-col gap-4">
-          <h5 className="font-serif text-sm text-brand-charcoal uppercase tracking-[0.2em] font-bold">
+          <h2 className="font-serif text-sm text-brand-charcoal uppercase tracking-[0.2em] font-bold">
             Institucional
-          </h5>
+          </h2>
           <div className="flex flex-col gap-2 font-sans text-xs font-semibold text-brand-charcoal/75">
             {/* <Link to="/historia" className="hover:text-[#ff7e1b] transition-colors duration-300">Nossa História</Link> */}
             <Link to="/pilares" className="hover:text-[#ff7e1b] transition-colors duration-300">Pilares Pedagógicos</Link>
@@ -234,9 +240,9 @@ function Footer() {
 
         {/* Col 3: Contact Info */}
         <div className="flex flex-col gap-4">
-          <h5 className="font-serif text-sm text-brand-charcoal uppercase tracking-[0.2em] font-bold">
+          <h2 className="font-serif text-sm text-brand-charcoal uppercase tracking-[0.2em] font-bold">
             Contato
-          </h5>
+          </h2>
           <div className="flex flex-col gap-3 font-sans text-xs font-semibold text-brand-charcoal/75">
             <div className="flex items-center gap-2 text-left">
               <MapPin size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
@@ -255,9 +261,9 @@ function Footer() {
 
         {/* Col 4: Newsletter */}
         <div className="flex flex-col gap-4">
-          <h5 className="font-serif text-sm text-brand-charcoal uppercase tracking-[0.2em] font-bold">
+          <h2 className="font-serif text-sm text-brand-charcoal uppercase tracking-[0.2em] font-bold">
             Novidades
-          </h5>
+          </h2>
           <p className="font-sans text-xs font-semibold text-brand-charcoal/75 leading-relaxed">
             Assine nossa newsletter informativa mensal para se manter informado.
           </p>
@@ -358,6 +364,8 @@ function PromoBannerModal() {
           <img 
             src={seteDeSetembroImg} 
             alt="7 de Setembro - Independência do Brasil - Colégio Saber" 
+            width={1280}
+            height={720}
             loading="eager"
             decoding="async"
             className="w-full h-full object-cover object-center select-none pointer-events-none"
@@ -409,9 +417,14 @@ function PromoBannerModal() {
 }
 
 // ----------------- APP MAIN COMPONENT -----------------
-function App() {
+// Conteúdo do site sem o roteador: o cliente usa BrowserRouter (App) e o pré-render usa StaticRouter (entry-server)
+export function AppShell() {
+  // Um QueryClient por árvore: no pré-render cada rota ganha o seu, sem compartilhar cache entre páginas
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
-    <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <RouteSeo />
       <SmoothScroll>
         {/* OUTER WRAPPER WITH PLAYFUL PASTEL BACKGROUND AND DECORATIVE WAVES */}
         <div className="relative w-full max-w-full min-h-screen bg-[#f7fdfb] overflow-x-hidden font-sans text-brand-charcoal selection:bg-brand-orange selection:text-white p-0 sm:p-4 md:p-6 lg:p-8">
@@ -472,6 +485,7 @@ function App() {
                     <Route path="/admissao" element={<AdmissaoPage />} />
                     <Route path="/matricula-rapida" element={<MatriculaRapidaPage />} />
                     <Route path="/album" element={<AlbumPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
                   </Routes>
                 </Suspense>
               </PageTransition>
@@ -489,6 +503,14 @@ function App() {
           </div>
         </div>
       </SmoothScroll>
+    </QueryClientProvider>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   );
 }

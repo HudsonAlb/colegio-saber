@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { useIsClient } from "../lib/useIsClient";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowRight, CaretLeft as ChevronLeft, CaretRight as ChevronRight, X, ArrowsLeftRight } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
@@ -37,8 +38,7 @@ const PhotoCarousel = ({ photos }: PhotoCarouselProps) => {
   
   // States for Lightbox
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
-
-  if (!photos || photos.length === 0) return null;
+  const isClient = useIsClient();
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -90,6 +90,9 @@ const PhotoCarousel = ({ photos }: PhotoCarouselProps) => {
     if (distance > minSwipeDistance) nextPhoto();
     if (distance < -minSwipeDistance) prevPhoto();
   };
+
+  // Depois de todos os hooks: retornar antes deles muda a ordem de hooks quando as fotos chegam
+  if (!photos || photos.length === 0) return null;
 
   return (
     <section className="py-16 md:py-24 bg-brand-light relative overflow-hidden">
@@ -157,8 +160,8 @@ const PhotoCarousel = ({ photos }: PhotoCarouselProps) => {
 
       </div>
 
-      {/* Lightbox / Modal */}
-      {createPortal(
+      {/* Lightbox / Modal (portal só no navegador: no pré-render não existe document.body) */}
+      {isClient && createPortal(
         <AnimatePresence>
           {selectedPhotoIndex !== null && photos[selectedPhotoIndex] && (
             <motion.div

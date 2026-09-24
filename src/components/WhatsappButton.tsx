@@ -21,7 +21,7 @@ export default function WhatsappButton() {
     if (isVisible && buttonRef.current) {
       gsap.fromTo(buttonRef.current,
         { scale: 0, y: 50, opacity: 0 },
-        { scale: 1, y: 0, opacity: 1, duration: 1.0, ease: 'back.out(1.7)' }
+        { scale: 1, y: 0, opacity: 1, duration: 1.0, ease: 'expo.out' }
       );
     }
   }, [isVisible]);

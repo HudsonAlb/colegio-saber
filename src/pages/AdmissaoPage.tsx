@@ -92,8 +92,13 @@ export default function AdmissaoPage() {
   const stepContainerRef = useRef<HTMLFormElement>(null);
   const envelopeRef = useRef<HTMLDivElement>(null);
 
-  // Animação de troca de passos
+  // Animação de troca de passos (não roda na montagem: o conteúdo pré-renderizado já está visível)
+  const isFirstStepRender = useRef(true);
   useEffect(() => {
+    if (isFirstStepRender.current) {
+      isFirstStepRender.current = false;
+      return;
+    }
     if (stepContainerRef.current) {
       gsap.fromTo(stepContainerRef.current.children,
         { opacity: 0, y: 25 },
@@ -387,7 +392,7 @@ export default function AdmissaoPage() {
       // Animação de envio de e-mail usando GSAP
       if (envelopeRef.current) {
         gsap.timeline()
-          .to(envelopeRef.current, { scale: 1.1, rotation: 10, duration: 0.4, ease: 'power3.out' })
+          .to(envelopeRef.current, { scale: 1.1, rotation: 10, duration: 0.6, ease: 'power3.out' })
           .to(envelopeRef.current, { x: 400, y: -200, opacity: 0, scale: 0.2, duration: 0.8, ease: 'expo.in' });
       }
     }, 2500);
@@ -397,7 +402,7 @@ export default function AdmissaoPage() {
   const getNextDays = (count: number) => {
     const dates = [];
     const today = new Date();
-    let current = new Date(today);
+    const current = new Date(today);
 
     while (dates.length < count) {
       current.setDate(current.getDate() + 1);

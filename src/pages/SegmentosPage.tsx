@@ -167,8 +167,13 @@ export default function SegmentosPage() {
   const contentRef = useRef<HTMLDivElement>(null);
   const modalCloseBtnRef = useRef<HTMLButtonElement>(null);
 
-  // Animação de Entrada na Troca de Segmento
+  // Animação de Entrada na Troca de Segmento (não roda na montagem: o conteúdo pré-renderizado já está visível)
+  const isFirstSegmentRender = useRef(true);
   useEffect(() => {
+    if (isFirstSegmentRender.current) {
+      isFirstSegmentRender.current = false;
+      return;
+    }
     if (imageRef.current) {
       gsap.fromTo(imageRef.current,
         { scale: 1.05, opacity: 0.8 },
@@ -289,6 +294,8 @@ export default function SegmentosPage() {
                 ref={imageRef}
                 src={activeSegment.image}
                 alt={`Atividade do ${activeSegment.title}`}
+                width={1024}
+                height={1024}
                 className="w-full h-full object-cover select-none pointer-events-none"
               />
               <div className={`absolute inset-0 border-[8px] rounded-[3rem] pointer-events-none opacity-20 ${activeSegment.themeBorder}`}></div>

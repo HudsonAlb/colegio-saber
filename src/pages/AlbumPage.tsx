@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { useIsClient } from "../lib/useIsClient";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   X, 
@@ -101,6 +102,7 @@ const ScrollReveal = ({ children, delay = 0 }: { children: React.ReactNode, dela
 const AlbumPage = () => {
   const [selectedAlbumId, setSelectedAlbumId] = useState<string>("all");
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryImage | null>(null);
+  const isClient = useIsClient();
 
   const { data: sanityAlbums = [], isLoading: isLoadingAlbums } = useQuery({
     queryKey: ['sanityAlbums'],
@@ -316,8 +318,8 @@ const AlbumPage = () => {
         </section>
       )}
 
-      {/* Lightbox / Modal */}
-      {createPortal(
+      {/* Lightbox / Modal (portal só no navegador: no pré-render não existe document.body) */}
+      {isClient && createPortal(
         <AnimatePresence>
           {selectedPhoto && (
             <motion.div

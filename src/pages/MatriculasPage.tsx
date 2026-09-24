@@ -21,7 +21,7 @@ export default function MatriculasPage() {
           y: 0,
           duration: 0.8,
           stagger: 0.2,
-          ease: 'back.out(1.2)',
+          ease: 'expo.out',
           scrollTrigger: {
             trigger: '.steps-container',
             start: 'top 75%',
@@ -35,7 +35,7 @@ export default function MatriculasPage() {
         {
           height: '100%',
           duration: 2,
-          ease: 'power1.inOut',
+          ease: 'power3.inOut',
           scrollTrigger: {
             trigger: '.steps-container',
             start: 'top 75%',

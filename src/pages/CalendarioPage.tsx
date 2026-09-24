@@ -85,7 +85,8 @@ export default function CalendarioPage() {
   const [syncState, setSyncState] = useState<'idle' | 'auth' | 'syncing' | 'completed'>('idle');
   const [syncProgress, setSyncProgress] = useState(0);
   const [isSynced, setIsSynced] = useState(() => {
-    return localStorage.getItem('google_calendar_synced') === 'true';
+    // Sem localStorage no pré-render (Node)
+    return typeof window !== 'undefined' && localStorage.getItem('google_calendar_synced') === 'true';
   });
 
   const toggleFilter = (catId: string) => {
