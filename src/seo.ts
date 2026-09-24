@@ -1,6 +1,7 @@
 // Configuração central de SEO por rota.
-// SITE_URL precisa ser o domínio de produção (sem barra no final) — usado em canonical, og:url e og:image.
-export const SITE_URL = 'https://colegiosaber.com.br';
+// Domínio público definido em VITE_SITE_URL (.env ou variável de ambiente da Vercel) — única fonte da URL do site
+export const SITE_URL: string = import.meta.env.VITE_SITE_URL;
+if (!SITE_URL) throw new Error('VITE_SITE_URL não definida (veja o arquivo .env)');
 export const SITE_NAME = 'Colégio Saber';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
