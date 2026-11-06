@@ -376,18 +376,21 @@ export function getSchoolEvents(year: number): CalendarEvent[] {
       shadow: 'shadow-[4px_4px_0_0_#0284c7]',
       icon: UsersThree
     },
-    {
-      id: `escola-${year}-mostra-ciencias`,
-      title: 'Mostra de Ciências, Artes e Tecnologia',
-      description: 'Exposição dos projetos práticos, experimentos científicos e robótica criados pelos alunos.',
-      date: toDateStr(year, 11, 21),
-      time: '09:00',
-      location: 'Ginásio e Laboratórios',
-      category: 'eventos',
-      color: 'bg-brand-yellow',
-      shadow: 'shadow-[4px_4px_0_0_#d89f00]',
-      icon: Confetti
-    },
+    // Evento único: acontece só em 2026, com o nome que a escola deu a ele
+    ...(year === 2026
+      ? [{
+          id: 'escola-2026-feira-empreendedorismo',
+          title: 'Feira de Empreendedorismo 2027',
+          description: 'Feira de Empreendedorismo do Colégio Saber.',
+          date: toDateStr(2026, 11, 19),
+          time: 'Dia Todo',
+          location: 'Campus',
+          category: 'eventos' as const,
+          color: 'bg-brand-yellow',
+          shadow: 'shadow-[4px_4px_0_0_#d89f00]',
+          icon: Confetti
+        }]
+      : []),
     {
       id: `escola-${year}-formatura`,
       title: 'Formatura e Encerramento do Ano Letivo',
