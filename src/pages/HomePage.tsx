@@ -144,7 +144,7 @@ export default function HomePage() {
               {
                 tag: 'Ensino',
                 title: 'Segmentos Escolares',
-                desc: 'Conheça nossas fases pedagógicas da Educação Infantil ao Ensino Médio.',
+                desc: 'Conheça nossas fases pedagógicas da Educação Infantil ao Ensino Fundamental.',
                 link: '/segmentos',
                 btnText: 'Ver Ensino',
                 bg: 'bg-[#f0f8fc]',

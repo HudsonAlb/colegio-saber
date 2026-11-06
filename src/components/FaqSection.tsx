@@ -48,7 +48,7 @@ const FAQ_DATA: CategoryData[] = [
       },
       {
         question: 'Como é estruturado o ensino de línguas (Bilinguismo)?',
-        answer: 'Do Ensino Fundamental I ao Ensino Médio, temos carga horária expandida de Inglês com projetos interdisciplinares. Nosso foco é a proficiência prática, preparando os estudantes para exames de proficiência de Cambridge e intercâmbios culturais.'
+        answer: 'No Ensino Fundamental I e II, temos carga horária expandida de Inglês com projetos interdisciplinares. Nosso foco é a proficiência prática, preparando os estudantes para exames de proficiência de Cambridge e intercâmbios culturais.'
       }
     ]
   },

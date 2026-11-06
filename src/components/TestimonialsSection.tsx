@@ -32,14 +32,6 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 3,
-    name: "Beatriz Costa",
-    role: "Mãe do Lucas (3ª série EM)",
-    relation: "Ensino Médio",
-    content: "O colégio superou todas as nossas expectativas. A preparação para o vestibular e o ENEM é extremamente forte e focada, mas sem perder em nenhum momento o cuidado socioemocional e o suporte individual.",
-    avatar: "BC"
-  },
-  {
-    id: 4,
     name: "Felipe Almeida",
     role: "Pai da Sofia (Pré II)",
     relation: "Educação Infantil",
@@ -47,7 +39,7 @@ const testimonials: Testimonial[] = [
     avatar: "FA"
   },
   {
-    id: 5,
+    id: 4,
     name: "Carolina Mendes",
     role: "Mãe da Laura (7º ano)",
     relation: "Ensino Fundamental II",

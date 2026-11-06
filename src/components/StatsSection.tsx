@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Star, Target, Users } from '@phosphor-icons/react';
+import { Star, Users } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,14 +23,6 @@ const stats: StatItem[] = [
     label: 'Anos de Tradição',
     description: 'Aliando solidez pedagógica à evolução constante de nossa metodologia.',
     icon: Star
-  },
-  {
-    id: 'aprovacao',
-    value: 100,
-    suffix: '%',
-    label: 'Aprovação Nacional',
-    description: 'Estudantes preparados para ingressar nas universidades mais concorridas.',
-    icon: Target
   },
   {
     id: 'lideres',
@@ -143,7 +135,7 @@ export default function StatsSection() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-4 w-full max-w-3xl mx-auto">
           {stats.map((item, idx) => {
             const rotationClass = idx % 2 === 0 ? 'rotate-2' : '-rotate-3';
             const colors = [

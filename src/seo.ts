@@ -25,7 +25,7 @@ export const ROUTE_META: Record<string, RouteMeta> = {
   '/segmentos': {
     title: 'Educação Infantil e Ensino Fundamental em Escada-PE | Colégio Saber',
     description:
-      'Veja como o Colégio Saber acompanha seu filho em cada etapa: Educação Infantil, Ensino Fundamental I e II e Ensino Médio, em Escada, Pernambuco.',
+      'Veja como o Colégio Saber acompanha seu filho em cada etapa: Educação Infantil e Ensino Fundamental I e II, em Escada, Pernambuco.',
   },
   '/infraestrutura': {
     title: 'Infraestrutura: Biblioteca, Laboratório e Áreas Verdes | Colégio Saber',
