@@ -27,7 +27,7 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
   - Imagem principal das crianças recortada em círculo com borda branca e sobreposta por vetores de sol, arco-íris e nuvens que se integram à moldura.
 
 ### 3. Modal Banner Promocional no Início do Site
-- **Banner de Matrículas**: Pop-up interativo que carrega após 1,5 segundos da entrada inicial do usuário no site.
+- **Banner de Matrículas**: Pop-up da campanha de Matrículas 2027, que carrega 1,2 segundo após a entrada no site (não aparece em `/matriculas`).
 - **Persistência e UX**: Configurado com persistência em `sessionStorage` para evitar exibições repetitivas incômodas na mesma sessão.
 - **Acessibilidade**: Suporte a fechamento rápido por tecla `Escape`, controle de foco, botões semânticos e identificação de diálogo para leitores de tela.
 
