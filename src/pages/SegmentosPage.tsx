@@ -280,7 +280,7 @@ export default function SegmentosPage() {
               {/* Botão Call to Action Integrado */}
               <button
                 type="button"
-                onClick={() => navigate('/admissao')}
+                onClick={() => navigate('/matriculas')}
                 className={`self-start mt-4 px-8 py-4 rounded-full ${activeSegment.themeBg} ${activeSegment.id === 'medio' ? 'text-brand-charcoal' : 'text-white'} font-sans text-xs uppercase tracking-wider font-bold transition-all duration-500 shadow-lg ${activeSegment.themeShadow} hover:-translate-y-1 hover:shadow-xl cursor-pointer flex items-center gap-2`}
               >
                 Matricular no {activeSegment.shortTitle}
@@ -404,7 +404,7 @@ export default function SegmentosPage() {
 
             <button
               type="button"
-              onClick={() => { setActiveOficina(null); navigate('/admissao'); }}
+              onClick={() => { setActiveOficina(null); navigate('/matriculas'); }}
               className={`w-full py-4 mt-4 rounded-full ${activeSegment.themeBg} ${activeSegment.id === 'medio' ? 'text-brand-charcoal' : 'text-white'} font-sans text-xs font-bold uppercase tracking-wider transition-all duration-500 shadow-md ${activeSegment.themeShadow} hover:-translate-y-1 cursor-pointer`}
             >
               Gostei! Matricular Agora

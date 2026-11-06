@@ -43,24 +43,14 @@ export const ROUTE_META: Record<string, RouteMeta> = {
       'Veja as fotos dos eventos, projetos e atividades da comunidade escolar do Colégio Saber em Escada-PE, organizadas por álbum.',
   },
   '/historia': {
-    title: 'Nossa História desde 1995 | Colégio Saber — Escada-PE',
+    title: 'Nossa História desde 1992 | Colégio Saber — Escada-PE',
     description:
-      'Fundado em 1995, o Colégio Saber é referência em ensino humanista de qualidade em Escada-PE, da Educação Infantil ao Ensino Fundamental.',
+      'Criado em 1992 por Vilma Maria dos Santos e colegas educadores, o Colégio Saber é referência em ensino humanista em Escada-PE. Conheça nossa história.',
   },
   '/matriculas': {
-    title: 'Matrículas e Processo de Admissão | Colégio Saber — Escada-PE',
+    title: 'Matrículas 2027 | Colégio Saber — Escada-PE',
     description:
-      'Saiba como matricular seu filho no Colégio Saber: etapas do processo de admissão, documentos necessários e respostas às dúvidas mais frequentes.',
-  },
-  '/admissao': {
-    title: 'Formulário de Ingresso e Contato | Colégio Saber',
-    description:
-      'Dê o primeiro passo para a matrícula no Colégio Saber em Escada-PE. Preencha o formulário de ingresso ou fale com nossa equipe de admissões.',
-  },
-  '/matricula-rapida': {
-    title: 'Matrículas Abertas — Inscrição Rápida | Colégio Saber',
-    description:
-      'Garanta a vaga do seu filho no Colégio Saber. Preencha a inscrição rápida e nossa equipe de admissões entra em contato pelo WhatsApp.',
+      'Matrículas abertas para 2027 no Colégio Saber, em Escada-PE. Deixe seu contato, baixe o contrato em PDF e leve preenchido à escola para ganhar tempo.',
   },
 };
 

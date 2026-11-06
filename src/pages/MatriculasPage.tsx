@@ -1,11 +1,23 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import type { MouseEvent } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, MapPin, MagnifyingGlass, FileText, Sparkle } from '@phosphor-icons/react';
+import { ArrowDown, ClipboardText, DownloadSimple, FilePdf, MapPin, PencilSimple, Phone, Printer, Sparkle } from '@phosphor-icons/react';
 import FaqSection from '../components/FaqSection';
+import MatriculaForm from '../components/MatriculaForm';
+import OptarPeloSaberSection from '../components/OptarPeloSaberSection';
+import { scrollToElement } from '../lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const CONTRATO_URL = '/documentos/contrato-educacional-colegio-saber.pdf';
+
+function rolarAteAncora(e: MouseEvent<HTMLAnchorElement>) {
+  const alvo = document.querySelector<HTMLElement>(e.currentTarget.hash);
+  if (!alvo) return;
+  e.preventDefault();
+  scrollToElement(alvo);
+}
 
 export default function MatriculasPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,6 +54,22 @@ export default function MatriculasPage() {
           }
         }
       );
+
+      // Anima o formulário e o cartão do contrato
+      gsap.fromTo('.matricula-card',
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.matricula-grid',
+            start: 'top 85%',
+          }
+        }
+      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -56,20 +84,44 @@ export default function MatriculasPage() {
         <div className="absolute top-0 right-20 w-80 h-80 bg-brand-yellow/20 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6">
-          <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
-            Junte-se à Família
+          <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-orange-dark font-bold">
+            Matrícula nova ou renovação
           </span>
           <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl text-brand-charcoal drop-shadow-sm mt-2">
-            Como ser um aluno Saber?
+            Matrículas abertas para 2027
           </h1>
           <p className="font-sans text-sm md:text-base font-medium text-brand-charcoal-light/80 max-w-2xl mx-auto leading-relaxed">
-            Ingressar no Colégio Saber é o começo de uma jornada incrível. Preparamos um caminho simples e acolhedor para que sua família sinta-se em casa desde o primeiro passo.
+            Deixe seu contato para a secretaria retornar e adiante o contrato em casa. Assim, o dia da matrícula na escola fica bem mais rápido para a sua família.
           </p>
+          <div className="mt-2 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="#formulario"
+              onClick={rolarAteAncora}
+              className="font-serif inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-brand-orange text-white hover:bg-brand-orange-dark hover:-translate-y-1 transition-all duration-700 text-sm md:text-base font-bold shadow-[4px_4px_0_0_#2d2a26] border-[3px] border-brand-charcoal"
+            >
+              Deixar meu contato
+              <ArrowDown size={18} weight="bold" />
+            </a>
+            <a
+              href="#contrato"
+              onClick={rolarAteAncora}
+              className="font-serif inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-brand-charcoal hover:bg-brand-yellow-light hover:-translate-y-1 transition-all duration-700 text-sm md:text-base font-bold shadow-[4px_4px_0_0_#2d2a26] border-[3px] border-brand-charcoal"
+            >
+              Baixar o contrato
+              <FilePdf size={18} weight="bold" />
+            </a>
+          </div>
         </div>
       </section>
 
+      <OptarPeloSaberSection />
+
       {/* CAMINHO DE PEDRAS (STEPS) */}
-      <section className="relative w-full py-16 px-6 z-10">
+      <section className="relative w-full py-16 px-6 z-10" aria-labelledby="como-funciona-titulo">
+        <h2 id="como-funciona-titulo" className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-charcoal text-center mb-20">
+          Como funciona
+        </h2>
+
         <div className="max-w-4xl mx-auto steps-container relative">
 
           {/* Linha Pontilhada Central (Desktop) */}
@@ -80,11 +132,11 @@ export default function MatriculasPage() {
             <div className="w-full md:w-1/2 flex justify-center md:justify-end">
               <div className="relative p-8 rounded-[3rem] rounded-br-2xl bg-white border-2 border-brand-orange/30 shadow-[6px_6px_0_0_rgba(255,126,27,0.15)] group-hover:shadow-[10px_10px_0_0_rgba(255,126,27,0.25)] transition-all duration-300 group-hover:-translate-y-2 flex flex-col items-center text-center max-w-sm">
                 <div className="absolute -top-6 w-12 h-12 bg-brand-orange rounded-full flex items-center justify-center text-white shadow-md transform -rotate-12 group-hover:rotate-0 transition-transform">
-                  <MapPin size={24} weight="fill" />
+                  <ClipboardText size={24} weight="fill" />
                 </div>
-                <h3 className="font-serif font-bold text-2xl text-brand-charcoal mt-2">Visita Mágica</h3>
+                <h3 className="font-serif font-bold text-2xl text-brand-charcoal mt-2">Deixe seu contato</h3>
                 <p className="font-sans text-xs text-brand-charcoal-light/80 font-medium leading-relaxed mt-2">
-                  Agende um horário e venha tomar um café com nossa equipe. Mostraremos cada cantinho do nosso bosque e laboratórios.
+                  Preencha o formulário aqui embaixo. Nossa secretaria recebe seus dados e retorna no contato que você informar.
                 </p>
               </div>
             </div>
@@ -101,11 +153,11 @@ export default function MatriculasPage() {
             <div className="w-full md:w-1/2 flex justify-center md:justify-start">
               <div className="relative p-8 rounded-[3rem] rounded-bl-2xl bg-white border-2 border-brand-yellow/50 shadow-[6px_6px_0_0_rgba(255,203,30,0.15)] group-hover:shadow-[10px_10px_0_0_rgba(255,203,30,0.25)] transition-all duration-300 group-hover:-translate-y-2 flex flex-col items-center text-center max-w-sm">
                 <div className="absolute -top-6 w-12 h-12 bg-brand-yellow-dark rounded-full flex items-center justify-center text-white shadow-md transform rotate-12 group-hover:rotate-0 transition-transform">
-                  <MagnifyingGlass size={24} weight="bold" />
+                  <Printer size={24} weight="fill" />
                 </div>
-                <h3 className="font-serif font-bold text-2xl text-brand-charcoal mt-2">Sondagem</h3>
+                <h3 className="font-serif font-bold text-2xl text-brand-charcoal mt-2">Baixe e imprima</h3>
                 <p className="font-sans text-xs text-brand-charcoal-light/80 font-medium leading-relaxed mt-2">
-                  Um bate-papo lúdico para conhecermos o estudante, entender suas paixões e identificar a melhor forma de acolhê-lo.
+                  Baixe o Contrato Educacional em PDF e imprima onde for mais fácil para você.
                 </p>
               </div>
             </div>
@@ -116,11 +168,11 @@ export default function MatriculasPage() {
             <div className="w-full md:w-1/2 flex justify-center md:justify-end">
               <div className="relative p-8 rounded-[3rem] rounded-br-2xl bg-white border-2 border-brand-blue/30 shadow-[6px_6px_0_0_rgba(78,168,222,0.15)] group-hover:shadow-[10px_10px_0_0_rgba(78,168,222,0.25)] transition-all duration-300 group-hover:-translate-y-2 flex flex-col items-center text-center max-w-sm">
                 <div className="absolute -top-6 w-12 h-12 bg-brand-blue rounded-full flex items-center justify-center text-white shadow-md transform -rotate-12 group-hover:rotate-0 transition-transform">
-                  <FileText size={24} weight="fill" />
+                  <PencilSimple size={24} weight="fill" />
                 </div>
-                <h3 className="font-serif font-bold text-2xl text-brand-charcoal mt-2">Entrega da Caixinha</h3>
+                <h3 className="font-serif font-bold text-2xl text-brand-charcoal mt-2">Preencha com calma</h3>
                 <p className="font-sans text-xs text-brand-charcoal-light/80 font-medium leading-relaxed mt-2">
-                  Você envia os documentos necessários através do nosso portal online super seguro e simples de usar.
+                  Complete seus dados e os do aluno em casa, sem pressa. Vale para matrícula nova e para renovação.
                 </p>
               </div>
             </div>
@@ -139,9 +191,9 @@ export default function MatriculasPage() {
                 <div className="absolute -top-6 w-12 h-12 bg-brand-green rounded-full flex items-center justify-center text-white shadow-md transform rotate-12 group-hover:rotate-0 transition-transform">
                   <Sparkle size={24} weight="fill" />
                 </div>
-                <h3 className="font-serif font-bold text-2xl text-brand-green-dark mt-2">Prontinho!</h3>
+                <h3 className="font-serif font-bold text-2xl text-brand-green-dark mt-2">Leve à escola</h3>
                 <p className="font-sans text-xs text-brand-green-dark/80 font-medium leading-relaxed mt-2">
-                  Sua família agora faz parte do Colégio Saber! Entregaremos o kit de boas-vindas e aguardamos ansiosos pelo primeiro dia de aula.
+                  Traga o documento preenchido à secretaria. Com tudo pronto, sua matrícula leva bem menos tempo!
                 </p>
               </div>
             </div>
@@ -150,22 +202,72 @@ export default function MatriculasPage() {
         </div>
       </section>
 
-      {/* CALL TO ACTION */}
-      <section className="relative w-full py-16 px-6 flex flex-col items-center justify-center text-center z-10">
-        <div className="mt-4 flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <Link
-            to="/admissao"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-white font-sans text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-[4px_4px_0_0_rgba(0,0,0,0.1)] hover:shadow-[6px_6px_0_0_rgba(0,0,0,0.15)] hover:-translate-y-1 group"
-          >
-            Iniciar Passo a Passo Agora
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" weight="bold" />
-          </Link>
-          <a
-            href="tel:551134567890"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-brand-charcoal hover:bg-brand-charcoal hover:text-white text-brand-charcoal font-sans text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300"
-          >
-            Falar Por Telefone
-          </a>
+      {/* FORMULÁRIO + CONTRATO */}
+      <section className="relative w-full py-16 px-6 md:px-12 z-10">
+        <div className="matricula-grid max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+          {/* Formulário de interesse */}
+          <div id="formulario" className="matricula-card scroll-mt-32 lg:col-span-7 bg-white border-[3px] border-brand-orange/30 rounded-[3rem] p-6 sm:p-10 shadow-[8px_8px_0_0_rgba(255,126,27,0.15)] relative overflow-hidden">
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-brand-charcoal mb-2">Deixe seu contato</h2>
+            <p className="font-sans text-sm font-semibold text-brand-charcoal-light/90 leading-relaxed mb-6">
+              São só cinco campos. A secretaria recebe seus dados e retorna para conversar sobre a vaga.
+            </p>
+            <MatriculaForm />
+          </div>
+
+          {/* Contrato para download */}
+          <div id="contrato" className="matricula-card scroll-mt-32 lg:col-span-5 bg-[#fefce8] border-[3px] border-[#fae69e] rounded-[3rem] p-6 sm:p-10 shadow-[8px_8px_0_0_rgba(216,159,0,0.15)] flex flex-col gap-5">
+            <div className="w-14 h-14 rounded-2xl bg-white/70 border border-white/50 shadow-sm flex items-center justify-center text-[#a87a00]">
+              <FilePdf size={30} weight="duotone" />
+            </div>
+            <div>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-brand-charcoal mb-2">Adiante o contrato</h2>
+              <p className="font-sans text-sm font-semibold text-brand-charcoal-light leading-relaxed">
+                Economize tempo na matrícula nova ou na renovação: chegue à escola com o Termo de Compromisso e o Contrato Educacional já preenchidos.
+              </p>
+            </div>
+
+            <a
+              href={CONTRATO_URL}
+              download="Contrato Educacional - Colégio Saber.pdf"
+              className="font-serif inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-yellow text-brand-charcoal hover:bg-brand-yellow-light hover:-translate-y-1 transition-all duration-700 text-base font-bold shadow-[4px_4px_0_0_#2d2a26] border-[3px] border-brand-charcoal"
+            >
+              <DownloadSimple size={20} weight="bold" />
+              Baixar o contrato
+            </a>
+            <p className="font-sans text-xs font-semibold text-brand-charcoal-light/80 text-center -mt-2">PDF com 5 páginas, cerca de 400 KB</p>
+
+            <ol className="flex flex-col gap-3 font-sans text-sm font-semibold text-brand-charcoal-light leading-relaxed">
+              {[
+                'Baixe e imprima o documento.',
+                'Preencha seus dados e os do aluno, com letra legível.',
+                'Leve o documento preenchido à secretaria da escola.',
+              ].map((passo, idx) => (
+                <li key={passo} className="flex gap-3">
+                  <span className="w-6 h-6 rounded-full bg-white border-2 border-[#d89f00] font-serif text-xs font-bold text-brand-charcoal flex items-center justify-center shrink-0">{idx + 1}</span>
+                  <span>{passo}</span>
+                </li>
+              ))}
+            </ol>
+
+            <div className="flex flex-col gap-3 pt-5 border-t-2 border-dashed border-[#fae69e] font-sans text-sm font-semibold text-brand-charcoal-light leading-relaxed">
+              <p>
+                O contrato é assinado em duas vias, com duas testemunhas e firma reconhecida do responsável. Ficou em dúvida em algum campo, como os valores da anuidade? Deixe em branco, que a secretaria resolve com você.
+              </p>
+              <p>
+                <strong className="text-brand-charcoal">Leve também:</strong> RG e CPF do aluno e do responsável, comprovante de residência e histórico escolar ou declaração de transferência.
+              </p>
+              <p className="flex items-start gap-2">
+                <MapPin size={18} weight="duotone" className="text-[#a87a00] shrink-0 mt-0.5" />
+                <span>Av. Ivison Amaro da Silveira Costa, s/n, Atalaia, Escada - PE</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone size={18} weight="duotone" className="text-[#a87a00] shrink-0" />
+                <a href="tel:+558135561122" className="underline">(81) 3556-1122</a>
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 

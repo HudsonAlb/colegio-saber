@@ -57,9 +57,9 @@ Construímos um site institucional de alta fidelidade que combina a tradição e
 - **Meta**: Tornar os elementos do blog lúdicos.
 - **Mudanças**: Fundo creme `#fffcf7`, botões de filtro e pesquisa `rounded-full`, cartões de artigos com cantos arredondados `rounded-[2rem]`, modal de leitura atualizado com a tipografia Fredoka/Quicksand e cantos arredondados.
 
-### 9. Formulário de Matrícula Digital ([AdmissaoPage.tsx](file:///c:/Users/Hudson/BlackDog/colegio-saber/src/pages/AdmissaoPage.tsx))
-- **Meta**: Harmonizar a experiência de admissão interativa ao novo tema lúdico e seguro.
-- **Mudanças**: Arredondamento de campos (`input`, `select`) com `rounded-2xl`, stepper colorido dinamicamente com cores de realce pastéis (laranja, azul e amarelo), botões de datas e horários em formato `rounded-full` com cores lúdicas quentes, área de Drag-and-Drop de arquivos remodelada com cantos super arredondados (`rounded-[2rem]`), preservando 100% da acessibilidade WCAG.
+### 9. Matrículas 2027 ([MatriculasPage.tsx](src/pages/MatriculasPage.tsx))
+- **Meta**: A escola não mantém canal online de atendimento. O site só recolhe o contato e adianta a papelada.
+- **Mudanças**: Formulário simples ([MatriculaForm.tsx](src/components/MatriculaForm.tsx)) que grava em uma planilha Google via Apps Script ([matriculas-google-sheets.gs](scripts/matriculas-google-sheets.gs), URL em `VITE_MATRICULA_SHEET_URL`) e contrato em PDF para download em `public/documentos/`. As rotas `/admissao` e `/matricula-rapida` redirecionam para `/matriculas`.
 
 ### 10. Seções Secundárias da Home & Rodapé
 - **Meta**: Harmonizar todos os elementos secundários ao novo tema visual.

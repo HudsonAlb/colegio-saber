@@ -1,11 +1,10 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { List, X, Student, MapPin, Phone, Envelope, CalendarBlank } from '@phosphor-icons/react';
 import SmoothScroll from './components/SmoothScroll';
 import PageTransition from './components/PageTransition';
-import WhatsappButton from './components/WhatsappButton';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import RouteSeo from './components/RouteSeo';
 import logoSaber from './assets/logo-saber.webp';
@@ -17,12 +16,10 @@ import seteDeSetembroImg from './assets/7desetembro.webp';
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const HistoriaPage = lazy(() => import('./pages/HistoriaPage'));
 const PilaresPage = lazy(() => import('./pages/PilaresPage'));
-const AdmissaoPage = lazy(() => import('./pages/AdmissaoPage'));
 const InfraestruturaPage = lazy(() => import('./pages/InfraestruturaPage'));
 const MatriculasPage = lazy(() => import('./pages/MatriculasPage'));
 const CalendarioPage = lazy(() => import('./pages/CalendarioPage'));
 const SegmentosPage = lazy(() => import('./pages/SegmentosPage'));
-const MatriculaRapidaPage = lazy(() => import('./pages/MatriculaRapidaPage'));
 const AlbumPage = lazy(() => import('./pages/AlbumPage'));
 
 
@@ -76,15 +73,15 @@ function Header() {
 
         {/* Desktop Navigation */}
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-2 xl:gap-3 shrink" role="navigation" aria-label="Menu de Navegação Principal">
+        <nav className="hidden xl:flex items-center gap-1 shrink" role="navigation" aria-label="Menu de Navegação Principal">
           {[
             { label: 'Início', path: '/' },
+            { label: 'Nossa História', path: '/historia' },
             { label: 'Nosso Método', path: '/pilares' },
             { label: 'Educação Infantil', path: '/segmentos' },
             { label: 'Infraestrutura', path: '/infraestrutura' },
             { label: 'Calendário', path: '/calendario' },
-            { label: 'Álbum', path: '/album' },
-            { label: 'Contato', path: '/admissao' }
+            { label: 'Álbum', path: '/album' }
           ].map((item, idx) => {
             const isActive = location.pathname === item.path;
             return (
@@ -92,7 +89,7 @@ function Header() {
                 key={idx}
                 to={item.path}
                 aria-current={isActive ? 'page' : undefined}
-                className={`font-serif text-[13px] xl:text-[15px] py-1.5 px-4 rounded-full transition-all duration-300 whitespace-nowrap ${isActive
+                className={`font-serif text-[15px] py-1.5 px-2.5 rounded-full transition-all duration-300 whitespace-nowrap ${isActive
                     ? 'bg-brand-orange/15 text-brand-orange-dark font-bold shadow-sm'
                     : 'text-brand-charcoal font-semibold hover:text-brand-orange hover:bg-brand-orange/5'
                   }`}
@@ -104,9 +101,9 @@ function Header() {
         </nav>
 
         {/* CTA Desktop */}
-        <div className="hidden lg:block shrink-0">
+        <div className="hidden xl:block shrink-0">
           <Link
-            to="/admissao"
+            to="/matriculas"
             className="font-serif relative inline-flex items-center justify-center px-6 py-2.5 rounded-full overflow-hidden bg-brand-yellow text-brand-charcoal hover:bg-brand-yellow-light hover:-translate-y-1 transition-all duration-300 text-xs xl:text-sm font-bold tracking-wide whitespace-nowrap shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-2 border-brand-charcoal"
           >
             Matrículas Abertas
@@ -115,7 +112,7 @@ function Header() {
 
         {/* Hamburger Button */}
         <button
-          className="block lg:hidden text-brand-charcoal hover:text-brand-orange transition-colors duration-300 focus:outline-none shrink-0"
+          className="block xl:hidden text-brand-charcoal hover:text-brand-orange transition-colors duration-300 focus:outline-none shrink-0"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
           aria-expanded={isMenuOpen}
@@ -138,12 +135,12 @@ function Header() {
         <nav className="flex flex-col gap-5 text-center mt-12">
           {[
             { label: 'Início', path: '/' },
+            { label: 'Nossa História', path: '/historia' },
             { label: 'Nosso Método', path: '/pilares' },
             { label: 'Educação Infantil', path: '/segmentos' },
             { label: 'Infraestrutura', path: '/infraestrutura' },
             { label: 'Calendário', path: '/calendario' },
-            { label: 'Álbum', path: '/album' },
-            { label: 'Contato', path: '/admissao' }
+            { label: 'Álbum', path: '/album' }
           ].map((item, idx) => (
             <Link
               key={idx}
@@ -158,7 +155,7 @@ function Header() {
 
         <div className="mt-12 pt-6 border-t border-brand-light-border flex flex-col gap-4">
           <Link
-            to="/admissao"
+            to="/matriculas"
             onClick={() => setIsMenuOpen(false)}
             className="font-serif w-full py-3 text-center rounded-full bg-brand-yellow text-brand-charcoal text-base font-bold shadow-[4px_4px_0_0_#2d2a26] border-2 border-brand-charcoal hover:-translate-y-1 transition-transform hover:shadow-[6px_6px_0_0_#2d2a26]"
           >
@@ -226,13 +223,12 @@ function Footer() {
             Institucional
           </h2>
           <div className="flex flex-col gap-2 font-sans text-xs font-semibold text-brand-charcoal/75">
-            {/* <Link to="/historia" className="hover:text-[#ff7e1b] transition-colors duration-300">Nossa História</Link> */}
+            <Link to="/historia" className="hover:text-[#ff7e1b] transition-colors duration-300">Nossa História</Link>
             <Link to="/pilares" className="hover:text-[#ff7e1b] transition-colors duration-300">Pilares Pedagógicos</Link>
             <Link to="/segmentos" className="hover:text-[#ff7e1b] transition-colors duration-300">Segmentos de Ensino</Link>
             <Link to="/infraestrutura" className="hover:text-[#ff7e1b] transition-colors duration-300">Infraestrutura</Link>
             <Link to="/album" className="hover:text-[#ff7e1b] transition-colors duration-300">Galeria</Link>
-            <Link to="/matriculas" className="hover:text-[#ff7e1b] transition-colors duration-300">Processo de Admissão</Link>
-            <Link to="/admissao" className="hover:text-[#ff7e1b] transition-colors duration-300">Matrícula Interativa</Link>
+            <Link to="/matriculas" className="hover:text-[#ff7e1b] transition-colors duration-300">Matrículas 2027</Link>
             {/* <Link to="/calendario" className="hover:text-[#ff7e1b] transition-colors duration-300">Calendário Escolar</Link> */}
             {/* <Link to="/blog" className="hover:text-[#ff7e1b] transition-colors duration-300">Blog Saber em Ação</Link> */}
           </div>
@@ -246,7 +242,7 @@ function Footer() {
           <div className="flex flex-col gap-3 font-sans text-xs font-semibold text-brand-charcoal/75">
             <div className="flex items-center gap-2 text-left">
               <MapPin size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
-              <span>Rua Projetada, s/n, Escada - PE, 55.500-000</span>
+              <span>Av. Ivison Amaro da Silveira Costa, s/n, Atalaia, Escada - PE, 55.500-000</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
@@ -402,7 +398,7 @@ function PromoBannerModal() {
             </Link>
 
             <Link
-              to="/matricula-rapida"
+              to="/matriculas"
               onClick={handleClose}
               className="font-sans flex-1 py-3.5 px-5 rounded-full bg-[#e05300] hover:bg-[#b93800] text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-extrabold tracking-wide shadow-[3px_3px_0_0_#2d2a26] hover:shadow-[5px_5px_0_0_#2d2a26] border-2 border-brand-charcoal text-center flex items-center justify-center gap-2"
             >
@@ -482,8 +478,8 @@ export function AppShell() {
                     <Route path="/segmentos" element={<SegmentosPage />} />
                     <Route path="/calendario" element={<CalendarioPage />} />
                     <Route path="/matriculas" element={<MatriculasPage />} />
-                    <Route path="/admissao" element={<AdmissaoPage />} />
-                    <Route path="/matricula-rapida" element={<MatriculaRapidaPage />} />
+                    <Route path="/admissao" element={<Navigate to="/matriculas" replace />} />
+                    <Route path="/matricula-rapida" element={<Navigate to="/matriculas" replace />} />
                     <Route path="/album" element={<AlbumPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>
@@ -493,9 +489,6 @@ export function AppShell() {
 
             {/* FOOTER (Rodapé Compartilhado) */}
             <Footer />
-
-            {/* BOTÃO FLUTUANTE DO WHATSAPP */}
-            <WhatsappButton />
 
             {/* BANNER PROMOCIONAL MODAL */}
             <PromoBannerModal />
