@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ArrowRight } from '@phosphor-icons/react';
 import Hero from '../components/Hero';
 import HighlightsSection from '../components/HighlightsSection';
+import OptarPeloSaberSection from '../components/OptarPeloSaberSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import CalendarioSection from '../components/CalendarioSection';
 import { BookOpen, GraduationCap, PenNib, Images } from '@phosphor-icons/react';
@@ -104,6 +105,7 @@ export default function HomePage() {
     <div className="page-home">
       <Hero />
       <HighlightsSection />
+      <OptarPeloSaberSection comConvite />
       <CalendarioSection />
       <TestimonialsSection />
 
@@ -142,7 +144,7 @@ export default function HomePage() {
               {
                 tag: 'Ensino',
                 title: 'Segmentos Escolares',
-                desc: 'Conheça nossas fases pedagógicas da Educação Infantil ao Ensino Médio.',
+                desc: 'Conheça nossas fases pedagógicas da Educação Infantil ao Ensino Fundamental.',
                 link: '/segmentos',
                 btnText: 'Ver Ensino',
                 bg: 'bg-[#f0f8fc]',
@@ -154,9 +156,9 @@ export default function HomePage() {
               {
                 tag: 'Admissões',
                 title: 'Matrículas Abertas',
-                desc: 'Preencha nossa ficha de matrícula digital e agende o teste diagnóstico.',
-                link: '/admissao',
-                btnText: 'Iniciar Inscrição',
+                desc: 'Deixe seu contato para a secretaria retornar e baixe o contrato para ganhar tempo na matrícula 2027.',
+                link: '/matriculas',
+                btnText: 'Ver Matrículas',
                 bg: 'bg-[#fefce8]',
                 border: 'border-[#fae69e]',
                 tagColor: 'text-[#d89f00]',

@@ -7,6 +7,16 @@ export function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined' && window.matchMedia(REDUCED_MOTION_QUERY).matches;
 }
 
+// Rola até o elemento pelo Lenis, para não conflitar com o smooth scroll. Sem Lenis, usa o scroll nativo.
+// O desconto do cabeçalho fixo vem do scroll-margin-top do elemento (ex.: classe scroll-mt-32), respeitado pelos dois.
+export function scrollToElement(element: HTMLElement) {
+  if (window.lenisInstance) {
+    window.lenisInstance.scrollTo(element, { duration: 1.2 });
+  } else {
+    element.scrollIntoView();
+  }
+}
+
 // Com "reduzir movimento" ativo no sistema, todas as animações GSAP terminam quase
 // instantaneamente — o conteúdo continua aparecendo, só que sem deslocamento perceptível.
 // Loops infinitos devem checar prefersReducedMotion() e simplesmente não iniciar.

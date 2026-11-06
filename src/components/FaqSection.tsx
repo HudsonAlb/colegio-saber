@@ -20,16 +20,16 @@ const FAQ_DATA: CategoryData[] = [
     icon: <Question size={20} weight="duotone" className="text-brand-orange" />,
     items: [
       {
-        question: 'Qual é o período de matrículas para o ano letivo?',
-        answer: 'As inscrições de interesse e visitas guiadas estão abertas de junho a novembro. O processo de inscrição inicial pode ser feito diretamente online no nosso portal (/admissao), e a matrícula é finalizada presencialmente após o Teste Diagnóstico do aluno.'
+        question: 'Como faço a matrícula para 2027?',
+        answer: 'As matrículas para 2027 estão abertas. Preencha o formulário desta página para a secretaria retornar seu contato e, para ganhar tempo, baixe, imprima e preencha o contrato em casa. A matrícula é finalizada presencialmente, na secretaria da escola.'
       },
       {
-        question: 'Como funciona o Teste Diagnóstico?',
-        answer: 'O teste diagnóstico avalia as competências básicas em Matemática e Língua Portuguesa, alinhadas à série pretendida. Ele não possui caráter puramente eliminatório; seu principal objetivo é mapear o nível de aprendizado do estudante para planejar sua mentoria pedagógica inicial.'
+        question: 'Já sou família Saber. Como renovo a matrícula?',
+        answer: 'O caminho é o mesmo: baixe o contrato, preencha e leve à secretaria da escola. A renovação depende da quitação da anuidade do ano atual e da reserva da vaga em tempo hábil.'
       },
       {
         question: 'Quais documentos são exigidos no processo de matrícula?',
-        answer: 'Para a pré-inscrição online, solicitamos apenas dados básicos. Para a efetivação física da matrícula, são necessários: RG/CPF do estudante e dos responsáveis legais, comprovante de residência atualizado, histórico escolar completo ou declaração de transferência, e o último boletim de notas.'
+        answer: 'No formulário do site, pedimos apenas dados básicos. Para efetivar a matrícula na escola, leve o contrato preenchido, RG/CPF do estudante e dos responsáveis legais, comprovante de residência atualizado, histórico escolar completo ou declaração de transferência, e o último boletim de notas. A primeira parcela da anuidade é paga no ato da matrícula.'
       }
     ]
   },
@@ -48,7 +48,7 @@ const FAQ_DATA: CategoryData[] = [
       },
       {
         question: 'Como é estruturado o ensino de línguas (Bilinguismo)?',
-        answer: 'Do Ensino Fundamental I ao Ensino Médio, temos carga horária expandida de Inglês com projetos interdisciplinares. Nosso foco é a proficiência prática, preparando os estudantes para exames de proficiência de Cambridge e intercâmbios culturais.'
+        answer: 'No Ensino Fundamental I e II, temos carga horária expandida de Inglês com projetos interdisciplinares. Nosso foco é a proficiência prática, preparando os estudantes para exames de proficiência de Cambridge e intercâmbios culturais.'
       }
     ]
   },

@@ -1,28 +1,24 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { List, X, Student, MapPin, Phone, Envelope, CalendarBlank } from '@phosphor-icons/react';
+import { List, X, Student, MapPin, Phone, Envelope, DownloadSimple } from '@phosphor-icons/react';
 import SmoothScroll from './components/SmoothScroll';
 import PageTransition from './components/PageTransition';
-import WhatsappButton from './components/WhatsappButton';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import RouteSeo from './components/RouteSeo';
 import logoSaber from './assets/logo-saber.webp';
 // Home carregada de forma síncrona: é a principal página de entrada e o hero é o LCP
 import HomePage from './pages/HomePage';
-import seteDeSetembroImg from './assets/7desetembro.webp';
 
 // Lazy loaded page components to improve initial page load speed and decouple app layout
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const HistoriaPage = lazy(() => import('./pages/HistoriaPage'));
 const PilaresPage = lazy(() => import('./pages/PilaresPage'));
-const AdmissaoPage = lazy(() => import('./pages/AdmissaoPage'));
 const InfraestruturaPage = lazy(() => import('./pages/InfraestruturaPage'));
 const MatriculasPage = lazy(() => import('./pages/MatriculasPage'));
 const CalendarioPage = lazy(() => import('./pages/CalendarioPage'));
 const SegmentosPage = lazy(() => import('./pages/SegmentosPage'));
-const MatriculaRapidaPage = lazy(() => import('./pages/MatriculaRapidaPage'));
 const AlbumPage = lazy(() => import('./pages/AlbumPage'));
 
 
@@ -76,15 +72,15 @@ function Header() {
 
         {/* Desktop Navigation */}
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-2 xl:gap-3 shrink" role="navigation" aria-label="Menu de Navegação Principal">
+        <nav className="hidden xl:flex items-center gap-1 shrink" role="navigation" aria-label="Menu de Navegação Principal">
           {[
             { label: 'Início', path: '/' },
+            { label: 'Nossa História', path: '/historia' },
             { label: 'Nosso Método', path: '/pilares' },
             { label: 'Educação Infantil', path: '/segmentos' },
             { label: 'Infraestrutura', path: '/infraestrutura' },
             { label: 'Calendário', path: '/calendario' },
-            { label: 'Álbum', path: '/album' },
-            { label: 'Contato', path: '/admissao' }
+            { label: 'Álbum', path: '/album' }
           ].map((item, idx) => {
             const isActive = location.pathname === item.path;
             return (
@@ -92,7 +88,7 @@ function Header() {
                 key={idx}
                 to={item.path}
                 aria-current={isActive ? 'page' : undefined}
-                className={`font-serif text-[13px] xl:text-[15px] py-1.5 px-4 rounded-full transition-all duration-300 whitespace-nowrap ${isActive
+                className={`font-serif text-[15px] py-1.5 px-2.5 rounded-full transition-all duration-300 whitespace-nowrap ${isActive
                     ? 'bg-brand-orange/15 text-brand-orange-dark font-bold shadow-sm'
                     : 'text-brand-charcoal font-semibold hover:text-brand-orange hover:bg-brand-orange/5'
                   }`}
@@ -104,9 +100,9 @@ function Header() {
         </nav>
 
         {/* CTA Desktop */}
-        <div className="hidden lg:block shrink-0">
+        <div className="hidden xl:block shrink-0">
           <Link
-            to="/admissao"
+            to="/matriculas"
             className="font-serif relative inline-flex items-center justify-center px-6 py-2.5 rounded-full overflow-hidden bg-brand-yellow text-brand-charcoal hover:bg-brand-yellow-light hover:-translate-y-1 transition-all duration-300 text-xs xl:text-sm font-bold tracking-wide whitespace-nowrap shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-2 border-brand-charcoal"
           >
             Matrículas Abertas
@@ -115,7 +111,7 @@ function Header() {
 
         {/* Hamburger Button */}
         <button
-          className="block lg:hidden text-brand-charcoal hover:text-brand-orange transition-colors duration-300 focus:outline-none shrink-0"
+          className="block xl:hidden text-brand-charcoal hover:text-brand-orange transition-colors duration-300 focus:outline-none shrink-0"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
           aria-expanded={isMenuOpen}
@@ -138,12 +134,12 @@ function Header() {
         <nav className="flex flex-col gap-5 text-center mt-12">
           {[
             { label: 'Início', path: '/' },
+            { label: 'Nossa História', path: '/historia' },
             { label: 'Nosso Método', path: '/pilares' },
             { label: 'Educação Infantil', path: '/segmentos' },
             { label: 'Infraestrutura', path: '/infraestrutura' },
             { label: 'Calendário', path: '/calendario' },
-            { label: 'Álbum', path: '/album' },
-            { label: 'Contato', path: '/admissao' }
+            { label: 'Álbum', path: '/album' }
           ].map((item, idx) => (
             <Link
               key={idx}
@@ -158,7 +154,7 @@ function Header() {
 
         <div className="mt-12 pt-6 border-t border-brand-light-border flex flex-col gap-4">
           <Link
-            to="/admissao"
+            to="/matriculas"
             onClick={() => setIsMenuOpen(false)}
             className="font-serif w-full py-3 text-center rounded-full bg-brand-yellow text-brand-charcoal text-base font-bold shadow-[4px_4px_0_0_#2d2a26] border-2 border-brand-charcoal hover:-translate-y-1 transition-transform hover:shadow-[6px_6px_0_0_#2d2a26]"
           >
@@ -226,13 +222,12 @@ function Footer() {
             Institucional
           </h2>
           <div className="flex flex-col gap-2 font-sans text-xs font-semibold text-brand-charcoal/75">
-            {/* <Link to="/historia" className="hover:text-[#ff7e1b] transition-colors duration-300">Nossa História</Link> */}
+            <Link to="/historia" className="hover:text-[#ff7e1b] transition-colors duration-300">Nossa História</Link>
             <Link to="/pilares" className="hover:text-[#ff7e1b] transition-colors duration-300">Pilares Pedagógicos</Link>
             <Link to="/segmentos" className="hover:text-[#ff7e1b] transition-colors duration-300">Segmentos de Ensino</Link>
             <Link to="/infraestrutura" className="hover:text-[#ff7e1b] transition-colors duration-300">Infraestrutura</Link>
             <Link to="/album" className="hover:text-[#ff7e1b] transition-colors duration-300">Galeria</Link>
-            <Link to="/matriculas" className="hover:text-[#ff7e1b] transition-colors duration-300">Processo de Admissão</Link>
-            <Link to="/admissao" className="hover:text-[#ff7e1b] transition-colors duration-300">Matrícula Interativa</Link>
+            <Link to="/matriculas" className="hover:text-[#ff7e1b] transition-colors duration-300">Matrículas 2027</Link>
             {/* <Link to="/calendario" className="hover:text-[#ff7e1b] transition-colors duration-300">Calendário Escolar</Link> */}
             {/* <Link to="/blog" className="hover:text-[#ff7e1b] transition-colors duration-300">Blog Saber em Ação</Link> */}
           </div>
@@ -246,7 +241,7 @@ function Footer() {
           <div className="flex flex-col gap-3 font-sans text-xs font-semibold text-brand-charcoal/75">
             <div className="flex items-center gap-2 text-left">
               <MapPin size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
-              <span>Rua Projetada, s/n, Escada - PE, 55.500-000</span>
+              <span>Av. Ivison Amaro da Silveira Costa, s/n, Atalaia, Escada - PE, 55.500-000</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone size={14} className="text-[#ff7e1b] shrink-0" weight="duotone" />
@@ -306,23 +301,36 @@ function Footer() {
 }
 
 // ----------------- PROMO BANNER MODAL -----------------
+const PROMO_CLOSED_KEY = 'saber_matriculas2027_modal_closed';
+const DIGITOS_2027 = [
+  { digito: '2', classe: 'text-[#e05300] -rotate-6' },
+  { digito: '0', classe: 'text-[#15803d] rotate-3' },
+  { digito: '2', classe: 'text-[#0369a1] -rotate-3' },
+  { digito: '7', classe: 'text-[#be185d] rotate-6' },
+];
+
 function PromoBannerModal() {
+  const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Show banner after 1.2s if not closed in this session
-    const isClosed = sessionStorage.getItem('saber_7setembro_modal_closed');
-    if (!isClosed) {
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 1200);
-      return () => clearTimeout(timer);
-    }
-  }, []);
+    // O pop-up convida para /matriculas: nessa página ele só atrapalharia o formulário
+    if (pathname === '/matriculas' || sessionStorage.getItem(PROMO_CLOSED_KEY)) return;
+    const timer = setTimeout(() => setIsOpen(true), 1200);
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+    gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power3.out' });
+    gsap.fromTo(cardRef.current, { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'expo.out' });
+  }, [isOpen]);
 
   const handleClose = () => {
-    setIsOpen(false);
-    sessionStorage.setItem('saber_7setembro_modal_closed', 'true');
+    sessionStorage.setItem(PROMO_CLOSED_KEY, 'true');
+    gsap.to(overlayRef.current, { opacity: 0, duration: 0.6, ease: 'power3.inOut', onComplete: () => setIsOpen(false) });
   };
 
   useEffect(() => {
@@ -340,8 +348,9 @@ function PromoBannerModal() {
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2d2a26]/50 backdrop-blur-sm animate-fade-in"
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2d2a26]/50 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="banner-modal-title"
@@ -349,66 +358,75 @@ function PromoBannerModal() {
       {/* Click outside to close */}
       <div className="absolute inset-0" onClick={handleClose} />
 
-      <div className="bg-[#fffcf7] border-4 border-brand-charcoal/15 rounded-[2.5rem] max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-[0_24px_50px_rgba(67,56,50,0.25)] relative z-10 flex flex-col items-center">
+      <div
+        ref={cardRef}
+        data-lenis-prevent
+        className="bg-[#fffcf7] border-4 border-brand-charcoal/15 rounded-[2.5rem] max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-[0_24px_50px_rgba(67,56,50,0.25)] relative z-10 flex flex-col items-center"
+      >
         {/* Close Button */}
         <button
           onClick={handleClose}
           className="absolute top-3.5 right-3.5 z-20 text-brand-charcoal hover:text-brand-orange transition-colors duration-300 w-9 h-9 rounded-full bg-white/95 hover:bg-white backdrop-blur-md border-2 border-brand-charcoal/20 shadow-md flex items-center justify-center cursor-pointer"
-          aria-label="Fechar banner promocional"
+          aria-label="Fechar aviso de matrículas"
         >
           <X size={18} weight="bold" />
         </button>
 
-        {/* 7 de Setembro Themed Image - Framed with native 16:9 aspect ratio */}
-        <div className="w-full relative overflow-hidden aspect-[16/9] bg-[#53bde5] border-b-4 border-brand-charcoal/10 flex items-center justify-center">
-          <img 
-            src={seteDeSetembroImg} 
-            alt="7 de Setembro - Independência do Brasil - Colégio Saber" 
-            width={1280}
-            height={720}
-            loading="eager"
-            decoding="async"
-            className="w-full h-full object-cover object-center select-none pointer-events-none"
-          />
+        {/* Cabeçalho da campanha: decorativo, o título abaixo já anuncia o ano */}
+        <div aria-hidden="true" className="w-full shrink-0 relative overflow-hidden py-4 sm:py-9 bg-[#fae69e] border-b-4 border-brand-charcoal/10 flex items-center justify-center gap-1 sm:gap-2 select-none">
+          <svg viewBox="0 0 40 40" className="hidden sm:block absolute top-4 left-6 w-9 h-9 text-[#ff7e1b]" fill="currentColor">
+            <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" />
+          </svg>
+          <svg viewBox="0 0 40 40" className="hidden sm:block absolute bottom-4 right-8 w-7 h-7 text-[#4ea8de]" fill="currentColor">
+            <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" />
+          </svg>
+          <svg viewBox="0 0 40 40" className="hidden sm:block absolute bottom-6 left-12 w-5 h-5 text-[#ff65a3]" fill="currentColor">
+            <path d="M20,2 L24,14 L38,14 L26,22 L30,36 L20,26 L10,36 L14,22 L2,14 L16,14 Z" />
+          </svg>
+          {DIGITOS_2027.map(({ digito, classe }, i) => (
+            <span key={i} className={`inline-block font-serif font-extrabold text-6xl sm:text-8xl leading-none ${classe}`}>
+              {digito}
+            </span>
+          ))}
         </div>
 
         {/* Modal Content */}
-        <div className="p-6 sm:p-8 flex flex-col items-center text-center w-full">
+        <div className="p-5 sm:p-8 flex flex-col items-center text-center w-full">
           {/* Badge */}
           <div className="inline-flex items-center gap-1.5 bg-[#ffe574] text-brand-charcoal font-sans font-bold text-xs sm:text-[13px] px-4 py-1.5 rounded-full border-2 border-brand-charcoal shadow-[2px_2px_0_0_#2d2a26] mb-3">
-            <span>🇧🇷</span>
-            <span>Semana da Pátria • Independência do Brasil</span>
+            <span>Do Grupo 3 ao 9º ano</span>
           </div>
 
           {/* Title */}
           <h3 id="banner-modal-title" className="font-serif text-2xl sm:text-3xl font-extrabold text-brand-charcoal mb-3 tracking-tight">
-            7 de Setembro no Colégio Saber!
+            Matrículas abertas para 2027!
           </h3>
 
           {/* Text */}
           <p className="font-sans text-xs sm:text-[14px] text-brand-charcoal/90 font-semibold mb-6 leading-relaxed max-w-md">
-            Celebramos a história, a união e os valores que transformam o amanhã. Convidamos toda a nossa comunidade escolar a celebrar esta data com orgulho, cidadania e amor pelo conhecimento!
+            Deixe seu contato para a secretaria retornar e ganhe tempo com o contrato: é só baixar, imprimir, preencher em casa e levar à escola.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3.5 w-full max-w-md">
             <Link
-              to="/calendario"
-              onClick={handleClose}
-              className="font-sans flex-1 py-3.5 px-5 rounded-full bg-[#15803d] hover:bg-[#166534] text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-extrabold tracking-wide shadow-[3px_3px_0_0_#2d2a26] hover:shadow-[5px_5px_0_0_#2d2a26] border-2 border-brand-charcoal text-center flex items-center justify-center gap-2"
-            >
-              <CalendarBlank size={19} weight="bold" className="shrink-0 text-white" />
-              <span>Calendário Escolar</span>
-            </Link>
-
-            <Link
-              to="/matricula-rapida"
+              to="/matriculas"
               onClick={handleClose}
               className="font-sans flex-1 py-3.5 px-5 rounded-full bg-[#e05300] hover:bg-[#b93800] text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-extrabold tracking-wide shadow-[3px_3px_0_0_#2d2a26] hover:shadow-[5px_5px_0_0_#2d2a26] border-2 border-brand-charcoal text-center flex items-center justify-center gap-2"
             >
               <Student size={19} weight="bold" className="shrink-0 text-white" />
-              <span>Matrículas Abertas</span>
+              <span>Quero matricular</span>
             </Link>
+
+            <a
+              href="/documentos/contrato-educacional-colegio-saber.pdf"
+              download
+              onClick={handleClose}
+              className="font-sans flex-1 py-3.5 px-5 rounded-full bg-[#15803d] hover:bg-[#166534] text-white hover:-translate-y-0.5 transition-all duration-300 text-sm font-extrabold tracking-wide shadow-[3px_3px_0_0_#2d2a26] hover:shadow-[5px_5px_0_0_#2d2a26] border-2 border-brand-charcoal text-center flex items-center justify-center gap-2"
+            >
+              <DownloadSimple size={19} weight="bold" className="shrink-0 text-white" />
+              <span>Baixar o contrato</span>
+            </a>
           </div>
         </div>
       </div>
@@ -482,8 +500,8 @@ export function AppShell() {
                     <Route path="/segmentos" element={<SegmentosPage />} />
                     <Route path="/calendario" element={<CalendarioPage />} />
                     <Route path="/matriculas" element={<MatriculasPage />} />
-                    <Route path="/admissao" element={<AdmissaoPage />} />
-                    <Route path="/matricula-rapida" element={<MatriculaRapidaPage />} />
+                    <Route path="/admissao" element={<Navigate to="/matriculas" replace />} />
+                    <Route path="/matricula-rapida" element={<Navigate to="/matriculas" replace />} />
                     <Route path="/album" element={<AlbumPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>
@@ -493,9 +511,6 @@ export function AppShell() {
 
             {/* FOOTER (Rodapé Compartilhado) */}
             <Footer />
-
-            {/* BOTÃO FLUTUANTE DO WHATSAPP */}
-            <WhatsappButton />
 
             {/* BANNER PROMOCIONAL MODAL */}
             <PromoBannerModal />

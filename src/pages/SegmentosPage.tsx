@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Medal, Sparkle, Target, X, ArrowRight, Quotes, CaretRight, Question, Backpack, Student, GraduationCap } from '@phosphor-icons/react';
+import { Baby, MusicNotes, BookOpen, Leaf, Hammer, Cpu, PenNib, Smiley, Chats, Code, Compass, Lightbulb, Sparkle, X, ArrowRight, Quotes, CaretRight, Question, Backpack, Student } from '@phosphor-icons/react';
 
 import infantilImg from '../assets/segmento_infantil.webp';
 import fund1Img from '../assets/segmento_fund1.webp';
 import fund2Img from '../assets/segmento_fund2.webp';
-import medioImg from '../assets/segmento_medio.webp';
 
 interface Oficina {
   title: string;
@@ -110,30 +109,6 @@ const SEGMENTOS: Segmento[] = [
       { title: 'Iniciação Científica', description: 'Pesquisa acadêmica aplicada, ensinando técnicas de investigação bibliográfica, escrita científica de relatórios e condução de hipóteses.', icon: 'Compass' },
       { title: 'Empreendedorismo Social', description: 'Elaboração de projetos comunitários de impacto real, ensinando noções de finanças, economia sustentável e elaboração de planos de ação.', icon: 'Lightbulb' }
     ]
-  },
-  {
-    id: 'medio',
-    title: 'Ensino Médio',
-    shortTitle: 'Médio',
-    themeColor: 'text-brand-yellow-dark',
-    themeBg: 'bg-brand-yellow',
-    themeBorder: 'border-brand-yellow',
-    themeShadow: 'shadow-brand-yellow/30',
-    navIcon: <GraduationCap size={32} weight="duotone" />,
-    ageRange: '1ª a 3ª Série (15 a 17 anos)',
-    highlight: 'Alta performance acadêmica, mentoria vocacional contínua e preparação intensiva para o vestibular.',
-    description: 'Nossa formação no Ensino Médio é orientada para a excelência acadêmica e o desenvolvimento do projeto de vida de cada jovem. Unimos a excelência teórica e repertório sociocultural a simulados nacionais sistemáticos, mentoria individual de carreira e trilhas de disciplinas eletivas multidisciplinares.',
-    image: medioImg,
-    testimonial: {
-      text: 'O suporte pedagógico e a mentoria individual no Terceirão foram cruciais. Minha filha conseguiu a aprovação em Medicina na USP logo no primeiro vestibular.',
-      author: 'André S.',
-      role: 'Pai da Gabriela (Egressa de 2025)'
-    },
-    oficinas: [
-      { title: 'Redação Nota Mil', description: 'Trabalho analítico individual de redação focada no modelo do ENEM e nos principais vestibulares estaduais públicos (FUVEST/UNICAMP).', icon: 'Medal' },
-      { title: 'Eletivas Avançadas', description: 'Aprofundamento em trilhas eletivas especiais opcionais como Astrotecnologia, Filosofia Contemporânea e Economia Internacional.', icon: 'Sparkles' },
-      { title: 'Mentoria Vocacional', description: 'Encontros individuais periódicos com psicólogos e mentores de carreira para delinear opções profissionais, testes vocacionais e projeto de vida.', icon: 'Target' }
-    ]
   }
 ];
 
@@ -151,9 +126,6 @@ const getIcon = (iconName: string) => {
     case 'Code': return <Code size={20} weight="duotone" />;
     case 'Compass': return <Compass size={20} weight="duotone" />;
     case 'Lightbulb': return <Lightbulb size={20} weight="duotone" />;
-    case 'Medal': return <Medal size={20} weight="duotone" />;
-    case 'Sparkles': return <Sparkle size={20} weight="duotone" />;
-    case 'Target': return <Target size={20} weight="duotone" />;
     default: return <Question size={20} weight="duotone" />;
   }
 };
@@ -224,12 +196,12 @@ export default function SegmentosPage() {
             Nossas Etapas
           </h1>
           <p className="font-sans text-sm md:text-base text-brand-charcoal-light/80 font-medium leading-relaxed">
-            Descubra como o Colégio Saber acompanha seu filho em cada fase: desde as primeiras brincadeiras até a sonhada vaga na universidade!
+            Descubra como o Colégio Saber acompanha seu filho em cada fase: desde as primeiras brincadeiras até a conclusão do 9º ano!
           </p>
         </div>
 
         {/* BENTO TABS de Navegação */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 w-full">
           {SEGMENTOS.map((seg) => {
             const isActive = activeSegment.id === seg.id;
             return (
@@ -237,7 +209,7 @@ export default function SegmentosPage() {
                 key={seg.id}
                 type="button"
                 onClick={() => setActiveSegment(seg)}
-                className={`group flex flex-col items-center justify-center gap-3 p-6 rounded-3xl border-4 transition-all duration-500 cursor-pointer ${isActive
+                className={`group flex flex-col items-center justify-center gap-2 sm:gap-3 px-1 py-3 sm:p-6 rounded-3xl border-4 transition-all duration-500 cursor-pointer ${isActive
                     ? `${seg.themeBg} ${seg.themeBorder} shadow-xl ${seg.themeShadow} scale-105 text-brand-light z-10`
                     : `bg-white border-brand-light-border text-brand-charcoal-light/70 hover:border-brand-light-border/80 hover:-translate-y-1`
                   }`}
@@ -245,7 +217,7 @@ export default function SegmentosPage() {
                 <div className={`transition-transform duration-500 ${isActive ? 'scale-110 text-brand-charcoal' : `group-hover:scale-110 ${seg.themeColor}`}`}>
                   {seg.navIcon}
                 </div>
-                <span className={`font-serif text-sm md:text-base font-bold tracking-wide text-center ${isActive ? (seg.id === 'medio' ? 'text-brand-charcoal' : 'text-white') : 'text-brand-charcoal/80'}`}>
+                <span className={`font-serif text-sm md:text-base font-bold tracking-wide text-center whitespace-nowrap ${isActive ? 'text-white' : 'text-brand-charcoal/80'}`}>
                   {seg.shortTitle}
                 </span>
               </button>
@@ -261,7 +233,7 @@ export default function SegmentosPage() {
             {/* Texto Descritivo */}
             <div ref={contentRef} className="flex-1 flex flex-col gap-6 text-left order-2 lg:order-1">
               <div className="flex flex-col gap-3">
-                <span className={`self-start px-4 py-1.5 rounded-full font-sans text-[10px] uppercase tracking-widest font-bold border ${activeSegment.id === 'medio' ? 'bg-brand-yellow/20 text-brand-yellow-dark border-brand-yellow/30' : `bg-white ${activeSegment.themeColor} ${activeSegment.themeBorder}`}`}>
+                <span className={`self-start px-4 py-1.5 rounded-full font-sans text-[10px] uppercase tracking-widest font-bold border bg-white ${activeSegment.themeColor} ${activeSegment.themeBorder}`}>
                   {activeSegment.ageRange}
                 </span>
                 <h2 className="font-serif font-bold text-4xl sm:text-5xl text-brand-charcoal drop-shadow-sm mt-2">
@@ -280,8 +252,8 @@ export default function SegmentosPage() {
               {/* Botão Call to Action Integrado */}
               <button
                 type="button"
-                onClick={() => navigate('/admissao')}
-                className={`self-start mt-4 px-8 py-4 rounded-full ${activeSegment.themeBg} ${activeSegment.id === 'medio' ? 'text-brand-charcoal' : 'text-white'} font-sans text-xs uppercase tracking-wider font-bold transition-all duration-500 shadow-lg ${activeSegment.themeShadow} hover:-translate-y-1 hover:shadow-xl cursor-pointer flex items-center gap-2`}
+                onClick={() => navigate('/matriculas')}
+                className={`self-start mt-4 px-8 py-4 rounded-full ${activeSegment.themeBg} text-white font-sans text-xs uppercase tracking-wider font-bold transition-all duration-500 shadow-lg ${activeSegment.themeShadow} hover:-translate-y-1 hover:shadow-xl cursor-pointer flex items-center gap-2`}
               >
                 Matricular no {activeSegment.shortTitle}
                 <ArrowRight size={16} weight="bold" />
@@ -404,8 +376,8 @@ export default function SegmentosPage() {
 
             <button
               type="button"
-              onClick={() => { setActiveOficina(null); navigate('/admissao'); }}
-              className={`w-full py-4 mt-4 rounded-full ${activeSegment.themeBg} ${activeSegment.id === 'medio' ? 'text-brand-charcoal' : 'text-white'} font-sans text-xs font-bold uppercase tracking-wider transition-all duration-500 shadow-md ${activeSegment.themeShadow} hover:-translate-y-1 cursor-pointer`}
+              onClick={() => { setActiveOficina(null); navigate('/matriculas'); }}
+              className={`w-full py-4 mt-4 rounded-full ${activeSegment.themeBg} text-white font-sans text-xs font-bold uppercase tracking-wider transition-all duration-500 shadow-md ${activeSegment.themeShadow} hover:-translate-y-1 cursor-pointer`}
             >
               Gostei! Matricular Agora
             </button>

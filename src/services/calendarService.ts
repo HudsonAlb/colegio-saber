@@ -295,7 +295,7 @@ export function getSchoolEvents(year: number): CalendarEvent[] {
     {
       id: `escola-${year}-simulado-1`,
       title: 'Simulado Diagnóstico',
-      description: 'Avaliação diagnóstica e nivelamento para alunos do Ensino Fundamental II e Médio.',
+      description: 'Avaliação diagnóstica e nivelamento para alunos do Ensino Fundamental II.',
       date: toDateStr(year, 3, 10),
       time: '08:00',
       location: 'Salas de Aula',
@@ -391,7 +391,7 @@ export function getSchoolEvents(year: number): CalendarEvent[] {
     {
       id: `escola-${year}-formatura`,
       title: 'Formatura e Encerramento do Ano Letivo',
-      description: 'Solenidade de conclusão das turmas do 9º ano e 3º ano do Ensino Médio.',
+      description: 'Solenidade de conclusão das turmas do 9º ano.',
       date: toDateStr(year, 12, 18),
       time: '19:30',
       location: 'Auditório Principal',

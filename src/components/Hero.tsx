@@ -171,10 +171,10 @@ export default function Hero() {
             </p>
 
             <Link
-              to="/admissao"
+              to="/matriculas"
               className="font-serif inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-brand-orange text-white hover:bg-brand-orange-light hover:-translate-y-1 transition-all duration-300 text-sm md:text-base font-bold shadow-[4px_4px_0_0_#2d2a26] hover:shadow-[6px_6px_0_0_#2d2a26] border-[3px] border-brand-charcoal tracking-wide"
             >
-              Agende sua Visita
+              Matrículas 2027
             </Link>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import TourVirtual from '../components/TourVirtual';
-import { Star, Trophy, UsersThree } from '@phosphor-icons/react';
+import { Star, UsersThree } from '@phosphor-icons/react';
 
 export default function InfraestruturaPage() {
   return (
@@ -24,7 +24,7 @@ export default function InfraestruturaPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-4 mb-20 w-full max-w-3xl mx-auto">
             {/* Bolha 1 */}
             <div className="flex flex-col items-center gap-6 p-10 rounded-t-[5rem] rounded-b-[3rem] bg-white border-[3px] border-brand-orange/30 shadow-[8px_8px_0_0_rgba(255,126,27,0.15)] hover:shadow-[12px_12px_0_0_rgba(255,126,27,0.25)] transition-all duration-500 hover:-translate-y-2 relative group">
               <div className="absolute -top-6 w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center text-white shadow-lg transform -rotate-12 group-hover:rotate-0 transition-transform duration-300">
@@ -43,23 +43,6 @@ export default function InfraestruturaPage() {
             </div>
 
             {/* Bolha 2 */}
-            <div className="flex flex-col items-center gap-6 p-10 rounded-[4rem] bg-white border-[3px] border-brand-green/30 shadow-[8px_8px_0_0_rgba(102,204,51,0.15)] hover:shadow-[12px_12px_0_0_rgba(102,204,51,0.25)] transition-all duration-500 hover:-translate-y-2 relative group md:-translate-y-8">
-              <div className="absolute -top-6 w-16 h-16 bg-brand-green rounded-full flex items-center justify-center text-white shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-300">
-                <Trophy size={32} weight="fill" />
-              </div>
-              <span className="font-serif font-bold text-6xl text-brand-green mt-4">
-                100%
-              </span>
-              <div className="w-12 h-1.5 bg-brand-green/20 rounded-full"></div>
-              <h2 className="font-sans text-sm font-bold text-brand-charcoal uppercase tracking-widest">
-                Aprovação
-              </h2>
-              <p className="font-sans text-xs text-brand-charcoal-light/80 font-medium leading-relaxed max-w-[200px]">
-                Estudantes preparados para ingressar nas melhores universidades do país.
-              </p>
-            </div>
-
-            {/* Bolha 3 */}
             <div className="flex flex-col items-center gap-6 p-10 rounded-b-[5rem] rounded-t-[3rem] bg-white border-[3px] border-brand-blue/30 shadow-[8px_8px_0_0_rgba(78,168,222,0.15)] hover:shadow-[12px_12px_0_0_rgba(78,168,222,0.25)] transition-all duration-500 hover:-translate-y-2 relative group">
               <div className="absolute -top-6 w-16 h-16 bg-brand-blue rounded-full flex items-center justify-center text-white shadow-lg transform -rotate-12 group-hover:rotate-0 transition-transform duration-300">
                 <UsersThree size={32} weight="fill" />
